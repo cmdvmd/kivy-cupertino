@@ -5,7 +5,10 @@ from kivy.properties import StringProperty, ColorProperty
 from kivy.lang.builder import Builder
 
 Builder.load_string(f"""
-#: import images kivycupertino.__init__.images
+#: import icons kivycupertino.__init__.icons
+
+<CupertinoSystemButton>:
+    color: root.color_down if self.state == 'down' else root.color_normal
 
 <CupertinoIconButton>:
     canvas.before:
@@ -15,7 +18,7 @@ Builder.load_string(f"""
             size: self.size
             pos: self.pos
     Image:
-        source: images+root.icon+'.png'
+        source: icons+root.icon+'.png'
         size: root.size
         pos: root.pos
         allow_stretch: False
@@ -25,7 +28,8 @@ Builder.load_string(f"""
 
 class CupertinoSystemButton(ButtonBehavior, Label):
     text = StringProperty('')
-    color = ColorProperty([0.1, 0.5, 1, 1])
+    color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
+    color_down = ColorProperty([0, 0.15, 3, 1])
 
 
 class CupertinoIconButton(ButtonBehavior, Widget):
