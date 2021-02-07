@@ -32,11 +32,9 @@ Builder.load_string("""
 
 class CupertinoSwitch(ButtonBehavior, FloatLayout):
     toggled = BooleanProperty(False)
-    show_labels = BooleanProperty(False)
     thumb_color = ColorProperty([1, 1, 1, 1])
     background_toggled = ColorProperty([0.3, 0.85, 0.4])
     background_untoggled = ColorProperty([0.9, 0.9, 0.9])
-    label_color = ColorProperty([0, 0, 0, 1])
 
     def on_press(self):
         self.toggled = not self.toggled
