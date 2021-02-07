@@ -1,9 +1,8 @@
 import os
-from kivy.core.text import LabelBase
 
 root = os.path.dirname(__file__)
-icons = os.path.join(root, 'icons/')
 fonts = os.path.join(root, 'fonts/')
+icons = os.path.join(root, 'icons/')
+images = os.path.join(root, 'images/')
 
-for font in os.listdir(fonts):
-    LabelBase.register(font, f'{fonts}{font}/regular.ttf', f'{fonts}{font}/italic.ttf', f'{fonts}{font}/bold.otf', f'{fonts}{font}/bold_italic.otf')
+from .init import fonts, widgets

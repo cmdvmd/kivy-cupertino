@@ -16,7 +16,7 @@ Builder.load_string("""
             pos: self.pos
     Widget:
         id: thumb
-        size_hint_y: 0.8
+        size_hint_y: 0.9
         width: self.height
         pos_hint: {'center_y': 0.5}
         x: (root.x+root.width-self.width-1) if root.toggled else (root.x+1)
@@ -34,7 +34,7 @@ class CupertinoSwitch(ButtonBehavior, FloatLayout):
     toggled = BooleanProperty(False)
     thumb_color = ColorProperty([1, 1, 1, 1])
     background_toggled = ColorProperty([0.3, 0.85, 0.4])
-    background_untoggled = ColorProperty([0.9, 0.9, 0.9])
+    background_untoggled = ColorProperty([0.95, 0.95, 0.95])
 
     def on_press(self):
         self.toggled = not self.toggled

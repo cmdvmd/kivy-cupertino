@@ -1,5 +1,5 @@
 from kivy.uix.label import Label
-from kivy.properties import StringProperty, BooleanProperty, ColorProperty
+from kivy.properties import StringProperty, NumericProperty, BooleanProperty, ColorProperty
 
 
 class CupertinoLabel(Label):

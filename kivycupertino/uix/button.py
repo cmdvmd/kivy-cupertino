@@ -7,7 +7,21 @@ from kivy.lang.builder import Builder
 Builder.load_string(f"""
 #: import icons kivycupertino.__init__.icons
 
+<CupertinoButton>:
+    font_name: 'San Francisco'
+    font_size: 17
+    color: root.text_color
+    
+    canvas.before:
+        Color:
+            rgba: root.color_down if self.state == 'down' else root.color_normal
+        RoundedRectangle:
+            radius: 10,
+            size: self.size
+            pos: self.pos
+
 <CupertinoSystemButton>:
+    font_name: 'San Francisco'
     color: root.color_down if self.state == 'down' else root.color_normal
 
 <CupertinoIconButton>:
@@ -26,10 +40,17 @@ Builder.load_string(f"""
 """)
 
 
+class CupertinoButton(ButtonBehavior, Label):
+    text = StringProperty('')
+    color_normal = ColorProperty([0, 0.5, 1, 1])
+    color_down = ColorProperty([0, 0.15, 0.8, 1])
+    text_color = ColorProperty([1, 1, 1, 1])
+
+
 class CupertinoSystemButton(ButtonBehavior, Label):
     text = StringProperty('')
     color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
-    color_down = ColorProperty([0, 0.15, 3, 1])
+    color_down = ColorProperty([0, 0.15, 0.3, 1])
 
 
 class CupertinoIconButton(ButtonBehavior, Widget):
