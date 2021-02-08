@@ -4,17 +4,17 @@ from kivy.core.text import LabelBase
 fonts = [
     {
         'name': 'San Francisco',
-        'fn_regular': f'{fonts}sf.ttf',
-        'fn_italic': f'{fonts}sf-italic.ttf',
-        'fn_bold': f'{fonts}sf-bold.otf',
-        'fn_bolditalic': f'{fonts}sf-bold-italic.otf',
+        'fn_regular': fonts+'sf.ttf',
+        'fn_italic': fonts+'sf-italic.ttf',
+        'fn_bold': fonts+'sf-bold.otf',
+        'fn_bolditalic': fonts+'sf-bold-italic.otf',
     },
     {
         'name': 'New York',
-        'fn_regular': f'{fonts}ny.ttf',
-        'fn_italic': f'{fonts}ny-italic.ttf',
-        'fn_bold': f'{fonts}ny-bold.otf',
-        'fn_bolditalic': f'{fonts}ny-bold-italic.otf',
+        'fn_regular': fonts+'ny.ttf',
+        'fn_italic': fonts+'ny-italic.ttf',
+        'fn_bold': fonts+'ny-bold.otf',
+        'fn_bolditalic': fonts+'ny-bold-italic.otf',
     }
 ]
 

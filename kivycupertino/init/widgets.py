@@ -1,5 +1,6 @@
 from kivy.factory import Factory
 
+Factory.register('CupertinoNavigationBar', module='kivycupertino.uix.bar')
 Factory.register('CupertinoButton', module='kivycupertino.uix.button')
 Factory.register('CupertinoSystemButton', module='kivycupertino.uix.button')
 Factory.register('CupertinoIconButton', module='kivycupertino.uix.button')
