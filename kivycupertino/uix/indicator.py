@@ -1,5 +1,6 @@
 from kivy.uix.widget import Widget
 from kivy.properties import ColorProperty, NumericProperty
+from kivy.clock import Clock
 from kivy.lang.builder import Builder
 
 Builder.load_string("""

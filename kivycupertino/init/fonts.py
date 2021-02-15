@@ -1,20 +1,20 @@
-from kivycupertino import fonts
+from kivycupertino import fonts_path
 from kivy.core.text import LabelBase
 
 fonts = [
     {
         'name': 'San Francisco',
-        'fn_regular': fonts+'sf.ttf',
-        'fn_italic': fonts+'sf-italic.ttf',
-        'fn_bold': fonts+'sf-bold.otf',
-        'fn_bolditalic': fonts+'sf-bold-italic.otf',
+        'fn_regular': fonts_path + 'sf.otf',
+        'fn_italic': fonts_path + 'sf-italic.otf',
+        'fn_bold': fonts_path + 'sf-bold.otf',
+        'fn_bolditalic': fonts_path + 'sf-bold-italic.otf',
     },
     {
         'name': 'New York',
-        'fn_regular': fonts+'ny.ttf',
-        'fn_italic': fonts+'ny-italic.ttf',
-        'fn_bold': fonts+'ny-bold.otf',
-        'fn_bolditalic': fonts+'ny-bold-italic.otf',
+        'fn_regular': fonts_path + 'ny.ttf',
+        'fn_italic': fonts_path + 'ny-italic.ttf',
+        'fn_bold': fonts_path + 'ny-bold.otf',
+        'fn_bolditalic': fonts_path + 'ny-bold-italic.otf',
     }
 ]
 
