@@ -7,6 +7,7 @@ __author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunoss
 
 from functools import partial
 from kivycupertino.app import CupertinoApp
+from kivycupertino.uix.bar import CupertinoNavigationBar
 from kivycupertino.uix.button import CupertinoButton, CupertinoSystemButton
 from kivycupertino.uix.dialog import CupertinoAlertDialog, CupertinoActionSheet
 from kivycupertino.uix.switch import CupertinoSwitch
@@ -34,6 +35,16 @@ class MyApp(CupertinoApp):
 
     def build(self):
         fl = FloatLayout()
+
+        navigation_bar = CupertinoNavigationBar()
+        navigation_bar.size_hint_y = 0.1
+        navigation_bar.pos_hint = {'center_x': 0.5, 'top': 1}
+
+        title = CupertinoLabel(text='Navigation Bar')
+        title.bold = True
+        title.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
+
+        navigation_bar.add_widget(title)
 
         label = CupertinoLabel(text='Label')
         label.pos_hint = {'center_x': 0.5, 'center_y': 0.6}
@@ -67,6 +78,7 @@ class MyApp(CupertinoApp):
         switch.size_hint = 0.1, 0.06
         switch.pos_hint = {'center_x': 0.5, 'center_y': 0.2}
 
+        fl.add_widget(navigation_bar)
         fl.add_widget(label)
         fl.add_widget(btn)
         fl.add_widget(sys_btn)
