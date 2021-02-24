@@ -1,7 +1,8 @@
 import os
 
-__version__ = '0.0.1'
+__version__ = '0.0.1-alpha'
 __author__ = 'cmdmvd'
+__copyright__ = 'Copyright (c) 2021, cmdvmd'
 __license__ = 'MIT'
 
 root = os.path.dirname(__file__)
