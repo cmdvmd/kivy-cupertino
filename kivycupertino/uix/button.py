@@ -55,6 +55,7 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
 
 
 class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
+    text = StringProperty('')
     color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
     color_down = ColorProperty([0, 0.15, 0.3, 1])
 

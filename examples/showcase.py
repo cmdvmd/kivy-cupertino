@@ -2,7 +2,6 @@
 A program to test all widgets in KivyCupertino
 """
 
-
 __author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunossauro>
 
 from functools import partial
