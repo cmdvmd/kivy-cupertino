@@ -29,8 +29,8 @@ Check out the [Showcase app](examples/showcase.py) for an example of all widgets
 
 ## Widgets
 
-| Widget | Supported? |
-|--------|------------|
+| Widget | Status |
+|--------|--------|
 | Action Sheet | :heavy_check_mark: |
 | Activity Indicator | :memo: |
 | Alert Dialog | :heavy_check_mark: |
@@ -42,10 +42,10 @@ Check out the [Showcase app](examples/showcase.py) for an example of all widgets
 | Search Bar | :memo: |
 | Segmented Controls | :construction: |
 | Slider | :memo: |
-| Stepper | :memo: |
+| Stepper | :heavy_check_mark: |
 | Switch | :heavy_check_mark: |
 | System Button | :heavy_check_mark: |
-| Text Field | :memo: :
+| Text Field | :memo: |
 
 ### Key
 
