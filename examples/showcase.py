@@ -64,7 +64,7 @@ class MyApp(CupertinoApp):
         self.progress.value = 50
 
         stepper = CupertinoStepper()
-        stepper.bind(on_plus=lambda x: self.update_progress(10), on_minus=lambda x: self.update_progress(-10))
+        stepper.bind(on_plus=lambda x: self.update_progress(5), on_minus=lambda x: self.update_progress(-5))
         stepper.size_hint = 0.1, 0.05
         stepper.pos_hint = {'x': 0.8, 'center_y': 0.3}
 

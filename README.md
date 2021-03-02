@@ -34,7 +34,7 @@ Check out the [Showcase app](examples/showcase.py) for an example of all widgets
 | Action Sheet | :heavy_check_mark: |
 | Activity Indicator | :memo: |
 | Alert Dialog | :heavy_check_mark: |
-| Button | :heavy_check_mark: |
+| Button | :construction: |
 | Icon Button | :construction: |
 | Label | :heavy_check_mark: |
 | Navigation Bar | :heavy_check_mark: |
@@ -44,8 +44,9 @@ Check out the [Showcase app](examples/showcase.py) for an example of all widgets
 | Slider | :memo: |
 | Stepper | :heavy_check_mark: |
 | Switch | :heavy_check_mark: |
-| System Button | :heavy_check_mark: |
-| Text Field | :memo: |
+| System Button | :construction: |
+| Text Field | :heavy_check_mark: |
+| Text View | :memo: |
 
 ### Key
 
