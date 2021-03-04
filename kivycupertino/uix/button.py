@@ -1,7 +1,7 @@
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.widget import Widget
-from kivy.properties import StringProperty, ColorProperty, ListProperty
+from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 from kivy.lang.builder import Builder
 
 Builder.load_string(f"""
@@ -13,19 +13,19 @@ Builder.load_string(f"""
     
     canvas.before:
         Color:
-            rgba: root.color_down if self.state == 'down' else root.color_normal
+            rgba: root.color_down if self.state == 'down' else root.color_disabled if root.disabled else root.color_normal
         RoundedRectangle:
             radius: self.height/5,
             size: self.size
             pos: self.pos
 
 <CupertinoSystemButton>:
-    color: root.color_down if self.state == 'down' else root.color_normal
+    color: root.color_down if self.state == 'down' else root.color_disabled if root.disabled else root.color_normal
 
 <CupertinoIconButton>:
     canvas.before:
         Color:
-            rgba: root.background_down if self.state == 'down' else root.background_normal
+            rgba: root.background_down if self.state == 'down' else root.background_disabled if root.disabled else root.background_normal
         Rectangle:
             size: self.size
             pos: self.pos
@@ -49,25 +49,25 @@ Builder.load_string(f"""
 
 
 class CupertinoButton(ButtonBehavior, CupertinoLabel):
+    text = StringProperty('')
+    disabled = BooleanProperty(False)
     color_normal = ColorProperty([0, 0.5, 1, 1])
     color_down = ColorProperty([0, 0.15, 0.8, 1])
+    color_disabled = ColorProperty([0, 0.35, 0.7, 1])
     text_color = ColorProperty([1, 1, 1, 1])
 
 
 class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     text = StringProperty('')
+    disabled = BooleanProperty(False)
     color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
     color_down = ColorProperty([0, 0.15, 0.3, 1])
+    color_disabled = ColorProperty([0, 0.3, 0.4, 1])
 
 
 class CupertinoIconButton(ButtonBehavior, Widget):
     icon = StringProperty('')
+    disabled = BooleanProperty(False)
     background_normal = ColorProperty([0, 0, 0, 0])
     background_down = ColorProperty([0, 0, 0, 0.3])
-
-
-class CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
-    color_normal = ColorProperty([1, 1, 1, 0.5])
-    color_down = ColorProperty([0.9, 0.9, 0.9, 0.5])
-    text_color = ColorProperty([0.05, 0.5, 1, 1])
-    radii = ListProperty([0, 0, 0, 0])
+    background_disabled = ColorProperty([0, 0, 0, 0.2])

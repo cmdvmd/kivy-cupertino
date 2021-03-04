@@ -15,10 +15,22 @@ Builder.load_string("""
         Rectangle:
             size: self.width, 2
             pos: self.pos
+
+<CupertinoTextView>:
+    multiline: True
+    cursor_width: '2sp'
+    cursor_color: 0.25, 0.5, 0.95, 1
+    font_name: 'San Francisco'
+    hint_text: ''
 """)
 
 
 class CupertinoTextField(TextInput):
     hint_text = StringProperty('')
+    background_color = ColorProperty([0, 0, 0, 0])
+    foreground_color = ColorProperty([0, 0, 0, 1])
+
+
+class CupertinoTextView(TextInput):
     background_color = ColorProperty([0, 0, 0, 0])
     foreground_color = ColorProperty([0, 0, 0, 1])

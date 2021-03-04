@@ -1,6 +1,7 @@
-from kivycupertino.uix.button import CupertinoDialogButton
+from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.modalview import ModalView
-from kivy.properties import NumericProperty, StringProperty, ColorProperty
+from kivycupertino.uix.label import CupertinoLabel
 from kivy.lang.builder import Builder
 from re import sub
 
@@ -98,11 +99,18 @@ Builder.load_string("""
 """)
 
 
+class _CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
+    color_normal = ColorProperty([1, 1, 1, 0.5])
+    color_down = ColorProperty([0.9, 0.9, 0.9, 0.5])
+    text_color = ColorProperty([0.05, 0.5, 1, 1])
+    radii = ListProperty([0, 0, 0, 0])
+
+
 class CupertinoActionSheet(ModalView):
     curve = NumericProperty(10)
     
     def add_action(self, text, action):
-        button = CupertinoDialogButton(text=text, on_release=action)
+        button = _CupertinoDialogButton(text=text, on_release=action)
         self.actions.size_hint_y += 0.1
         self.actions.add_widget(button, len(self.actions.children))
 
@@ -121,7 +129,7 @@ class CupertinoAlertDialog(ModalView):
     curve = NumericProperty(10)
 
     def add_action(self, text, action):
-        self.actions.add_widget(CupertinoDialogButton(
+        self.actions.add_widget(_CupertinoDialogButton(
             text=text,
             on_release=action,
             color_normal=self.color,
