@@ -1,8 +1,12 @@
 """
-A program to test all widgets in KivyCupertino
+Showcase
+========
+
+A program to test all widgets in Kivy Cupertino
 """
 
 __author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunossauro>
+__maintainer__ = 'cmdvmd'
 
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar

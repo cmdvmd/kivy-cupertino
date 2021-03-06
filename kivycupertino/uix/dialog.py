@@ -8,6 +8,18 @@ from re import sub
 Builder.load_string("""
 #: import images_path kivycupertino.__init__.images_path
 
+<_CupertinoDialogButton>:
+    color: root.text_color
+    markup: True
+    
+    canvas.before:
+        Color:
+            rgba: root.color_down if self.state == 'down' else root.color_normal
+        RoundedRectangle:
+            radius: root.radii
+            size: self.size
+            pos: self.pos
+
 <CupertinoActionSheet>:
     actions: actions
     
@@ -80,7 +92,7 @@ Builder.load_string("""
             halign: 'center'
             text_size: self.width-20, None
             pos_hint: {'center_x': 0.5}
-            y: title.y-title.texture_size[1]-10
+            y: title.y-title.texture_size[1]-20
         BoxLayout:
             id: actions
             orientation: 'horizontal'
@@ -100,16 +112,61 @@ Builder.load_string("""
 
 
 class _CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
+    """
+    Adaptive button to be used in Dialogs
+    """
+
     color_normal = ColorProperty([1, 1, 1, 0.5])
+    """
+    Background color of :class:`kivycupertino.uix._CupertinoDialogButton` when not pressed
+    
+    :attr:`color_normal` is a :class:`~kivy.properties.ColorProperty` and defaults to `[1, 1, 1, 0.5]`
+    """
+
     color_down = ColorProperty([0.9, 0.9, 0.9, 0.5])
+    """
+    Background color of :class:`kivycupertino.uix._CupertinoDialogButton` when pressed
+    
+    :attr:`color_down` is a :class:`~kivy.properties.ColorProperty` and defaults to `[0.9, 0.9, 0.9, 0.5]`
+    """
+
     text_color = ColorProperty([0.05, 0.5, 1, 1])
+    """
+    Color of text of :class:`kivycupertino.uix._CupertinoDialogButton` when not pressed
+    
+    :attr:`text_color` is a :class:`~kivy.properties.ColorProperty` and defaults to `[0.05, 0.5, 1, 1]`
+    """
+
     radii = ListProperty([0, 0, 0, 0])
+    """
+    Radii values of :class:`kivycupertino.uix._CupertinoDialogButton`
+    
+    :attr:`radii` is a :class:`~kivy.properties.ListProperty` and defaults to `[0, 0, 0, 0]`
+    """
 
 
 class CupertinoActionSheet(ModalView):
+    """
+    iOS style Action Sheet
+
+    .. image:: ../_static/action_sheet.gif
+    """
+
     curve = NumericProperty(10)
+    """
+    Amount of curve of :class:`kivycupertino.uix.dialog.CupertinoActionSheet`
+    
+    :attr:`curve` is a :class:`~kivy.properties.NumericProperty` and defaults to `10`
+    """
     
     def add_action(self, text, action):
+        """
+        Add an action to :class:`kivycupertino.uix.dialog.CupertinoActionSheet`
+
+        :param text: Text of action. ``markup`` is enabled
+        :param action: Callback to be performed, bound to ``on_release`` of action
+        """
+
         button = _CupertinoDialogButton(text=text, on_release=action)
         self.actions.size_hint_y += 0.1
         self.actions.add_widget(button, len(self.actions.children))
@@ -122,13 +179,55 @@ class CupertinoActionSheet(ModalView):
 
 
 class CupertinoAlertDialog(ModalView):
+    """
+    iOS style Alert Dialog
+
+    .. image:: ../_static/alert_dialog.gif
+    """
+
     title = StringProperty('')
+    """
+    Text of title of :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
+    
+    :attr:`title` is a :class:`~kivy.property.StringProperty` and defaults to `""`
+    """
+
     content = StringProperty('')
+    """
+    Text of content of :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
+    
+    :attr:`content` is a :class:`~kivy.property.StringProperty` and defaults to `""`
+    """
+
     color = ColorProperty([1, 1, 1, 0.95])
+    """
+    Background color of :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
+    
+    :attr:`color` is a :class:`~kivy.property.ColorProperty` and defaults to `[1, 1, 1, 0.95]`
+    """
+
     color_pressed = ColorProperty([0.9, 0.9, 0.9, 1])
+    """
+    Background color of action of :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog` when pressed
+    
+    :attr:`color_pressed` is a :class:`~kivy.property.StringProperty` and defaults to `[0.9, 0.9, 0.9, 1]`
+    """
+
     curve = NumericProperty(10)
+    """
+    Curve of :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
+    
+    :attr:`curve` is a :class:`~kivy.property.NumericProperty` and defaults to `10`
+    """
 
     def add_action(self, text, action):
+        """
+        Add an action to :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
+
+        :param text: Text of action. ``markup`` is enabled
+        :param action: Callback to be performed, bound to ``on_release`` of action
+        """
+
         self.actions.add_widget(_CupertinoDialogButton(
             text=text,
             on_release=action,

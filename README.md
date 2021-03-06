@@ -35,7 +35,7 @@ Check out the [Showcase app](examples/showcase.py) for an example of all widgets
 | Activity Indicator | :memo: |
 | Alert Dialog | :heavy_check_mark: |
 | Button | :heavy_check_mark: |
-| Icon Button | :heavy_check_mark: |
+| Icon Button | :construction: |
 | Label | :heavy_check_mark: |
 | Navigation Bar | :heavy_check_mark: |
 | Progress Bar | :heavy_check_mark: |
