@@ -1,3 +1,7 @@
+"""
+Switches allow users to toggle settings off/on
+"""
+
 from kivy.uix.behaviors.button import ButtonBehavior
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import BooleanProperty, ColorProperty
@@ -31,11 +35,40 @@ Builder.load_string("""
 
 
 class CupertinoSwitch(ButtonBehavior, FloatLayout):
+    """
+    iOS style Switch
+
+    .. image:: ../_static/switch.gif
+    """
+
     toggled = BooleanProperty(False)
+    """
+    A :class:`~kivy.properties.BooleanProperty` defining if
+    :class:`~kivycupertino.uix.switch.CupertinoSwitch` is on
+    """
+
     thumb_color = ColorProperty([1, 1, 1, 1])
-    background_toggled = ColorProperty([0.3, 0.85, 0.4])
-    background_untoggled = ColorProperty([0.95, 0.95, 0.95])
+    """
+    A :class:`~kivy.properties.ColorProperty` that degines the color of thumb of
+    :class:`~kivycupertino.uix.switch.CupertinoSwitch`
+    """
+
+    background_toggled = ColorProperty([0.3, 0.85, 0.4, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the background color of
+    :class:`~kivycupertino.uix.switch.CupertinoSwitch` when on
+    """
+
+    background_untoggled = ColorProperty([0.95, 0.95, 0.95, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the background color of
+    :class:`~kivycupertino.uix.switch.CupertinoSwitch` when off
+    """
 
     def on_press(self):
+        """
+        Callback when :class:`~kivycupertino.uix.switch.CupertinoSwitch` is pressed
+        """
+
         self.toggled = not self.toggled
         self.size = (self.thumb.height, self.thumb.height)

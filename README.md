@@ -9,6 +9,7 @@ Many widgets are not yet implemented and stability is not guaranteed
 [![Open Issues](https://img.shields.io/github/issues-raw/cmdvmd/kivy-cupertino?label=open%20issues)](https://github.com/cmdvmd/kivy-cupertino/issues)
 [![License](https://img.shields.io/github/license/cmdvmd/kivy-cupertino)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/commits/main)
+[![Documentation Status](https://readthedocs.org/projects/kivy-cupertino/badge/?version=latest)](https://kivy-cupertino.rtfd.io)
 
 ## Installation
 
@@ -35,7 +36,7 @@ Check out the [Showcase app](examples/showcase.py) for an example of all widgets
 | Activity Indicator | :memo: |
 | Alert Dialog | :heavy_check_mark: |
 | Button | :heavy_check_mark: |
-| Icon Button | :heavy_check_mark: |
+| Icon Button | :construction: |
 | Label | :heavy_check_mark: |
 | Navigation Bar | :heavy_check_mark: |
 | Progress Bar | :heavy_check_mark: |

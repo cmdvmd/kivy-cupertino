@@ -1,15 +1,19 @@
 """
-A program to test all widgets in KivyCupertino
+Showcase
+========
+
+A program to test all widgets in Kivy Cupertino
 """
 
 __author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunossauro>
+__maintainer__ = 'cmdvmd'
 
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.button import CupertinoButton, CupertinoSystemButton
 from kivycupertino.uix.dialog import CupertinoAlertDialog, CupertinoActionSheet
-from kivycupertino.uix.indicator import CupertinoProgressBar
+from kivycupertino.uix.indicator import CupertinoProgressbar
 from kivycupertino.uix.control import CupertinoStepper
 from kivycupertino.uix.switch import CupertinoSwitch
 from kivy.uix.floatlayout import FloatLayout
@@ -58,7 +62,7 @@ class MyApp(CupertinoApp):
         btn.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
         btn.on_release = self.alert
 
-        self.progress = CupertinoProgressBar()
+        self.progress = CupertinoProgressbar()
         self.progress.size_hint = 0.7, 0.01
         self.progress.pos_hint = {'x': 0.05, 'center_y': 0.3}
         self.progress.value = 50
