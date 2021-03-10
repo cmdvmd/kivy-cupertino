@@ -1,13 +1,13 @@
+import kivycupertino
 from setuptools import setup, find_packages
-from kivycupertino import __version__, __author__
 
 with open('README.md', 'r') as readme:
     long_description = readme.read()
 
 setup(
     name='kivycupertino',
-    version=__version__,
-    author=__author__,
+    version=kivycupertino.__version__,
+    author=kivycupertino.__author__,
     author_email='vcmd43@gmail.com',
     license='MIT',
     description='iOS style widgets for Kivy',

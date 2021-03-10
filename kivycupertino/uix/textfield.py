@@ -8,6 +8,7 @@ from kivy.lang.builder import Builder
 
 Builder.load_string("""
 <CupertinoTextField>:
+    password_mask: '•'
     multiline: False
     cursor_width: '2sp'
     cursor_color: 0.25, 0.5, 0.95, 1

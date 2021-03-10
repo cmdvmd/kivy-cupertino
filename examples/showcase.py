@@ -1,7 +1,6 @@
 """
 Showcase
 ========
-
 A program to test all widgets in Kivy Cupertino
 """
 

@@ -4,8 +4,9 @@ Controls allow users to control information on their screen
 
 from kivycupertino.uix.button import CupertinoSystemButton
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ColorProperty
+from kivy.properties import StringProperty, ColorProperty
 from kivy.graphics import Color, RoundedRectangle
+from kivy.clock import Clock
 from kivy.lang.builder import Builder
 
 Builder.load_string("""
@@ -64,6 +65,12 @@ class CupertinoSegmentedControls(BoxLayout):
     .. image:: ../_static/segmented_controls.gif
     """
 
+    selected = StringProperty()
+    """
+    A :class:`~kivy.properties.StringProperty` defining the selected tab of
+    :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
+    """
+
     background_color = ColorProperty([0.95, 0.95, 0.95, 0.9])
     """
     A :class:`~kivy.properties.ColorProperty` defining the background color of
@@ -82,41 +89,46 @@ class CupertinoSegmentedControls(BoxLayout):
     :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
     """
 
-    def __select(self, tab, action=None):
+    def on_selected(self, widget, text):
         """
-        Changes color of selected tab
+        Callback when a new tab is selected
 
-        :param tab: The selected tab
-        :param action: The callback to be performed
+        :param widget: The instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
+        :param text: The text of the selected tab
         """
 
+        self.selected = text
+        tab = None
         for child in self.children:
+            if child.text == text:
+                tab = child
             child.canvas.before.clear()
 
         with tab.canvas.before:
             Color(rgba=self.color_selected)
             RoundedRectangle(radius=(10,), size=tab.size, pos=tab.pos)
 
-        if action is not None:
-            action(self)
-
-    def add_tab(self, text, action):
+    def add_tab(self, text):
         """
         Add a tab to :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
 
         :param text: Text of tab
-        :param action: Callback to be performed, bound to ``on_release`` of tab
         """
+
+        for child in self.children:
+            assert child.text != text, f'A tab named "{text}" already exists'
 
         tab = CupertinoSystemButton(
             text=text,
             markup=False,
             color_normal=self.text_color,
             color_down=self.text_color,
-            on_release=lambda b: self.__select(b, action)
+            on_release=lambda button: setattr(self, 'selected', button.text)
         )
+
         self.add_widget(tab)
-        self.__select(tab)
+        if len(self.children) == 1:
+            Clock.schedule_once(lambda dt: setattr(self, 'selected', tab.text), 0.5)
 
 
 class CupertinoStepper(BoxLayout):
