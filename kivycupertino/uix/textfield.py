@@ -6,6 +6,11 @@ from kivy.uix.textinput import TextInput
 from kivy.properties import StringProperty, ColorProperty
 from kivy.lang.builder import Builder
 
+__all__ = [
+    'CupertinoTextField',
+    'CupertinoTextView'
+]
+
 Builder.load_string("""
 <CupertinoTextField>:
     password_mask: '•'

@@ -1,3 +1,7 @@
+"""
+A program to register Kivy Cupertino widgets for use in kv lang
+"""
+
 from kivy.factory import Factory
 
 Factory.register('CupertinoNavigationBar', module='kivycupertino.uix.bar')

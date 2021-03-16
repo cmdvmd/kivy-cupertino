@@ -5,6 +5,11 @@ from kivycupertino.uix.label import CupertinoLabel
 from kivy.lang.builder import Builder
 from re import sub
 
+__all__ = [
+    'CupertinoActionSheet',
+    'CupertinoAlertDialog'
+]
+
 Builder.load_string("""
 #: import images_path kivycupertino.__init__.images_path
 
@@ -62,6 +67,7 @@ Builder.load_string("""
     
     background: images_path+'transparent.png'
     background_color: 0, 0, 0, 0.5
+    auto_dismiss: False
     size_hint: 0.8, 0.3
     pos_hint: {'center': (0.5, 0.5)}
     
@@ -179,13 +185,13 @@ class CupertinoAlertDialog(ModalView):
     .. image:: ../_static/alert_dialog.gif
     """
 
-    title = StringProperty('')
+    title = StringProperty(' ')
     """
     A :class:`~kivy.property.StringProperty` defining the text of title of
     :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
     """
 
-    content = StringProperty('')
+    content = StringProperty(' ')
     """
     A :class:`~kivy.property.StringProperty` defining the text of content of
     :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`

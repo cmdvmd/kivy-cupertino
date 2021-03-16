@@ -17,15 +17,11 @@ Welcome to Kivy Cupertino's documentation!
 
 Installation
 ------------
-
-.. warning::
-
-   Kivy Cupertino is not yet published on `PyPi <https://pypi.org>`_. To download
-   Kivy Cupertino, `clone the repository <https://github.com/cmdvmd/kivy-cupertino>`_
+Install Kivy Cupertino via ``pip`` with the following command
 
 .. code-block:: console
 
-   $ pip install KivyCupertino
+   $ pip install kivycupertino
 
 Examples
 --------

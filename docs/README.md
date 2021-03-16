@@ -2,7 +2,7 @@
 
 Kivy Cupertino Documentation is written with [Sphinx](https://www.sphinx-doc.org/en/master/) and
 [Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html). To improve this documentation,
-[fork this repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below
+[fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below
 
 ### Documenting an Existing Module
 

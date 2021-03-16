@@ -1,4 +1,7 @@
 .idea/
 tests/
 docs/_build
+build/
+dist/
 *.pyc
+*.egg-info

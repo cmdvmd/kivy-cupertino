@@ -1,8 +1,12 @@
+"""
+A program to initialize Kivy Cupertino
+"""
+
 import os
 
-__version__ = '0.0.1-alpha'
 __author__ = 'cmdmvd'
-__copyright__ = 'Copyright (c) 2021, cmdvmd'
+__copyright__ = '2021, cmdvmd'
+__version__ = '0.0.1-alpha'
 __license__ = 'MIT'
 
 root = os.path.dirname(__file__)

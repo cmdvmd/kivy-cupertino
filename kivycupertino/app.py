@@ -1,5 +1,11 @@
 from kivy.app import App
 
+__all__ = (
+    'CupertinoApp'
+)
+
 
 class CupertinoApp(App):
-    pass
+    """
+    An app class for Kivy Cupertino
+    """

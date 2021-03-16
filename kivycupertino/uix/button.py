@@ -2,12 +2,17 @@
 Buttons allow users to execute actions with a single tap
 """
 
-from kivycupertino import icons_path
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 from kivy.lang.builder import Builder
+
+__all__ = [
+    'CupertinoButton',
+    'CupertinoSystemButton',
+    'CupertinoIconButton'
+]
 
 Builder.load_string(f"""
 #: import icons_path kivycupertino.__init__.icons_path
@@ -126,6 +131,7 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
 class CupertinoIconButton(ButtonBehavior, Widget):
     """
     iOS style button that displays an icon
+
     .. image:: ../_static/icon_button.gif
     """
 

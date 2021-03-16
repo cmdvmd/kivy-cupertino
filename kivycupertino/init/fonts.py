@@ -1,3 +1,7 @@
+"""
+A program to initialize all fonts used in Kivy Cupertino
+"""
+
 from kivycupertino import fonts_path
 from kivy.core.text import LabelBase
 

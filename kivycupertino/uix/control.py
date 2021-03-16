@@ -9,6 +9,11 @@ from kivy.graphics import Color, RoundedRectangle
 from kivy.clock import Clock
 from kivy.lang.builder import Builder
 
+__all__ = [
+    'CupertinoSegmentedControls',
+    'CupertinoStepper'
+]
+
 Builder.load_string("""
 <CupertinoSegmentedControls>:
     orientation: 'horizontal'
@@ -103,7 +108,6 @@ class CupertinoSegmentedControls(BoxLayout):
             if child.text == text:
                 tab = child
             child.canvas.before.clear()
-
         with tab.canvas.before:
             Color(rgba=self.color_selected)
             RoundedRectangle(radius=(10,), size=tab.size, pos=tab.pos)

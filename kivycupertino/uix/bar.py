@@ -7,6 +7,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ColorProperty
 from kivy.lang.builder import Builder
 
+__all__ = [
+    'CupertinoNavigationBar'
+]
+
 Builder.load_string("""
 <CupertinoNavigationBar>:
     canvas.before:

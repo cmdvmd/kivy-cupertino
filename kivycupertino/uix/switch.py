@@ -3,14 +3,16 @@ Switches allow users to toggle settings off/on
 """
 
 from kivy.uix.behaviors.button import ButtonBehavior
-from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import BooleanProperty, ColorProperty
+from kivy.uix.widget import Widget
+from kivy.properties import BooleanProperty, ColorProperty, NumericProperty
 from kivy.lang.builder import Builder
 
+__all__ = [
+    'CupertinoSwitch'
+]
+
 Builder.load_string("""
-<CupertinoSwitch>:
-    thumb: thumb
-      
+<CupertinoSwitch>:     
     canvas.before:
         Color:
             rgba: root.background_toggled if root.toggled else root.background_untoggled
@@ -19,11 +21,10 @@ Builder.load_string("""
             size: self.size
             pos: self.pos
     Widget:
-        id: thumb
-        size_hint_y: 0.9
-        width: self.height
-        pos_hint: {'center_y': 0.5}
-        x: (root.x+root.width-self.width-1) if root.toggled else (root.x+1)
+        width: root.width/2
+        height: root.height-(root.padding*2)
+        y: root.y+(root.height/2)-(self.height/2)
+        x: root.x + ((root.width-self.width-root.padding) if root.toggled else root.padding)
         
         canvas.before:
             Color:
@@ -34,9 +35,10 @@ Builder.load_string("""
 """)
 
 
-class CupertinoSwitch(ButtonBehavior, FloatLayout):
+class CupertinoSwitch(ButtonBehavior, Widget):
     """
-    iOS style Switch
+    iOS style Switch. To comply with iOS standard, keep the width to height ratio of
+    :class:`~kivycupertino.uix.switch.CupertinoSwitch` at 2:1
 
     .. image:: ../_static/switch.gif
     """
@@ -65,10 +67,15 @@ class CupertinoSwitch(ButtonBehavior, FloatLayout):
     :class:`~kivycupertino.uix.switch.CupertinoSwitch` when off
     """
 
+    padding = NumericProperty(2)
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the padding around the thumb of
+    :class:`~kivycupertino.uix.switch.CupertinoSwitch`
+    """
+
     def on_press(self):
         """
         Callback when :class:`~kivycupertino.uix.switch.CupertinoSwitch` is pressed
         """
 
         self.toggled = not self.toggled
-        self.size = (self.thumb.height, self.thumb.height)

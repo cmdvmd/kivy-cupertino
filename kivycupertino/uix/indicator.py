@@ -6,6 +6,10 @@ from kivy.uix.widget import Widget
 from kivy.properties import ColorProperty, NumericProperty
 from kivy.lang.builder import Builder
 
+__all__ = [
+    'CupertinoProgressbar'
+]
+
 Builder.load_string("""
 <CupertinoProgressBar>:
     canvas.before:

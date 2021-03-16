@@ -5,6 +5,10 @@ Labels display text to users
 from kivy.uix.label import Label
 from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 
+__all__ = [
+    'CupertinoLabel'
+]
+
 
 class CupertinoLabel(Label):
     """

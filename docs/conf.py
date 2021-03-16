@@ -12,6 +12,7 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -22,7 +23,7 @@ copyright = '2021, cmdvmd'
 author = 'cmdvmd'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1-alpha'
+release = '0.1.1-alpha'
 
 
 # -- General configuration ---------------------------------------------------
@@ -50,6 +51,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+html_favicon = '../kivycupertino/images/logo.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
