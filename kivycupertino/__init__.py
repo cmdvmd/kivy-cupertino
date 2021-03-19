@@ -4,7 +4,7 @@ A program to initialize Kivy Cupertino
 
 import os
 
-__author__ = 'cmdmvd'
+__author__ = 'cmdvmd'
 __copyright__ = '2021, cmdvmd'
 __version__ = '0.0.1-alpha'
 __license__ = 'MIT'

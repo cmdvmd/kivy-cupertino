@@ -5,11 +5,12 @@
 A collection of iOS style widgets for Kivy. Kivy Cupertino is currently in **alpha** version.
 Many widgets are not yet implemented and stability is not guaranteed
 
-[![Open Issues](https://img.shields.io/github/issues-raw/cmdvmd/kivy-cupertino?label=open%20issues)](https://github.com/cmdvmd/kivy-cupertino/issues)
+[![GitHub issues](https://img.shields.io/github/issues/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/issues)
 [![License](https://img.shields.io/github/license/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/commits/main)
 [![Documentation Status](https://readthedocs.org/projects/kivy-cupertino/badge/?version=latest)](https://kivy-cupertino.rtfd.io)
 [![Downloads](https://pepy.tech/badge/kivycupertino)](https://pepy.tech/project/kivycupertino)
+[![Discord](https://img.shields.io/discord/821398952771059732?label=discord&logo=discord&logoColor=ffffff)](https://discord.gg/HXNuAb3X5Q)
 
 ## Installation
 
@@ -28,30 +29,34 @@ pip install kivycupertino
 
 Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/examples/showcase.py) for an example of all widgets in Kivy Cupertino
 
-## Widgets
+## Functionalities
 
-| Widget | Status |
-|--------|--------|
+| Functionality | Status |
+|---------------|--------|
+| Dark Mode | 📝 |
 | Action Sheet | ✔ |
 | Activity Indicator | 📝 |
 | Alert Dialog | ✔ |
 | Button | ✔ |
+| Date Picker | 📝 |
 | Icon Button | 🚧 |
 | Label | ✔ |
 | Navigation Bar | ✔ |
+| Picker | 📝 |
 | Progress Bar | ✔ |
-| Search Bar | 📝 |
 | Segmented Controls | ✔ |
 | Slider | 📝 |
 | Stepper | ✔ |
 | Switch | ✔ |
 | System Button | ✔ |
+| Tab Bar | 📝 |
 | Text Field | ✔ |
 | Text View | ✔ |
+| Time Picker | 📝 |
 
 ### Key
 
-✔ Added
+✔ Working
 \
 🚧 Work in Progress
 \

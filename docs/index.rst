@@ -1,5 +1,9 @@
-Welcome to Kivy Cupertino's documentation!
-==========================================
+Kivy Cupertino
+==============
+
+Kivy Cupertino is a collection of iOS style widgets. We are currently in
+**alpha** status; not all widgets have been implemented and stability is not
+guaranteed. We don't recommend using Kivy Cupertino in production
 
 .. toctree::
    :maxdepth: 2
@@ -17,11 +21,12 @@ Welcome to Kivy Cupertino's documentation!
 
 Installation
 ------------
-Install Kivy Cupertino via ``pip`` with the following command
+Install Kivy Cupertino via ``pip`` with the following command:
 
 .. code-block:: console
 
    $ pip install kivycupertino
+
 
 Examples
 --------
@@ -37,10 +42,18 @@ To test all widgets in Kivy Cupertino, run the Showcase program (below)
 License
 -------
 
+Kivy Cupertino is licensed under the MIT license
+
 .. highlight:: text
 
 .. include:: ../LICENSE
    :literal:
+
+
+Contributing
+============
+
+To help improve this project, `fork our repository <https://github.com/cmdvmd/kivy-cupertino/fork>`_.
 
 
 Indices and tables
