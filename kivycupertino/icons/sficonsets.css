@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'sficonsets';
+    src: url('sficonsets.eot');
+    src: url('sficonsets.eot?#iefix') format('embedded-opentype'),
+        url('sficonsets.woff2') format('woff2'),
+        url('sficonsets.woff') format('woff'),
+        url('sficonsets.ttf') format('truetype'),
+        url('sficonsets.svg#sficonsets') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "sficonsets";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.alarm_fill:before { content: '0xe7b8'; }
+.alt:before { content: '0xe7b9';}
+.ant_circle_fill:before { content: '0xe7ba';}
+.airplane:before { content: '0xed19';}
+.alarm:before { content: '0xe7bb';}
+.arrow_2_circlepath_circle:before { content: '0xe7c4';}
+.arrow_clockwise:before { content: '0xe7ce';}
+.arrow_counterclockwise:before { content: '0xe7d2';}
+.arrow_down:before { content: '0xe7e2';}
+.arrow_down_right_arrow_up_left:before { content: '0xe7de';}
+.bell:before { content: '0xe883';}
+.bill_fill:before { content: '0xe88f';}
+.info:before { content: '0xe9ef';}
+
+

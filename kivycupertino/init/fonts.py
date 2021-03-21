@@ -2,8 +2,10 @@
 A program to initialize all fonts used in Kivy Cupertino
 """
 
-from kivycupertino import fonts_path
+from kivycupertino import fonts_path, icons_path
 from kivy.core.text import LabelBase
+
+from kivycupertino.icons import sfsymbols
 
 fonts = [
     {
@@ -21,6 +23,6 @@ fonts = [
         'fn_bolditalic': fonts_path + 'ny-bold-italic.otf',
     }
 ]
-
+sfsymbols.register('sficonsets', fonts_path + 'sficonsets.ttf', icons_path + 'sficonsets.fontd')
 for font in fonts:
     LabelBase.register(**font)
