@@ -44,6 +44,7 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Navigation Bar | ✔ |
 | Picker | 📝 |
 | Progress Bar | ✔ |
+| SF Symbols Support | 🚧 |
 | Segmented Controls | ✔ |
 | Slider | 📝 |
 | Stepper | ✔ |
