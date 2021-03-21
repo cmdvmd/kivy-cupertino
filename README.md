@@ -34,6 +34,7 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Functionality | Status |
 |---------------|--------|
 | Dark Mode | 📝 |
+| SF Symbols | 🚧 |
 | Action Sheet | ✔ |
 | Activity Indicator | 📝 |
 | Alert Dialog | ✔ |
@@ -45,7 +46,6 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Picker | 📝 |
 | Progress Bar | ✔ |
 | Segmented Controls | ✔ |
-| SF Symbols | 🚧 |
 | Slider | 📝 |
 | Stepper | ✔ |
 | Switch | ✔ |
