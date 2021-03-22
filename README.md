@@ -40,7 +40,6 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Alert Dialog | ✔ |
 | Button | ✔ |
 | Date Picker | 📝 |
-| Icon Button | 🚧 |
 | Label | ✔ |
 | Navigation Bar | ✔ |
 | Picker | 📝 |
@@ -49,6 +48,8 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Slider | 📝 |
 | Stepper | ✔ |
 | Switch | ✔ |
+| Symbol | ✔ |
+| Symbol Button | ✔ |
 | System Button | ✔ |
 | Tab Bar | 📝 |
 | Text Field | ✔ |

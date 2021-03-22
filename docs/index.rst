@@ -16,6 +16,7 @@ guaranteed. We don't recommend using Kivy Cupertino in production
    _source/indicator
    _source/label
    _source/switch
+   _source/symbol
    _source/textfield
 
 

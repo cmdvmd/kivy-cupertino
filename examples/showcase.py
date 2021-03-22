@@ -15,7 +15,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.bar import CupertinoNavigationBar
-from kivycupertino.uix.button import CupertinoSystemButton, CupertinoIconButton, CupertinoButton
+from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton
 from kivycupertino.uix.switch import CupertinoSwitch
 from kivycupertino.uix.indicator import CupertinoProgressbar
 from kivycupertino.uix.control import CupertinoSegmentedControls, CupertinoStepper
@@ -72,7 +72,7 @@ class ShowcaseApp(CupertinoApp):
         system_button.size_hint_y = None
         system_button.height = 20
 
-        icon_button = CupertinoIconButton()
+        icon_button = CupertinoSymbolButton()
         icon_button.icon = 'info'
         icon_button.size_hint_y = None
         icon_button.size = 32, 32
@@ -90,7 +90,7 @@ class ShowcaseApp(CupertinoApp):
 
         switch = CupertinoSwitch()
         switch.size_hint = None, None
-        switch.size = 100, 50
+        switch.size = 70, 40
 
         self.progress_bar = CupertinoProgressbar()
         self.progress_bar.value = 10

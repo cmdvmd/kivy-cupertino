@@ -3,15 +3,15 @@ Buttons allow users to execute actions with a single tap
 """
 
 from kivycupertino.uix.label import CupertinoLabel
+from kivycupertino.uix.symbol import CupertinoSymbol
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 from kivy.lang.builder import Builder
 
 __all__ = [
     'CupertinoButton',
     'CupertinoSystemButton',
-    'CupertinoIconButton'
+    'CupertinoSymbolButton'
 ]
 
 Builder.load_string(f"""
@@ -32,17 +32,15 @@ Builder.load_string(f"""
 <CupertinoSystemButton>:
     color: root.color_down if self.state == 'down' else root.color_disabled if root.disabled else root.color_normal
 
-<CupertinoIconButton>:
+<CupertinoSymbolButton>:
+    color: root.icon_color
+    
     canvas.before:
         Color:
             rgba: root.background_down if self.state == 'down' else root.background_disabled if root.disabled else root.background_normal
         Rectangle:
             size: self.size
             pos: self.pos
-    Image:
-        source: icons_path+root.icon+'.png'
-        size: root.size
-        pos: root.pos
 """)
 
 
@@ -128,39 +126,45 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     """
 
 
-class CupertinoIconButton(ButtonBehavior, Widget):
+class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     """
-    iOS style button that displays an icon
+    iOS style button that displays an symbol
 
-    .. image:: ../_static/icon_button.gif
+    .. image:: ../_static/symbol_button.gif
     """
 
-    icon = StringProperty(' ')
+    symbol = StringProperty(' ')
     """
-    A :class:`~kivy.properties.StringProperty` defining the icon of
-    :class:`~kivycupertino.uix.button.CupertinoIconButton`
+    A :class:`~kivy.properties.StringProperty` defining the symbol of
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
     """
 
     disabled = BooleanProperty(False)
     """
     A :class:`~kivy.properties.BooleanProperty` defining if
-    :class:`~kivycupertino.uix.button.CupertinoIconButton` is disabled
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` is disabled
+    """
+
+    icon_color = ColorProperty([0, 0, 0, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty`defining the color of the icon of
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when not pressed or disabled
     """
 
     background_normal = ColorProperty([0, 0, 0, 0])
     """
     A :class:`~kivy.properties.ColorProperty`defining the background color of
-    :class:`~kivycupertino.uix.button.CupertinoIconButton` when not pressed or disabled
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when not pressed or disabled
     """
 
     background_down = ColorProperty([0, 0, 0, 0.3])
     """
     A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.button.CupertinoIconButton` when pressed
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when pressed
     """
 
     background_disabled = ColorProperty([0, 0, 0, 0.2])
     """
     A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.button.CupertinoIconButton` when disabled
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when disabled
     """
