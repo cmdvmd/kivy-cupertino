@@ -51,7 +51,7 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Symbol | ✔ |
 | Symbol Button | ✔ |
 | System Button | ✔ |
-| Tab Bar | 📝 |
+| Tab Bar | ✔ |
 | Text Field | ✔ |
 | Text View | ✔ |
 | Time Picker | 📝 |

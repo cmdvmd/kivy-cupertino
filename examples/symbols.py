@@ -1,3 +1,8 @@
+"""
+Symbols
+=======
+"""
+
 from kivycupertino import root_path
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar
@@ -29,8 +34,8 @@ class SymbolsApp(CupertinoApp):
 
         layout = GridLayout()
         layout.cols = 1
-        layout.padding = 5
-        layout.spacing = 5
+        layout.spacing = 15
+        layout.padding = 15
         layout.size_hint_y = None
         layout.bind(
             minimum_height=layout.setter('height')
@@ -75,5 +80,6 @@ class SymbolsApp(CupertinoApp):
 Window.clearcolor = (0.98, 0.98, 0.98, 1)
 Window.size = (300, 500)
 
-app = SymbolsApp()
-app.run()
+if __name__ == '__main__':
+    app = SymbolsApp()
+    app.run()

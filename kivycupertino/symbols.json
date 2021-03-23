@@ -37,6 +37,8 @@
   "credit_card_fill": "0xe929",
   "info": "0xe9e8",
   "info_fill": "0xe9ec",
+  "keypad": "0xe91e",
+  "keypad_fill": "0xe8f8",
   "lightbulb": "0xea16",
   "lightbulb_slash": "0xea1d",
   "lightbulb_fill": "0xea19",
@@ -52,6 +54,12 @@
   "lock_open_fill": "0xea35",
   "maximize": "0xe816",
   "minimize": "0xe7de",
+  "person": "0xec69",
+  "person_circle": "0xec80",
+  "phone": "0xeabd",
+  "phone_fill": "0xebfb",
   "rotate_camera": "0xe914",
-  "rotate_camera_fill": "0xe8ad"
+  "rotate_camera_fill": "0xe8ad",
+  "star": "0xebd3",
+  "star_fill": "0xebca"
 }

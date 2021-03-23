@@ -33,7 +33,7 @@ Builder.load_string(f"""
     color: root.color_down if self.state == 'down' else root.color_disabled if root.disabled else root.color_normal
 
 <CupertinoSymbolButton>:
-    color: root.icon_color
+    color: root.symbol_color
     
     canvas.before:
         Color:
@@ -145,7 +145,7 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` is disabled
     """
 
-    icon_color = ColorProperty([0, 0, 0, 1])
+    symbol_color = ColorProperty([0, 0, 0, 1])
     """
     A :class:`~kivy.properties.ColorProperty`defining the color of the icon of
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when not pressed or disabled

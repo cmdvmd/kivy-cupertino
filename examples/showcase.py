@@ -72,10 +72,11 @@ class ShowcaseApp(CupertinoApp):
         system_button.size_hint_y = None
         system_button.height = 20
 
-        icon_button = CupertinoSymbolButton()
-        icon_button.icon = 'info'
-        icon_button.size_hint_y = None
-        icon_button.size = 32, 32
+        symbol_button = CupertinoSymbolButton()
+        symbol_button.symbol = 'info'
+        symbol_button.color = 0.05, 0.5, 0.95, 1
+        symbol_button.size_hint_y = None
+        symbol_button.size = 32, 32
 
         button = CupertinoButton()
         button.text = 'Hello World'
@@ -146,7 +147,7 @@ class ShowcaseApp(CupertinoApp):
         navigation_bar.add_widget(title)
 
         layout.add_widget(system_button)
-        layout.add_widget(icon_button)
+        layout.add_widget(symbol_button)
         layout.add_widget(button)
         layout.add_widget(segmented_controls)
         layout.add_widget(switch)
@@ -171,5 +172,6 @@ class ShowcaseApp(CupertinoApp):
 Window.clearcolor = 0.98, 0.98, 0.98, 1
 Window.size = (300, 500)
 
-app = ShowcaseApp()
-app.run()
+if __name__ == '__main__':
+    app = ShowcaseApp()
+    app.run()

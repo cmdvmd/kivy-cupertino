@@ -99,7 +99,7 @@ class CupertinoSegmentedControls(BoxLayout):
         Callback when a new tab is selected
 
         :param widget: The instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
-        :param text: The text of the selected tab
+        :param text: Text of the selected tab
         """
 
         self.selected = text
