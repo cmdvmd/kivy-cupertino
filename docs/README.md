@@ -4,6 +4,13 @@ Kivy Cupertino Documentation is written with [Sphinx](https://www.sphinx-doc.org
 [Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html). To improve this documentation,
 [fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below
 
+### Installing Dependencies
+
+```shell
+$ pip install sphinx
+$ pip install sphinx-rtd-theme
+```
+
 ### Documenting an Existing Module
 
 To edit documentation for an existing module, update the Docstrings in the file
@@ -61,8 +68,8 @@ To test written documentation, [install Sphinx](https://www.sphinx-doc.org/en/ma
 and run the following commands in [`docs/`](.):
 
 ```shell
-make clean
-make html
+$ make clean
+$ make html
 ```
 _Note: a [`make.bat`](make.bat) file is included under [`docs/`](.) for Windows users_
 

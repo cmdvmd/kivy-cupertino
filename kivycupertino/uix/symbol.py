@@ -35,16 +35,23 @@ class CupertinoSymbol(Label):
     symbol = StringProperty(' ')
     """
     A :class:`~kivy.properties.StringProperty` defining the symbol to be displayed by
-    :class:`~kivycupertino.uix.icon.CupertinoSymbol`.
+    :class:`~kivycupertino.uix.symbol.CupertinoSymbol`.
     """
 
     color = ColorProperty([0, 0, 0, 1])
     """
     A :class:`~kivy.properties.ColorProperty` defining the color of
-    :class:`~kivycupertino.uix.icon.CupertinoSymbol`
+    :class:`~kivycupertino.uix.symbol.CupertinoSymbol`
     """
 
     def on_symbol(self, widget, symbol):
+        """
+        Callback when symbol of :class:`~kivy.uix.symbol.CupertinoSymbol` is changed
+
+        :param widget: Instance of :class:`~kivy.uix.symbol.CupertinoSymbol`
+        :param symbol: Symbol to be displayed
+        """
+
         with open(root_path + 'symbols.json', 'r') as json:
             symbols = load(json)
         self.text = chr(eval(symbols[symbol]))

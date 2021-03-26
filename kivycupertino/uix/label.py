@@ -17,7 +17,7 @@ class CupertinoLabel(Label):
     .. image:: ../_static/label.png
     """
 
-    text = StringProperty('')
+    text = StringProperty(' ')
     """
     A :class:`~kivy.properties.StringProperty` defining the text of
     :class:`~kivycupertino.uix.label.CupertinoLabel`

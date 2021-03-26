@@ -141,7 +141,7 @@ class CupertinoTabBar(BoxLayout):
 
     def on_selected(self, widget, tab_text):
         """
-        Callback when a new tab is selected
+        Callback when a new tab of :class:`kivycupertino.uix.bar.CupertinoTabBar` is selected
 
         :param widget: The instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
         :param tab_text: Text of the selected tag

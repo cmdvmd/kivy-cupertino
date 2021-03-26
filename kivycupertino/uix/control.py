@@ -163,6 +163,7 @@ class CupertinoStepper(BoxLayout):
     def __init__(self, **kwargs):
         """
         Initialize :class:`~kivycupertino.uix.control.CupertinoStepper` and register events
+
         :param kwargs: Keyword arguments of :class:`~kivycupertino.uix.control.CupertinoStepper`
         """
 
