@@ -1,5 +1,5 @@
 """
-Bars are generally positioned at the top of bottom of a screen and
+Bars are generally positioned at the top or bottom of a screen and
 contain widgets and/or information for easy access by users
 """
 
@@ -36,7 +36,7 @@ Builder.load_string("""
         color: root.color_selected if root.selected else root.color_unselected
     CupertinoLabel:
         text: root.text
-        font_size: min(self.size)/1.3
+        font_size: 12
         color: root.color_selected if root.selected else root.color_unselected
         size_hint_y: 0.7
 

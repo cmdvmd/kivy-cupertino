@@ -45,7 +45,7 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Picker | 📝 |
 | Progress Bar | ✔ |
 | Segmented Controls | ✔ |
-| Slider | 📝 |
+| Slider | ✔ |
 | Stepper | ✔ |
 | Switch | ✔ |
 | Symbol | ✔ |

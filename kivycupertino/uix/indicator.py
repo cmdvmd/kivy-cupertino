@@ -14,12 +14,12 @@ Builder.load_string("""
 <CupertinoProgressBar>:
     canvas.before:
         Color:
-            rgba: root.color_unselected
+            rgba: self.color_unselected
         Rectangle:
             size: self.size
             pos: self.pos
         Color:
-            rgba: root.color_selected
+            rgba: self.color_selected
         Rectangle:
             size: self.width*(root.value/100), self.height
             pos: self.pos
@@ -33,20 +33,20 @@ class CupertinoProgressbar(Widget):
     .. image:: ../_static/progressbar.gif
     """
 
+    value = NumericProperty(0)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the amount of progress occurred
+    in interval `[0, 100]` of :class:`~kivycupertino.uix.indicator.CupertinoProgressbar`
+    """
+
     color_selected = ColorProperty([0, 0.5, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of bar of occurred progress
+    A :class:`~kivy.properties.ColorProperty` defining the color of the bar of occurred progress
     of :class:`~kivycupertino.uix.indicator.CupertinoProgressBar`
     """
 
     color_unselected = ColorProperty([0, 0, 0, 0])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of bar of not yet occurred progress
+    A :class:`~kivy.properties.ColorProperty` defining the color of the bar of not yet occurred progress
     of :class:`~kivycupertino.uix.indicator.CupertinoProgressBar`
-    """
-
-    value = NumericProperty(0)
-    """
-    A :class:`~kivy.properties.NumericProperty` defining the amount of progress occurred
-    in interval `[0, 100]`
     """
