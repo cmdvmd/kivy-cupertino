@@ -29,7 +29,7 @@ Builder.load_string("""
         size: root.height, root.height
         y: root.y+(root.height/12)-(self.height/2)
         x: root.x+root.width*((root.value-root.min)/(root.max-root.min))-self.width/2
-        on_touch_down: root._thumb_pressed = args[0].x <= args[1].x <= args[0].x+args[0].width and args[0].y <= args[1].y <= args[0].y+args[0].height
+        on_touch_down: root._thumb_pressed = self.x <= args[1].x <= self.x+args[0].width and self.y <= args[1].y <= self.y+self.height
         on_touch_up: root._thumb_pressed = False
         on_touch_move: root._move_thumb(args[1])
         

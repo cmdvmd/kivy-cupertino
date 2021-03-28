@@ -1,15 +1,17 @@
 """
 Symbols
 =======
+
+A program to show all symbols in Kivy Cupertino
 """
 
+from kivycupertino.uix.scrollview import CupertinoScrollView
 from kivycupertino import root_path
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.symbol import CupertinoSymbol
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivy.core.window import Window
 from json import load
@@ -21,16 +23,14 @@ class SymbolsApp(CupertinoApp):
         box.orientation = 'vertical'
 
         navigation_bar = CupertinoNavigationBar()
-        navigation_bar.height = 60
+        navigation_bar.size_hint_y = 0.15
 
         title = CupertinoLabel()
         title.text = 'Symbols'
         title.bold = True
         title.pos_hint = {'center': (0.5, 0.5)}
 
-        scrollview = ScrollView()
-        scrollview.size_hint_y = None
-        scrollview.height = Window.height-navigation_bar.height
+        scrollview = CupertinoScrollView()
 
         layout = GridLayout()
         layout.cols = 1

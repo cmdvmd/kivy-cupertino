@@ -11,8 +11,8 @@ __maintainer__ = 'cmdvmd'
 from kivycupertino.app import CupertinoApp
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
+from kivycupertino.uix.scrollview import CupertinoScrollView
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.bar import CupertinoNavigationBar
 from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton
@@ -20,7 +20,7 @@ from kivycupertino.uix.switch import CupertinoSwitch
 from kivycupertino.uix.indicator import CupertinoProgressbar
 from kivycupertino.uix.control import CupertinoSegmentedControls, CupertinoStepper
 from kivycupertino.uix.dialog import CupertinoAlertDialog, CupertinoActionSheet
-from kivycupertino.uix.textfield import CupertinoTextField, CupertinoTextView
+from kivycupertino.uix.textinput import CupertinoTextField, CupertinoTextView
 
 
 class ShowcaseApp(CupertinoApp):
@@ -54,7 +54,7 @@ class ShowcaseApp(CupertinoApp):
         title.bold = True
         title.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
 
-        scrollview = ScrollView()
+        scrollview = CupertinoScrollView()
         scrollview.size_hint_y = None
         scrollview.height = Window.height-navigation_bar.height
 

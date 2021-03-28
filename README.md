@@ -2,7 +2,7 @@
 
 # Kivy Cupertino
 
-A collection of iOS style widgets for Kivy. Kivy Cupertino is currently in **alpha** version.
+A collection of iOS style widgets for Kivy. Kivy Cupertino is currently in **beta** version.
 Many widgets are not yet implemented and stability is not guaranteed
 
 [![GitHub issues](https://img.shields.io/github/issues/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/issues)
@@ -44,7 +44,8 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Navigation Bar | ✔ |
 | Picker | 📝 |
 | Progress Bar | ✔ |
-| ScrollView | ✔ |
+| Scroll View | ✔ |
+| Search Bar | ✔ |
 | Segmented Controls | ✔ |
 | Slider | ✔ |
 | Stepper | ✔ |

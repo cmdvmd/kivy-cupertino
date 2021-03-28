@@ -24,7 +24,7 @@ copyright = '2021, cmdvmd'
 author = 'cmdvmd'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.1-alpha'
+release = '0.1.1-beta'
 
 
 # -- General configuration ---------------------------------------------------

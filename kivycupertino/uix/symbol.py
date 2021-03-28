@@ -54,4 +54,4 @@ class CupertinoSymbol(Label):
 
         with open(root_path + 'symbols.json', 'r') as json:
             symbols = load(json)
-        self.text = chr(eval(symbols[symbol]))
+        self.text = chr(eval(symbols[symbol])) if symbol != ' ' else '\u2800'

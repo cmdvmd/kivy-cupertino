@@ -63,10 +63,14 @@
   "power": "0xeaf2",
   "rotate_camera": "0xe914",
   "rotate_camera_fill": "0xe8ad",
+  "search": "0xeb43",
   "star": "0xebd3",
   "star_fill": "0xebca",
   "wifi": "0xec5d",
   "wifi_slash": "0xec71",
+  "xmark": "0xec4c",
+  "xmark_circle": "0xec72",
+  "xmark_circle_fill": "0xec11",
   "zoom_in": "0xec0e",
   "zoom_out": "0xebbf"
 }

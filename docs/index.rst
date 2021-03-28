@@ -19,7 +19,7 @@ guaranteed. We don't recommend using Kivy Cupertino in production
    _source/slider
    _source/switch
    _source/symbol
-   _source/textfield
+   _source/textinput
 
 
 Installation
