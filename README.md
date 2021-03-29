@@ -57,6 +57,7 @@ Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/
 | Text Field | ✔ |
 | Text View | ✔ |
 | Time Picker | 📝 |
+| Toolbar | ✔ |
 
 ### Key
 

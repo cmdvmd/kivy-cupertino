@@ -11,6 +11,7 @@ from kivy.lang.builder import Builder
 
 __all__ = [
     'CupertinoNavigationBar',
+    'CupertinoToolbar',
     'CupertinoTabBar'
 ]
 
@@ -28,6 +29,19 @@ Builder.load_string("""
             size: self.width, 1
             pos: self.pos
 
+<CupertinoToolbar>:
+    canvas.before:
+        Color:
+            rgba: root.color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
+            rgba: 0.8, 0.8, 0.8, 1
+        Rectangle:
+            size: self.width, 1
+            pos: self.x, self.y+self.height
+
 <_CupertinoTab>:
     orientation: 'vertical'
     
@@ -41,19 +55,16 @@ Builder.load_string("""
         size_hint_y: 0.7
 
 <CupertinoTabBar>:
+    items: items
+
     padding: 3
+    color: root.background_color
     
-    canvas.before:
-        Color:
-            rgba: root.background_color
-        Rectangle:
-            size: self.size
-            pos: self.pos
-        Color:
-            rgba: 0.8, 0.8, 0.8, 1
-        Rectangle:
-            size: self.width, 1
-            pos: self.x, self.y+self.height
+    BoxLayout:
+        id: items
+        orientation: 'horizontal'
+        size: root.size
+        pos: root.pos
 """)
 
 
@@ -69,6 +80,21 @@ class CupertinoNavigationBar(FloatLayout):
     """
     A :class:`~kivy.properties.ColorProperty` defining the background color of
     :class:`~kivycupertino.uix.bar.CupertinoNavigationBar`
+    """
+
+
+class CupertinoToolbar(FloatLayout):
+    """
+    iOS style Toolbar. :class:`~kivycupertino.uix.bar.CupertinoToolbar`
+    is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+
+    .. image:: ../_static/toolbar.png
+    """
+
+    color = ColorProperty([0.95, 0.95, 0.95, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the background color of
+    :class:`~kivycupertino.uix.bar.CupertinoToolbar`
     """
 
 
@@ -108,7 +134,7 @@ class _CupertinoTab(ButtonBehavior, BoxLayout):
     """
 
 
-class CupertinoTabBar(BoxLayout):
+class CupertinoTabBar(CupertinoToolbar):
     """
     iOS style tab bar
 
@@ -147,7 +173,7 @@ class CupertinoTabBar(BoxLayout):
         :param tab_text: Text of the selected tag
         """
 
-        for tab in self.children:
+        for tab in self.items.children:
             tab.selected = tab.text == tab_text
 
     def add_tab(self, text, symbol):
@@ -166,7 +192,7 @@ class CupertinoTabBar(BoxLayout):
             on_release=lambda button: setattr(self, 'selected', button.text)
         )
 
-        self.add_widget(tab)
+        self.items.add_widget(tab)
 
         if len(self.children) == 1:
             self.selected = text
