@@ -57,12 +57,12 @@ Builder.load_string("""
 <CupertinoTabBar>:
     items: items
 
-    padding: 3
     color: root.background_color
     
     BoxLayout:
         id: items
         orientation: 'horizontal'
+        padding: 3
         size: root.size
         pos: root.pos
 """)
@@ -147,7 +147,7 @@ class CupertinoTabBar(CupertinoToolbar):
     :class:`~kivycupertino.uix.bar.CupertinoTabBar`
     """
 
-    background_color = ColorProperty([0.95, 0.95, 0.95, 0.75])
+    background_color = ColorProperty([0.95, 0.95, 0.95, 1])
     """
     A :class:`~kivy.properties.ColorProperty` defining the background color of
     :class:`~kivycupertino.uix.bar.CupertinoTabBar` when selected
@@ -194,5 +194,5 @@ class CupertinoTabBar(CupertinoToolbar):
 
         self.items.add_widget(tab)
 
-        if len(self.children) == 1:
+        if len(self.items.children) == 1:
             self.selected = text

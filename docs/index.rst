@@ -2,7 +2,7 @@ Kivy Cupertino
 ==============
 
 Kivy Cupertino is a collection of iOS style widgets. We are currently in
-**alpha** status; not all widgets have been implemented and stability is not
+**beta** status; not all widgets have been implemented and stability is not
 guaranteed. We don't recommend using Kivy Cupertino in production
 
 .. toctree::
@@ -38,8 +38,7 @@ To test all widgets in Kivy Cupertino, run the Showcase program (below)
 
 :download:`Showcase <../examples/showcase.py>`
 
-.. include:: ../examples/showcase.py
-   :literal:
+.. image:: _static/showcase.gif
 
 
 License

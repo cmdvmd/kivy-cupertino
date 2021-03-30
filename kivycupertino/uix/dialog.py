@@ -73,11 +73,11 @@ Builder.load_string("""
     
     canvas:
         Color:
-            rgba: root.color
+            rgba: self.color
         RoundedRectangle:
-            radius: root.curve,
-            size: root.size
-            pos: root.pos
+            radius: self.curve,
+            size: self.size
+            pos: self.pos
             
     FloatLayout:
         size: root.size
