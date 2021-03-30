@@ -3,7 +3,7 @@ Indicators help show progress to users
 """
 
 from kivy.uix.widget import Widget
-from kivy.properties import ColorProperty, NumericProperty
+from kivy.properties import ColorProperty, NumericProperty, BooleanProperty
 from kivy.graphics import PushMatrix, PopMatrix, Rotate, Color, RoundedRectangle
 from kivy.clock import Clock
 from kivy.lang.builder import Builder
@@ -24,7 +24,7 @@ Builder.load_string("""
         Color:
             rgba: self.color_selected
         Rectangle:
-            size: self.width*(root.value/100), self.height
+            size: self.width*(self.value/100), self.height
             pos: self.pos
 """)
 
@@ -85,6 +85,7 @@ class CupertinoActivityIndicator(Widget):
 
         self.main_spoke = 0
         self.__event = None
+        self.__playing = False
         self.stop()
 
     def stop(self):
@@ -92,6 +93,8 @@ class CupertinoActivityIndicator(Widget):
         Hide :class:`~kivycupertino.uix.indicator.CupertinoActivityIndicator` (hidden by default)
         """
 
+        self.__playing = False
+        self.canvas.clear()
         Clock.unschedule(self.__event)
 
     def start(self):
@@ -99,7 +102,18 @@ class CupertinoActivityIndicator(Widget):
         Show and begin playing animation of :class:`~kivycupertino.uix.indicator.CupertinoActivityIndicator`
         """
 
+        self.__playing = True
         self.__event = Clock.schedule_interval(lambda dt: self.__draw_spokes(), 1/self.num_spokes)
+
+    def toggle(self):
+        """
+        Change state of :class:`~kivycupertino.uix.indicator.CupertinoActivityIndicator`
+        """
+
+        if not self.__playing:
+            self.start()
+        else:
+            self.stop()
 
     def __draw_spokes(self):
         """

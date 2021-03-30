@@ -98,7 +98,7 @@ class CupertinoSegmentedControls(BoxLayout):
         """
         Callback when a new tab is selected
 
-        :param widget: The instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
+        :param widget: Instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
         :param text: Text of the selected tab
         """
 
@@ -132,7 +132,7 @@ class CupertinoSegmentedControls(BoxLayout):
 
         self.add_widget(tab)
         if len(self.children) == 1:
-            Clock.schedule_once(lambda dt: setattr(self, 'selected', tab.text), 0.5)
+            Clock.schedule_once(lambda dt: setattr(self, 'selected', tab.text), 0)
 
 
 class CupertinoStepper(BoxLayout):

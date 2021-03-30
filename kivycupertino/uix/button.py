@@ -15,8 +15,6 @@ __all__ = [
 ]
 
 Builder.load_string(f"""
-#: import icons_path kivycupertino.__init__.icons_path
-
 <CupertinoButton>:
     font_size: 17
     color: root.text_color

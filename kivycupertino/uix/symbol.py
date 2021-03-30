@@ -4,8 +4,7 @@ in Kivy Cupertino, run the Symbols program (below)
 
 :download:`Symbols <../../examples/symbols.py>`
 
-.. include:: ../../examples/symbols.py
-   :literal:
+.. image:: ../_static/symbol_showcase.gif
 """
 
 from kivycupertino import root_path
