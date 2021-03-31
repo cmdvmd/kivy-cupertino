@@ -24,12 +24,21 @@ guaranteed. We don't recommend using Kivy Cupertino in production
 
 Installation
 ------------
-Install Kivy Cupertino via ``pip`` with the following command:
+
+To install Kivy Cupertino from `PyPi <https://pypi.org/project/kivycupertino>`_, use ``pip``:
 
 .. code-block:: console
 
    $ pip install kivycupertino
 
+To use newly implemented widgets that have not yet been published to PyPI, install with ``git``
+(**not recommended for production use**):
+
+.. code-block:: console
+
+   $ git clone https://github.com/cmdvmd/kivy-cupertino.git
+   $ cd kivy-cupertino
+   $ python setup.py install
 
 Examples
 --------

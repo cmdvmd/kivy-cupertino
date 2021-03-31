@@ -11,7 +11,7 @@ __all__ = [
 ]
 
 Builder.load_string("""
-#: import images_path kivycupertino.__init__.images_path
+#: import root_path kivycupertino.__init__.root_path
 
 <_CupertinoDialogButton>:
     color: root.text_color
@@ -28,7 +28,7 @@ Builder.load_string("""
 <CupertinoActionSheet>:
     actions: actions
     
-    background: images_path+'transparent.png'
+    background: root_path+'transparent.png'
     background_color: 0, 0, 0, 0.5
     auto_dismiss: False
     size_hint_x: 0.95
@@ -65,7 +65,7 @@ Builder.load_string("""
 <CupertinoAlertDialog>:
     actions: actions
     
-    background: images_path+'transparent.png'
+    background: root_path+'transparent.png'
     background_color: 0, 0, 0, 0.5
     auto_dismiss: False
     size_hint: 0.8, 0.3

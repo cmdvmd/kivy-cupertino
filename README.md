@@ -1,4 +1,4 @@
-<img src="https://github.com/cmdvmd/kivy-cupertino/blob/main/kivycupertino/images/logo.png?raw=true" align="right" width="100" height="100"/>
+<img src="https://github.com/cmdvmd/kivy-cupertino/blob/main/logo.png?raw=true" align="right" width="100" height="100"/>
 
 # Kivy Cupertino
 
@@ -10,20 +10,28 @@ Many widgets are not yet implemented and stability is not guaranteed
 [![Last Commit](https://img.shields.io/github/last-commit/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/commits/main)
 [![Documentation Status](https://readthedocs.org/projects/kivy-cupertino/badge/?version=latest)](https://kivy-cupertino.rtfd.io)
 [![Downloads](https://pepy.tech/badge/kivycupertino)](https://pepy.tech/project/kivycupertino)
-[![Discord](https://img.shields.io/discord/821398952771059732?label=discord&logo=discord&logoColor=ffffff)](https://discord.gg/HXNuAb3X5Q)
 
 ## Installation
 
-Install Kivy Cupertino via `pip`
+To install Kivy Cupertino from [PyPI](https://pypi.org/project/kivycupertino/), use `pip`:
 
 ```shell
 $ pip install kivycupertino
 ```
 
+To use newly implemented widgets that have not yet been published to PyPI, install with `git`
+(**not recommended for production use**):
+
+```shell
+$ git clone https://github.com/cmdvmd/kivy-cupertino.git
+$ cd kivy-cupertino
+$ python setup.py install
+```
+
 ### Dependencies
 
 - [Kivy](https://kivy.org/doc/stable/gettingstarted/installation.html)
-- [Python 3](https://www.python.org/downloads/)
+- [Python 3](https://www.python.org/downloads)
 
 ## Examples
 
