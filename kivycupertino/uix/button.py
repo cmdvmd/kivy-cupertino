@@ -5,7 +5,8 @@ Buttons allow users to execute actions with a single tap
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.symbol import CupertinoSymbol
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import StringProperty, BooleanProperty, ColorProperty
+from kivy.properties import StringProperty, BooleanProperty, NumericProperty, ColorProperty
+from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
 __all__ = [
@@ -15,30 +16,24 @@ __all__ = [
 ]
 
 Builder.load_string(f"""
-<CupertinoButton>:
+<CupertinoButton>:    
     font_size: 17
     color: root.text_color
     
     canvas.before:
         Color:
-            rgba: root.color_down if self.state == 'down' else root.color_disabled if root.disabled else root.color_normal
+            rgba: self.color_down if self.state == 'down' else self.color_disabled if self.disabled else self.color_normal
         RoundedRectangle:
             radius: self.height/5,
             size: self.size
             pos: self.pos
 
 <CupertinoSystemButton>:
-    color: root.color_down if self.state == 'down' else root.color_disabled if root.disabled else root.color_normal
+    color: self.color_normal
 
 <CupertinoSymbolButton>:
-    color: root.symbol_color
-    
-    canvas.before:
-        Color:
-            rgba: root.background_down if self.state == 'down' else root.background_disabled if root.disabled else root.background_normal
-        Rectangle:
-            size: self.size
-            pos: self.pos
+    color: self.color_normal
+    disabled_color: self.color_disabled
 """)
 
 
@@ -105,6 +100,12 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     :class:`~kivycupertino.uix.button.CupertinoSystemButton` is disabled
     """
 
+    transition_duration = NumericProperty(0.075)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the duration of the transition of the color of
+    :class:`~kivycupertino.uix.button.CupertinoSystemButton` when its state changes
+    """
+
     color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
     """
     A :class:`~kivy.properties.ColorProperty` defining the color of
@@ -123,10 +124,26 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     :class:`~kivycupertino.uix.button.CupertinoSystemButton` when disabled
     """
 
+    def on_state(self, widget, state):
+        """
+        Callback when the state of :class:`~kivycupertino.uix.button.CupertinoSystemButton` changes
+
+        :param widget: Instance of :class:`~kivycupertino.uix.button.CupertinoSystemButton`
+        :param state: State of :class:`~kivycupertino.uix.button.CupertinoSystemButton`
+        """
+
+        if state == 'down':
+            animation = Animation(color=self.color_down, duration=self.transition_duration)
+        elif state == 'disabled':
+            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
+        else:
+            animation = Animation(color=self.color_normal, duration=self.transition_duration)
+        animation.start(widget)
+
 
 class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     """
-    iOS style button that displays an symbol
+    iOS style button that displays a symbol
 
     .. image:: ../_static/symbol_button.gif
     """
@@ -143,26 +160,42 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` is disabled
     """
 
-    symbol_color = ColorProperty([0, 0, 0, 1])
+    transition_duration = NumericProperty(0.075)
     """
-    A :class:`~kivy.properties.ColorProperty`defining the color of the icon of
+    A :class:`~kivy.properties.NumericProperty` defining the duration of the transition of the color of
+    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when its state changes
+    """
+
+    color_normal = ColorProperty([0, 0, 0, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty`defining the color of
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when not pressed or disabled
     """
 
-    background_normal = ColorProperty([0, 0, 0, 0])
+    color_down = ColorProperty([0, 0, 0, 0.7])
     """
-    A :class:`~kivy.properties.ColorProperty`defining the background color of
-    :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when not pressed or disabled
-    """
-
-    background_down = ColorProperty([0, 0, 0, 0.3])
-    """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
+    A :class:`~kivy.properties.ColorProperty` defining the color of
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when pressed
     """
 
-    background_disabled = ColorProperty([0, 0, 0, 0.2])
+    color_disabled = ColorProperty([0, 0, 0, 0.7])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
+    A :class:`~kivy.properties.ColorProperty` defining the color of
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when disabled
     """
+
+    def on_state(self, widget, state):
+        """
+        Callback when the state of :class:`~kivycupertino.uix.button.CupertinoSymbolButton` changes
+
+        :param widget: Instance of :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
+        :param state: State of :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
+        """
+
+        if state == 'down':
+            animation = Animation(color=self.color_down, duration=self.transition_duration)
+        elif state == 'disabled':
+            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
+        else:
+            animation = Animation(color=self.color_normal, duration=self.transition_duration)
+        animation.start(widget)

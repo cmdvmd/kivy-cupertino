@@ -53,6 +53,7 @@ for an example of all widgets in Kivy Cupertino
 | Date Picker | 📝 |
 | Label | ✔ |
 | Navigation Bar | ✔ |
+| Page Controls | 📝 |
 | Picker | 📝 |
 | Progress Bar | ✔ |
 | Scroll View | ✔ |
@@ -65,6 +66,7 @@ for an example of all widgets in Kivy Cupertino
 | Symbol Button | ✔ |
 | System Button | ✔ |
 | Tab Bar | ✔ |
+| Table | 📝 |
 | Text Field | ✔ |
 | Text View | ✔ |
 | Time Picker | 📝 |

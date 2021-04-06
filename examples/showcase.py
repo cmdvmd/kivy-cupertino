@@ -43,8 +43,9 @@ class ShowcaseApp(CupertinoApp):
     def buttons(self):
         symbol_button = CupertinoSymbolButton()
         symbol_button.symbol = 'info'
-        symbol_button.color = 0.05, 0.5, 0.95, 1
-        symbol_button.size_hint = 0.15, 0.1
+        symbol_button.color_normal = 0.05, 0.5, 0.95, 1
+        symbol_button.color_down = 0, 0.15, 0.8, 1
+        symbol_button.size_hint_y = 0.1
         symbol_button.pos_hint = {'center': (0.5, 0.8)}
         symbol_button.on_release = self.open_alert_dialog
 
@@ -127,9 +128,9 @@ class ShowcaseApp(CupertinoApp):
         text_field.pos_hint = {'center': (0.5, 0.5)}
 
         instructions = CupertinoLabel()
-        instructions.text = 'Enter text below:'
+        instructions.text = 'Text View:'
         instructions.size_hint = 0.05, 0.1
-        instructions.pos_hint = {'right': 0.25, 'center_y': 0.4}
+        instructions.pos_hint = {'right': 0.175, 'center_y': 0.4}
 
         text_view = CupertinoTextView()
         text_view.size_hint = 0.95, 0.35
