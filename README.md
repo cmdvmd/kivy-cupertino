@@ -19,7 +19,7 @@ To install Kivy Cupertino from [PyPI](https://pypi.org/project/kivycupertino/), 
 $ pip install kivycupertino
 ```
 
-To use newly implemented widgets that have not yet been published to PyPI, install with `git`
+To use newly implemented functionalities that have not yet been published to PyPI, install with `git`
 (**not recommended for production use**):
 
 ```shell
