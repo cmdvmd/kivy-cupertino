@@ -5,7 +5,7 @@ Buttons allow users to execute actions with a single tap
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.symbol import CupertinoSymbol
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import StringProperty, BooleanProperty, NumericProperty, ColorProperty
+from kivy.properties import StringProperty, NumericProperty, BooleanProperty, ColorProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
@@ -15,7 +15,7 @@ __all__ = [
     'CupertinoSymbolButton'
 ]
 
-Builder.load_string(f"""
+Builder.load_string("""
 <CupertinoButton>:    
     font_size: 17
     color: root.text_color
@@ -47,6 +47,12 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
     text = StringProperty(' ')
     """
     A :class:`~kivy.properties.StringProperty` defining the text of
+    :class:`~kivycupertino.uix.button.CupertinoButton`
+    """
+
+    font_size = NumericProperty(15)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the font size of the text of
     :class:`~kivycupertino.uix.button.CupertinoButton`
     """
 
@@ -94,6 +100,12 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     :class:`~kivycupertino.uix.button.CupertinoSystemButton`
     """
 
+    font_size = NumericProperty(15)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the font size of the text of
+    :class:`~kivycupertino.uix.button.CupertinoSystemButton`
+    """
+
     disabled = BooleanProperty(False)
     """
     A :class:`~kivy.properties.BooleanProperty` defining if
@@ -124,11 +136,11 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     :class:`~kivycupertino.uix.button.CupertinoSystemButton` when disabled
     """
 
-    def on_state(self, widget, state):
+    def on_state(self, instance, state):
         """
         Callback when the state of :class:`~kivycupertino.uix.button.CupertinoSystemButton` changes
 
-        :param widget: Instance of :class:`~kivycupertino.uix.button.CupertinoSystemButton`
+        :param instance: Instance of :class:`~kivycupertino.uix.button.CupertinoSystemButton`
         :param state: State of :class:`~kivycupertino.uix.button.CupertinoSystemButton`
         """
 
@@ -138,7 +150,7 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
             animation = Animation(color=self.color_disabled, duration=self.transition_duration)
         else:
             animation = Animation(color=self.color_normal, duration=self.transition_duration)
-        animation.start(widget)
+        animation.start(instance)
 
 
 class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
@@ -184,11 +196,11 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton` when disabled
     """
 
-    def on_state(self, widget, state):
+    def on_state(self, instance, state):
         """
         Callback when the state of :class:`~kivycupertino.uix.button.CupertinoSymbolButton` changes
 
-        :param widget: Instance of :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
+        :param instance: Instance of :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
         :param state: State of :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
         """
 
@@ -198,4 +210,4 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
             animation = Animation(color=self.color_disabled, duration=self.transition_duration)
         else:
             animation = Animation(color=self.color_normal, duration=self.transition_duration)
-        animation.start(widget)
+        animation.start(instance)

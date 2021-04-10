@@ -2,10 +2,10 @@
 Controls allow users to control information on their screen
 """
 
-from kivycupertino.uix.button import CupertinoSystemButton
+from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, ColorProperty
-from kivy.graphics import Color, RoundedRectangle
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 from kivy.clock import Clock
 from kivy.lang.builder import Builder
 
@@ -15,6 +15,15 @@ __all__ = [
 ]
 
 Builder.load_string("""
+<_CupertinoSegment>:   
+    canvas.before:
+        Color:
+            rgba: self.color_selected if self.selected else (0, 0, 0, 0)
+        RoundedRectangle:
+            radius: 10,
+            size: self.size
+            pos: self.pos
+
 <CupertinoSegmentedControls>:
     orientation: 'horizontal'
     spacing: 3
@@ -63,6 +72,36 @@ Builder.load_string("""
 """)
 
 
+class _CupertinoSegment(ButtonBehavior, CupertinoLabel):
+    """
+    iOS style segment for :class:`~kivycupertino.uix.controls.CupertinoSegmented Controls`
+    """
+
+    text = StringProperty()
+    """
+    A :class:`~kivy.properties.StringProperty` defining the text
+    :class:`~kivycupertino.uix.control._CupertinoSegment`
+    """
+
+    selected = BooleanProperty(False)
+    """
+    A :class:`~kivy.properties.BooleanProperty` defining if
+    :class:`~kivycupertino.uix.control._CupertinoSegment` is selected
+    """
+
+    text_color = ColorProperty()
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of the text of
+    :class:`~kivycupertino.uix.control._CupertinoSegment`
+    """
+
+    color_selected = ColorProperty()
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the background color of
+    :class:`~kivycupertino.uix.control._CupertinoSegment` when selected
+    """
+
+
 class CupertinoSegmentedControls(BoxLayout):
     """
     iOS style Segmented Controls
@@ -94,25 +133,19 @@ class CupertinoSegmentedControls(BoxLayout):
     :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
     """
 
-    def on_selected(self, widget, text):
+    def on_selected(self, instance, text):
         """
         Callback when a new tab is selected
 
-        :param widget: Instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
+        :param instance: Instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
         :param text: Text of the selected tab
         """
 
         self.selected = text
-        tab = None
-        for child in self.children:
-            if child.text == text:
-                tab = child
-            child.canvas.before.clear()
-        with tab.canvas.before:
-            Color(rgba=self.color_selected)
-            RoundedRectangle(radius=(10,), size=tab.size, pos=tab.pos)
+        for tab in instance.children:
+            tab.selected = tab.text == text
 
-    def add_tab(self, text):
+    def add_segment(self, text):
         """
         Add a tab to :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
 
@@ -122,11 +155,9 @@ class CupertinoSegmentedControls(BoxLayout):
         for child in self.children:
             assert child.text != text, f'A tab named "{text}" already exists'
 
-        tab = CupertinoSystemButton(
+        tab = _CupertinoSegment(
             text=text,
-            markup=False,
-            color_normal=self.text_color,
-            color_down=self.text_color,
+            text_color=self.text_color,
             on_release=lambda button: setattr(self, 'selected', button.text)
         )
 

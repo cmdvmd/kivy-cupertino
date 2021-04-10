@@ -54,6 +54,9 @@ class CupertinoProgressbar(Widget):
     of :class:`~kivycupertino.uix.indicator.CupertinoProgressBar`
     """
 
+    def on_value(self, widget, value):
+        self.value = value % 101
+
 
 class CupertinoActivityIndicator(Widget):
     """

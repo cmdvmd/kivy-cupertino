@@ -82,8 +82,8 @@ class ShowcaseApp(CupertinoApp):
         segmented_controls = CupertinoSegmentedControls()
         segmented_controls.size_hint = 0.7, 0.075
         segmented_controls.pos_hint = {'center': (0.5, 0.9)}
-        segmented_controls.add_tab('Segmented')
-        segmented_controls.add_tab('Controls')
+        segmented_controls.add_segment('Segmented')
+        segmented_controls.add_segment('Controls')
 
         self.progressbar = CupertinoProgressbar()
         self.progressbar.size_hint = 0.95, 0.01

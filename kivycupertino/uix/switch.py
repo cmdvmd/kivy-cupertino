@@ -12,7 +12,9 @@ __all__ = [
 ]
 
 Builder.load_string("""
-<CupertinoSwitch>:     
+<CupertinoSwitch>: 
+    on_press: self.toggled = not self.toggled
+        
     canvas.before:
         Color:
             rgba: root.background_toggled if root.toggled else root.background_untoggled
@@ -72,10 +74,3 @@ class CupertinoSwitch(ButtonBehavior, Widget):
     A :class:`~kivy.properties.ColorProperty` defining the padding around the thumb of
     :class:`~kivycupertino.uix.switch.CupertinoSwitch`
     """
-
-    def on_press(self):
-        """
-        Callback when :class:`~kivycupertino.uix.switch.CupertinoSwitch` is pressed
-        """
-
-        self.toggled = not self.toggled

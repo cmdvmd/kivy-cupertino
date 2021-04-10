@@ -7,6 +7,7 @@ from kivy.factory import Factory
 Factory.register('CupertinoNavigationBar', module='kivycupertino.uix.bar')
 Factory.register('CupertinoTabBar', module='kivycupertino.uix.bar')
 Factory.register('CupertinoButton', module='kivycupertino.uix.button')
+Factory.register('CupertinoBackButton', module='kivycupertino.uix.button')
 Factory.register('CupertinoSystemButton', module='kivycupertino.uix.button')
 Factory.register('CupertinoSymbolButton', module='kivycupertino.uix.button')
 Factory.register('CupertinoSegmentedControls', module='kivycupertino.uix.control')

@@ -15,6 +15,7 @@ guaranteed. We don't recommend using Kivy Cupertino in production
    _source/dialog
    _source/indicator
    _source/label
+   _source/page
    _source/scrollview
    _source/slider
    _source/switch

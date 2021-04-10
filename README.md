@@ -1,4 +1,4 @@
-<img src="https://github.com/cmdvmd/kivy-cupertino/blob/main/logo.png?raw=true" align="right" width="100" height="100"/>
+<img src="https://github.com/cmdvmd/kivy-cupertino/blob/main/logo.png?raw=true" align="right" width="150" height="150"/>
 
 # Kivy Cupertino
 
@@ -53,10 +53,11 @@ for an example of all widgets in Kivy Cupertino
 | Date Picker | 📝 |
 | Label | ✔ |
 | Navigation Bar | ✔ |
-| Page Controls | 📝 |
+| Page Controls | ✔ |
 | Picker | 📝 |
 | Progress Bar | ✔ |
 | Scroll View | ✔ |
+| Screen Manager | ✔ |
 | Search Bar | ✔ |
 | Segmented Controls | ✔ |
 | Slider | ✔ |

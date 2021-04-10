@@ -103,13 +103,13 @@ class _CupertinoTab(ButtonBehavior, BoxLayout):
     iOS style tab for :class:`~kivycupertino.uix.bar.CupertinoTabBar`
     """
 
-    text = StringProperty(' ')
+    text = StringProperty()
     """
     A :class:`~kivy.properties.StringProperty` defining the text of
     :class:`~kivycupertino.uix.bar._CupertinoTab`
     """
 
-    symbol = StringProperty(' ')
+    symbol = StringProperty()
     """
     A :class:`~kivy.properties.StringProperty` defining the symbol of
     :class:`~kivycupertino.uix.bar._CupertinoTab`
