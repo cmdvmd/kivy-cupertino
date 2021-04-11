@@ -1,3 +1,44 @@
+"""
+iOS Style Dialogs
+
+Usage:
+-------
+
+**Cupertino Action Sheet**
+
+.. image:: ../../_static/action_sheet.gif
+
+.. code-block:: python
+
+    @staticmethod
+    def open_action_sheet():
+        action_sheet = CupertinoActionSheet()
+        action_sheet.add_action('Sheet', action_sheet.dismiss)
+        action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
+        action_sheet.open()
+..
+
+**Cupertino Alert Dialog**
+
+.. image:: ../../_static/alert_dialog.gif
+
+.. code-block:: python
+
+    @staticmethod
+    def open_action_sheet():
+        action_sheet = CupertinoActionSheet()
+        action_sheet.add_action('Sheet', action_sheet.dismiss)
+        action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
+        action_sheet.open()
+..
+
+Api
+----
+
+"""
+
+
+
 from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.modalview import ModalView
@@ -149,8 +190,6 @@ class _CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
 class CupertinoActionSheet(ModalView):
     """
     iOS style Action Sheet
-
-    .. image:: ../_static/action_sheet.gif
     """
 
     curve = NumericProperty(10)
@@ -181,8 +220,6 @@ class CupertinoActionSheet(ModalView):
 class CupertinoAlertDialog(ModalView):
     """
     iOS style Alert Dialog
-
-    .. image:: ../_static/alert_dialog.gif
     """
 
     title = StringProperty(' ')

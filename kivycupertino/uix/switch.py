@@ -1,5 +1,35 @@
 """
 Switches allow users to toggle settings off/on
+
+Usage:
+------
+
+.. image:: ../../_static/switch.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.switch import CupertinoSwitch
+    from kivy.uix.floatlayout import FloatLayout
+
+    class TestApp(CupertinoApp):
+
+        def update(self, bar):
+            bar.value += 1
+
+        def build(self):
+            layout = FloatLayout()
+
+            switch = CupertinoSwitch(size_hint=[0.25, 0.1], pos_hint={'center': (0.5, 0.5)})
+
+            layout.add_widget(switch)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+
 """
 
 from kivy.uix.behaviors.button import ButtonBehavior
@@ -41,8 +71,6 @@ class CupertinoSwitch(ButtonBehavior, Widget):
     """
     iOS style Switch. To comply with iOS standard, keep the width to height ratio of
     :class:`~kivycupertino.uix.switch.CupertinoSwitch` at 2:1
-
-    .. image:: ../_static/switch.gif
     """
 
     toggled = BooleanProperty(False)

@@ -1,5 +1,92 @@
 """
 Text fields allow users to enter input
+
+Usage:
+------
+
+**Cupertino Search Bar**
+
+.. image:: ../../_static/search_bar.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.textinput import CupertinoSearchBar
+    from kivy.uix.floatlayout import FloatLayout
+
+
+    class TestApp(CupertinoApp):
+
+        def build(self):
+            layout = FloatLayout()
+
+            search_bar = CupertinoSearchBar(size_hint=[0.9, 0.075], pos_hint={'center': (0.5, 0.5)})
+
+            layout.add_widget(search_bar)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+..
+
+**Cupertino Text Field**
+
+.. image:: ../../_static/text_field.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.textinput import CupertinoTextField
+    from kivy.uix.floatlayout import FloatLayout
+
+
+    class TestApp(CupertinoApp):
+
+        def build(self):
+            layout = FloatLayout()
+
+            text = CupertinoTextField(hint_text='Hint', size_hint=[0.9, 0.075], pos_hint={'center': (0.5, 0.5)})
+
+            layout.add_widget(text)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+..
+
+**Cupertino Text View**
+
+.. image:: ../../_static/text_view.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.textinput import CupertinoTextView
+    from kivy.uix.floatlayout import FloatLayout
+
+
+    class TestApp(CupertinoApp):
+
+        def build(self):
+            layout = FloatLayout()
+
+            text = CupertinoTextView(size_hint=[0.9, 0.075], pos_hint={'center': (0.5, 0.5)})
+
+            layout.add_widget(text)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+..
+
+Api:
+-----
 """
 
 from kivy.uix.textinput import TextInput
@@ -75,8 +162,6 @@ Builder.load_string("""
 class CupertinoTextField(TextInput):
     """
     iOS style Text Field to be used for single-line input
-
-    .. image:: ../_static/text_field.gif
     """
 
     hint_text = StringProperty('')
@@ -101,8 +186,6 @@ class CupertinoTextField(TextInput):
 class CupertinoTextView(TextInput):
     """
     iOS style Text View for multiline input
-
-    .. image:: ../_static/text_view.gif
     """
 
     background_color = ColorProperty([0, 0, 0, 0])
@@ -121,8 +204,6 @@ class CupertinoTextView(TextInput):
 class CupertinoSearchBar(BoxLayout):
     """
     iOS style search bar
-
-    .. image:: ../_static/search_bar.gif
     """
 
     background_color = ColorProperty([0.85, 0.85, 0.85, 0.7])

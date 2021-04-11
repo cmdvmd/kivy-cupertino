@@ -8,6 +8,8 @@ A program to show all widgets in Kivy Cupertino
 __author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunossauro>
 __maintainer__ = 'cmdvmd'
 
+import sys
+sys.path.append("..")
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar
 from kivycupertino.uix.label import CupertinoLabel
