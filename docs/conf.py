@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Kivy Cupertino'
-copyright = '2021, cmdvmd & arnavs-0'
-author = 'cmdvmd & arnavs-0'
+copyright = '2021, cmdvmd, arnavs-0'
+author = 'cmdvmd, arnavs-0'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.1-beta'
