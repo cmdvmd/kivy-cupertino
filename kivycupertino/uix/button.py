@@ -1,5 +1,94 @@
 """
 Buttons allow users to execute actions with a single tap
+
+Usage:
+------
+
+**Cupertino Button**
+
+.. image:: ../../_static/button.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.button import CupertinoButton
+    from kivy.uix.floatlayout import FloatLayout
+
+
+    class TestApp(CupertinoApp):
+        def build(self):
+            layout = FloatLayout()
+
+            button = CupertinoButton(text="Button", size_hint=[0.8, 0.1], pos_hint={'center': (0.5, 0.5)})
+
+            layout.add_widget(button)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+..
+
+**Cupertino System Button**
+
+.. image:: ../../_static/system_button.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.button import CupertinoSystemButton
+    from kivy.uix.floatlayout import FloatLayout
+
+    class TestApp(CupertinoApp):
+        def build(self):
+            layout = FloatLayout()
+
+            button = CupertinoSystemButton(text="Action", size_hint=[0.8, 0.1], pos_hint={'center': (0.5, 0.5)})
+
+            layout.add_widget(button)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+..
+
+
+**Cupertino Symbol Button**
+
+.. image:: ../../_static/symbol_button.gif
+
+.. code-block:: python
+
+    from kivycupertino.app import CupertinoApp
+    from kivycupertino.uix.button import CupertinoSymbolButton
+    from kivy.uix.floatlayout import FloatLayout
+
+
+    class TestApp(CupertinoApp):
+        def build(self):
+            layout = FloatLayout()
+
+            button = CupertinoSymbolButton(symbol="info",
+                                           size_hint=[0.8, 0.1],
+                                           pos_hint={'center': (0.5, 0.5)},
+                                           color_normal=[0.05, 0.5, 0.95, 1],
+                                           color_down=[0, 0.15, 0.8, 1])
+
+            layout.add_widget(button)
+
+            return layout
+
+    if __name__ == '__main__':
+        app = TestApp()
+        app.run()
+..
+
+Api:
+----
+
 """
 
 from kivycupertino.uix.label import CupertinoLabel
@@ -40,8 +129,6 @@ Builder.load_string("""
 class CupertinoButton(ButtonBehavior, CupertinoLabel):
     """
     iOS style button
-
-    .. image:: ../_static/button.gif
     """
 
     text = StringProperty(' ')
@@ -90,8 +177,6 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
 class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     """
     iOS style System Button
-
-    .. image:: ../_static/system_button.gif
     """
 
     text = StringProperty(' ')
@@ -156,8 +241,6 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
 class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     """
     iOS style button that displays a symbol
-
-    .. image:: ../_static/symbol_button.gif
     """
 
     symbol = StringProperty(' ')

@@ -2,9 +2,9 @@
 Symbols help portray an action with a simple symbol. To test all symbols
 in Kivy Cupertino, run the Symbols program (below)
 
-:download:`Symbols <../../examples/symbols.py>`
+:download:`Symbols <../../../examples/symbols.py>`
 
-.. image:: ../_static/symbol_showcase.gif
+.. image:: ../../_static/symbol_showcase.gif
 """
 
 from kivycupertino import root_path
@@ -28,7 +28,7 @@ class CupertinoSymbol(Label):
     """
     Display an iOS style symbol.
 
-    .. image:: ../_static/symbol.png
+    .. image:: ../../_static/symbol.png
     """
 
     symbol = StringProperty(' ')

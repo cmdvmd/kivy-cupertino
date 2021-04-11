@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Kivy Cupertino'
-copyright = '2021, cmdvmd'
-author = 'cmdvmd'
+copyright = '2021, cmdvmd, arnavs-0'
+author = 'cmdvmd, arnavs-0'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.1-beta'
@@ -32,7 +32,13 @@ release = '0.1.1-beta'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.doctest',
+    'sphinx.ext.inheritance_diagram'
+]
 
 # Mock imports to reduce import errors
 autodoc_mock_imports = ['kivy']
@@ -54,7 +60,11 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'sphinx_rtd_theme'
 html_favicon = '../logo.png'
 html_logo = '../logo.png'
-
+html_theme_options = {
+    "collapse_navigation" : False,
+    "titles_only": True,
+    "navigation_depth": 2,
+}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
