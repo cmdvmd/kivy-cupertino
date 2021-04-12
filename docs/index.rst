@@ -1,9 +1,6 @@
 Kivy Cupertino
 ==============
 
-.. image:: _static/mail_app.png
-
-
 Kivy Cupertino is a collection of iOS style widgets following
 `Apple's Human Interface <https://developer.apple.com/design/human-interface-guidelines/>`_
 guidelines. It is created to use for `Kivy's <https://kivy.org/#home>`_ cross platform framework.
