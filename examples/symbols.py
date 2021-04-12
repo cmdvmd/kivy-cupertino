@@ -78,7 +78,7 @@ class SymbolsApp(CupertinoApp):
 
 
 Window.clearcolor = (0.98, 0.98, 0.98, 1)
-Window.size = (300, 500)
+Window.size = (300, 530)
 
 if __name__ == '__main__':
     app = SymbolsApp()

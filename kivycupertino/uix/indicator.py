@@ -1,78 +1,39 @@
 """
 Indicators help show progress to users
 
-Usage:
-------
-
 **Activity Indicator**
 
-.. image:: ../../_static/activity_indicator.gif
+.. image:: ../_static/activity_indicator.gif
+
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.indicator import CupertinoActivityIndicator
-    from kivy.uix.floatlayout import FloatLayout
+   activity_indicator = CupertinoActivityIndicator()
+   activity_indicator.start()
 
+**KV**
 
-    class TestApp(CupertinoApp):
+.. code-block::
 
-        def build(self):
-            layout = FloatLayout()
+   CupertinoActivityIndicator:
 
-            activity_indicator = CupertinoActivityIndicator(size_hint=[0.1, 0.1], pos_hint={'center': (0.5, 0.2)})
-            activity_indicator.start()
+Progress Bar
+------------
 
-            layout.add_widget(activity_indicator)
+.. image:: ../_static/progressbar.gif
 
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-**Progress Bar**
-
-.. image:: ../../_static/progressbar.gif
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivy.clock import Clock
-    from kivycupertino.uix.indicator import CupertinoProgressbar
-    from kivy.uix.floatlayout import FloatLayout
-    from kivy.core.window import Window
+   bar = CupertinoProgressbar()
 
+**KV**
 
-    class TestApp(CupertinoApp):
+.. code-block::
 
-        def update(self, bar):
-            bar.value += 1
-
-        def build(self):
-            layout = FloatLayout()
-            bar = CupertinoProgressbar(size_hint_x=0.9, size_hint_y=0.05, pos_hint={'center': (0.5, 0.5)})
-
-            layout.add_widget(bar)
-
-            Clock.schedule_interval(lambda dt: self.update(bar), 0.075)
-
-            return layout
-
-
-        Window.clearcolor = 0.98, 0.98, 0.98, 1
-
-
-    Window.size = (300, 500)
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-Api:
-----
+   CupertinoProgressbar:
 """
 
 from kivy.uix.widget import Widget

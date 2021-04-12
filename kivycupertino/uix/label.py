@@ -1,36 +1,23 @@
 """
 Labels display text to users
 
-Usage:
-------
+Label
+-----
 
-.. image:: ../../_static/label.png
+.. image:: ../_static/label.png
+
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.label import CupertinoLabel
-    from kivy.uix.floatlayout import FloatLayout
+   label = CupertinoLabel(text='Hello World')
 
-    class TestApp(CupertinoApp):
+**KV**
 
-        def build(self):
-            layout = FloatLayout()
+.. code-block::
 
-            label = CupertinoLabel(text='label', font_name='San Francisco', pos_hint={'center': (0.5, 0.5)})
-
-            layout.add_widget(label)
-
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-Api:
-----
-
+   CupertinoLabel:
+       text: 'Hello World'
 """
 
 from kivy.uix.label import Label
@@ -44,8 +31,6 @@ __all__ = [
 class CupertinoLabel(Label):
     """
     iOS style Label
-
-    .. image:: ../../_static/label.png
     """
 
     text = StringProperty(' ')

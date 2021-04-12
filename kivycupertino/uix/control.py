@@ -1,62 +1,26 @@
 """
 Controls allow users to control information on their screen
 
-**Segmented Controls:**
+Segmented Controls
+------------------
 
-.. image:: ../../_static/segmented_controls.gif
+.. image:: ../_static/segmented_controls.gif
 
-Usage:
-------
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.control import CupertinoSegmentedControls
-    from kivy.uix.floatlayout import FloatLayout
+   segmented_controls = CupertinoSegmentedControls()
+   segmented_controls.add_tab('Segmented')
+   segmented_controls.add_tab('Controls')
 
 
-    class TestApp(CupertinoApp):
-        def build(self):
-            layout = FloatLayout()
+Stepper
+-------
 
-            segmented_controls = CupertinoSegmentedControls(size_hint=[0.7, 0.075], pos_hint={'center': (0.5, 0.9)})
-            segmented_controls.add_tab('Segmented')
-            segmented_controls.add_tab('Controls')
+.. image:: ../_static/stepper.gif
 
-            layout.add_widget(segmented_controls)
-
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-**Stepper:**
-
-.. image:: ../../_static/stepper.gif
-
-Usage:
-------
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.control import CupertinoStepper
-    from kivy.uix.floatlayout import FloatLayout
-
-    class TestApp(CupertinoApp):
-        def build(self):
-            layout = FloatLayout()
-
-            stepper = CupertinoStepper(size_hint=[0.2, 0.075], pos_hint={'right': 0.25, 'center_y': 0.55})
-
-            layout.add_widget(stepper)
-
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
+   stepper = CupertinoStepper()
 """
 
 from kivycupertino.uix.label import CupertinoLabel

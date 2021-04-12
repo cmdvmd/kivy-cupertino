@@ -2,40 +2,59 @@
 Bars are generally positioned at the top or bottom of a screen and
 contain widgets and/or information for easy access by users
 
-Usage:
-------
+Navigation Bar
+--------------
 
-.. image:: ../../_static/navigation_bar.png
+.. image:: ../_static/navigation_bar.png
+
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.bar import CupertinoNavigationBar
-    from kivy.uix.boxlayout import BoxLayout
-    from kivy.uix.floatlayout import FloatLayout
-    
-    
-    class Navigation(CupertinoApp):
-        def build(self):
-            layout = BoxLayout()
-            layout.orientation = 'vertical'
+   nav_bar = CupertinoNavigationBar()
 
-            navigation_bar = CupertinoNavigationBar()
+**KV**
 
-            self.contents = FloatLayout()
+.. code-block::
 
-            layout.add_widget(navigation_bar)
-            layout.add_widget(self.contents)
+   CupertinoNavigationBar:
 
-            return layout
-    if __name__ == '__main__':
-        app = ShowcaseApp()
-        app.run()
-..
+Toolbar
+-------
 
-Api:
-----
+.. image:: ../_static/toolbar.png
 
+**Python**
+
+.. code-block:: python
+
+   toolbar = CupertinoToolbar()
+
+**KV**
+
+.. code-block::
+
+   CupertinoToolbar:
+
+Tab Bar
+-------
+
+.. image:: ../_static/tab_bar.gif
+
+**Python**
+
+.. code-block:: python
+
+   tab_bar = CupertinoTabBar()
+   tab_bar.add_tab('Stars', 'star_fill')
+   tab_bar.add_tab('People', 'person_circle')
+   tab_bar.add_tab('Recents', 'clock_fill')
+
+**KV**
+
+.. code-block::
+
+   CupertinoTabBar:
 """
 
 from kivy.uix.floatlayout import FloatLayout
@@ -120,8 +139,6 @@ class CupertinoToolbar(FloatLayout):
     """
     iOS style Toolbar. :class:`~kivycupertino.uix.bar.CupertinoToolbar`
     is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
-
-    .. image:: ../../_static/toolbar.png
     """
 
     color = ColorProperty([0.95, 0.95, 0.95, 1])
@@ -170,8 +187,6 @@ class _CupertinoTab(ButtonBehavior, BoxLayout):
 class CupertinoTabBar(CupertinoToolbar):
     """
     iOS style tab bar
-
-    .. image:: ../../_static/tab_bar.gif
     """
 
     selected = StringProperty(' ')

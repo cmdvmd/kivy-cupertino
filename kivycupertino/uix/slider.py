@@ -1,35 +1,22 @@
 """
 Sliders allow users to choose values
 
-Usage:
+Slider
 ------
 
-.. image:: ../../_static/slider.gif
+.. image:: ../_static/slider.gif
+
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.slider import CupertinoSlider
-    from kivy.uix.floatlayout import FloatLayout
+   slider = CupertinoSlider()
 
-    class TestApp(CupertinoApp):
+**KV**
 
-        def build(self):
-            layout = FloatLayout()
+.. code-block::
 
-            slider = CupertinoSlider(size_hint=[0.8, 0.1], pos_hint={'center': (0.5, 0.5)})
-
-            layout.add_widget(slider)
-
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-Api:
-----
+   CupertinoSlider:
 """
 
 from kivy.uix.widget import Widget

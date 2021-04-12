@@ -1,40 +1,38 @@
 """
 iOS Style Dialogs
 
-Usage:
--------
+Action Sheet
+------------
 
-**Cupertino Action Sheet**
-
-.. image:: ../../_static/action_sheet.gif
+.. image:: ../_static/action_sheet.gif
 
 .. code-block:: python
 
-    @staticmethod
-    def open_action_sheet():
-        action_sheet = CupertinoActionSheet()
-        action_sheet.add_action('Sheet', action_sheet.dismiss)
-        action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
-        action_sheet.open()
-..
+   action_sheet = CupertinoActionSheet()
+   action_sheet.add_action('Sheet', action_sheet.dismiss)
+   action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
+   action_sheet.open()
 
-**Cupertino Alert Dialog**
+Alert Dialog
+------------
 
-.. image:: ../../_static/alert_dialog.gif
+.. image:: ../_static/alert_dialog.gif
+
+**Python**
 
 .. code-block:: python
 
-    @staticmethod
-    def open_action_sheet():
-        action_sheet = CupertinoActionSheet()
-        action_sheet.add_action('Sheet', action_sheet.dismiss)
-        action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
-        action_sheet.open()
-..
+   alert_dialog = CupertinoAlertDialog(title='Alert Dialog', content='Example message')
+   action_sheet.add_action('Close', alert_dialog.dismiss)
+   action_sheet.open()
 
-Api
-----
+**KV**
 
+.. code-block::
+
+   CupertinoAlertDialog:
+       title: 'Alert Dialog'
+       content: 'Example message'
 """
 
 

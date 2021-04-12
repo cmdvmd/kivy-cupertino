@@ -1,92 +1,58 @@
 """
 Text fields allow users to enter input
 
-Usage:
-------
+Search Bar
+----------
 
-**Cupertino Search Bar**
+.. image:: ../_static/search_bar.gif
 
-.. image:: ../../_static/search_bar.gif
-
-.. code-block:: python
-
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.textinput import CupertinoSearchBar
-    from kivy.uix.floatlayout import FloatLayout
-
-
-    class TestApp(CupertinoApp):
-
-        def build(self):
-            layout = FloatLayout()
-
-            search_bar = CupertinoSearchBar(size_hint=[0.9, 0.075], pos_hint={'center': (0.5, 0.5)})
-
-            layout.add_widget(search_bar)
-
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-**Cupertino Text Field**
-
-.. image:: ../../_static/text_field.gif
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.textinput import CupertinoTextField
-    from kivy.uix.floatlayout import FloatLayout
+   search_bar = CupertinoSearchBar()
 
+**KV**
 
-    class TestApp(CupertinoApp):
+.. code-block::
 
-        def build(self):
-            layout = FloatLayout()
+   CupertinoSearchBar
 
-            text = CupertinoTextField(hint_text='Hint', size_hint=[0.9, 0.075], pos_hint={'center': (0.5, 0.5)})
+Text Field
+----------
 
-            layout.add_widget(text)
+.. image:: ../_static/text_field.gif
 
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-**Cupertino Text View**
-
-.. image:: ../../_static/text_view.gif
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivycupertino.uix.textinput import CupertinoTextView
-    from kivy.uix.floatlayout import FloatLayout
+   text_field = CupertinoTextField(hint_text='Text Field')
+
+**KV**
+
+.. code-block::
+
+   CupertinoTextField:
+       hint_text: 'Text Field'
+
+Text View
+---------
+
+.. image:: ../_static/text_view.gif
+
+**Python**
+
+.. code-block:: python
+
+   text_view = CupertinoTextView()
 
 
-    class TestApp(CupertinoApp):
+**KV**
 
-        def build(self):
-            layout = FloatLayout()
+.. code-block::
 
-            text = CupertinoTextView(size_hint=[0.9, 0.075], pos_hint={'center': (0.5, 0.5)})
-
-            layout.add_widget(text)
-
-            return layout
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-Api:
------
+   CupertinoTextView:
 """
 
 from kivy.uix.textinput import TextInput
@@ -152,8 +118,8 @@ Builder.load_string("""
         foreground_color: root.foreground_color
     CupertinoSymbolButton:
         symbol: 'xmark_circle_fill' if textfield.text else ' '
-        symbol_color: root.symbol_color
-        background_down: 0, 0, 0, 0
+        color_normal: root.symbol_color
+        color_down: 0, 0, 0, 0
         on_release: textfield.text = ''
         size_hint_x: 0.05
 """)

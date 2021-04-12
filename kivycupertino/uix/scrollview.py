@@ -1,39 +1,29 @@
 """
 ScrollViews help show lots of information within a set screen size
 
-Usage:
-------
+ScrollView
+----------
 
-.. image:: ../../_static/scrollview.gif
+.. image:: ../_static/scrollview.gif
+
+**Python**
 
 .. code-block:: python
 
-    from kivycupertino.app import CupertinoApp
-    from kivy.uix.gridlayout import GridLayout
-    from kivycupertino.uix.label import CupertinoLabel
-    from kivycupertino.uix.scrollview import CupertinoScrollView
+   scrollview = CupertinoScrollView()
+   layout = GridLayout(cols=1, size_hint_y=None)
+   layout.bind(minimum_height=layout.setter('height'))
+   scrollview.add_widget(layout)
 
-    class TestApp(CupertinoApp):
+**KV**
 
-        def build(self):
-            scrollview = CupertinoScrollView()
-            layout = GridLayout(cols=1, size_hint_y=None)
-            layout.bind(minimum_height=layout.setter('height'))
+.. code-block::
 
-            for i in range(10):
-                layout.add_widget(CupertinoLabel(text=f'Item {i+1}', size_hint_y=None))
-
-            scrollview.add_widget(layout)
-
-            return scrollview
-
-    if __name__ == '__main__':
-        app = TestApp()
-        app.run()
-..
-
-Api:
------
+   CupertinoScrollView:
+       GridLayout:
+           cols: 1
+           size_hint_y: None
+           height: self.minimum_height
 """
 
 from kivy.uix.scrollview import ScrollView

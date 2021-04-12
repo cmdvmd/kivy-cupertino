@@ -101,7 +101,7 @@ class ShowcaseApp(CupertinoApp):
         )
 
         slider = CupertinoSlider()
-        slider.size_hint = 0.8, 0.1
+        slider.size_hint = 0.8, 0.075
         slider.pos_hint = {'center': (0.5, 0.45)}
 
         self.contents.add_widget(segmented_controls)
@@ -185,7 +185,7 @@ class ShowcaseApp(CupertinoApp):
 
 
 Window.clearcolor = 0.98, 0.98, 0.98, 1
-Window.size = (300, 500)
+Window.size = (300, 530)
 
 if __name__ == '__main__':
     app = ShowcaseApp()
