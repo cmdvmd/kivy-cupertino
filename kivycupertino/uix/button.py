@@ -37,6 +37,40 @@ System Button
    CupertinoSystemButton:
        text: 'Send'
 
+Back Button
+-----------
+
+.. image:: ../_static/back_button.gif
+
+**Python**
+
+.. code-block:: python
+
+   back_button = CupertinoBackButton()
+
+**KV**
+
+.. code-block::
+
+   CupertinoBackButton:
+
+Next Button
+-----------
+
+.. image:: ../_static/next_button.gif
+
+**Python**
+
+.. code-block:: python
+
+   back_button = CupertinoNextButton()
+
+**KV**
+
+.. code-block::
+
+   CupertinoNextButton:
+
 Symbol Button
 -------------
 
@@ -84,6 +118,14 @@ Builder.load_string("""
 
 <CupertinoSystemButton>:
     color: self.color_normal
+
+<CupertinoBackButton>:
+    text: '‹'
+    font_size: min(self.size)
+
+<CupertinoNextButton>:
+    text: '›'
+    font_size: min(self.size)
 
 <CupertinoSymbolButton>:
     color: self.color_normal
@@ -201,6 +243,84 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
         else:
             animation = Animation(color=self.color_normal, duration=self.transition_duration)
         animation.start(instance)
+
+
+class CupertinoBackButton(CupertinoSystemButton):
+    """
+    iOS style back button
+    """
+
+    font_size = NumericProperty(15)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the font size of the text of
+    :class:`~kivycupertino.uix.button.CupertinoBackButton`
+    """
+
+    disabled = BooleanProperty(False)
+    """
+    A :class:`~kivy.properties.BooleanProperty` defining if
+    :class:`~kivycupertino.uix.button.CupertinoBackButton` is disabled
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the duration of the transition of the color of
+    :class:`~kivycupertino.uix.button.CupertinoBackButton` when its state changes
+    """
+
+    color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of
+    :class:`~kivycupertino.uix.button.CupertinoBackButton` when not pressed or disabled
+    """
+
+    color_down = ColorProperty([0, 0.15, 0.3, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of
+    :class:`~kivycupertino.uix.button.CupertinoBackButton` when disabled
+    """
+
+    color_disabled = ColorProperty([0, 0.3, 0.4, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of
+    :class:`~kivycupertino.uix.button.CupertinoBackButton` when disabled
+    """
+
+
+class CupertinoNextButton(CupertinoSystemButton):
+    """
+    iOS style next button
+    """
+
+    disabled = BooleanProperty(False)
+    """
+    A :class:`~kivy.properties.BooleanProperty` defining if
+    :class:`~kivycupertino.uix.button.CupertinoNextButton` is disabled
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    A :class:`~kivy.properties.NumericProperty` defining the duration of the transition of the color of
+    :class:`~kivycupertino.uix.button.CupertinoNextButton` when its state changes
+    """
+
+    color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of
+    :class:`~kivycupertino.uix.button.CupertinoNextButton` when not pressed or disabled
+    """
+
+    color_down = ColorProperty([0, 0.15, 0.3, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of
+    :class:`~kivycupertino.uix.button.CupertinoNextButton` when disabled
+    """
+
+    color_disabled = ColorProperty([0, 0.3, 0.4, 1])
+    """
+    A :class:`~kivy.properties.ColorProperty` defining the color of
+    :class:`~kivycupertino.uix.button.CupertinoNextButton` when disabled
+    """
 
 
 class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):

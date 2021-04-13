@@ -11,13 +11,6 @@ Many widgets are not yet implemented and stability is not guaranteed
 [![Documentation Status](https://readthedocs.org/projects/kivy-cupertino/badge/?version=latest)](https://kivy-cupertino.rtfd.io)
 [![Downloads](https://pepy.tech/badge/kivycupertino)](https://pepy.tech/project/kivycupertino)
 
-<p>
-    <a href="https://github.com/cmdvmd/kivy-cupertino/blob/main/examples/showcase.py">
-        <img src="https://github.com/cmdvmd/kivy-cupertino/blob/main/docs/_static/showcase.gif?raw=true" width="164" height="320"/>
-    </a>
-    <img src="https://github.com/cmdvmd/kivy-cupertino/blob/main/docs/_static/mail_app.png?raw=true" width="164" height="320"/>
-</p>
-
 ## Installation
 
 To install Kivy Cupertino from [PyPI](https://pypi.org/project/kivycupertino/), use `pip`:
@@ -40,6 +33,13 @@ $ python setup.py install
 - [Kivy](https://kivy.org/doc/stable/gettingstarted/installation.html)
 - [Python 3](https://www.python.org/downloads)
 
+## Examples
+
+Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/examples/showcase.py)
+for an example of all widgets in Kivy Cupertino
+
+![Showcase App](https://github.com/cmdvmd/kivy-cupertino/blob/main/docs/_static/showcase.gif?raw=true)
+
 ## Functionalities
 
 | Functionality | Status |
@@ -49,10 +49,12 @@ $ python setup.py install
 | Action Sheet | ✔ |
 | Activity Indicator | ✔ |
 | Alert Dialog | ✔ |
+| Back Button | ✔ |
 | Button | ✔ |
 | Date Picker | 📝 |
 | Label | ✔ |
 | Navigation Bar | ✔ |
+| Next Button | ✔ |
 | Page Controls | ✔ |
 | Picker | 📝 |
 | Progress Bar | ✔ |
