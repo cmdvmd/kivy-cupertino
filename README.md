@@ -35,10 +35,7 @@ $ python setup.py install
 
 ## Examples
 
-Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/examples/showcase.py)
-for an example of all widgets in Kivy Cupertino
-
-![Showcase App](https://github.com/cmdvmd/kivy-cupertino/blob/main/docs/_static/showcase.gif?raw=true)
+Check out the Showcase app for an example of all widgets in Kivy Cupertino
 
 ## Functionalities
 

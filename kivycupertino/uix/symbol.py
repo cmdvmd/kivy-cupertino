@@ -2,8 +2,6 @@
 Symbols help portray an action with a simple symbol. To test all symbols
 in Kivy Cupertino, run the Symbols program (below)
 
-:download:`Symbols <../../examples/symbols.py>`
-
 .. image:: ../_static/symbol_showcase.gif
 
 Symbol

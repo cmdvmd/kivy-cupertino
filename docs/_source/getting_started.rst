@@ -26,8 +26,4 @@ To use newly implemented widgets that have not yet been published to PyPI, insta
 Examples
 --------
 
-To test all widgets in Kivy Cupertino, run the Showcase program (below)
-
-:download:`Showcase <../../examples/showcase.py>`
-
-.. image:: ../_static/showcase.gif
+To test all widgets in Kivy Cupertino, run the Showcase program.
