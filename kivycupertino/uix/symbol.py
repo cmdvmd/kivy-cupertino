@@ -67,6 +67,6 @@ class CupertinoSymbol(Label):
         :param symbol: Symbol to be displayed
         """
 
-        with open(root_path + 'symbols.json', 'r') as json:
+        with open(root_path + '/data/symbols.json', 'r') as json:
             symbols = load(json)
         self.text = chr(eval(symbols[symbol])) if symbol != ' ' else '\u2800'

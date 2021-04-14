@@ -1,0 +1,31 @@
+<HomeScreen>
+
+    BoxLayout:
+        orientation: "vertical"
+
+        CupertinoLabel:
+            text: "Kivy Cupertino Showcase"
+            bold: True
+            size_hint_y: None
+            height: self.texture_size[1]
+            padding: ["30dp", "30dp"]
+            font_size: "22sp"
+            canvas.before:
+                Color:
+                    rgba: 0.95, 0.95, 0.95, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+        RecycleView:
+            id: rv
+            viewclass: "CupertinoButton"
+
+            RecycleBoxLayout:
+                padding: "10dp"
+                spacing: "10dp"
+                default_size: None, dp(48)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: "vertical"

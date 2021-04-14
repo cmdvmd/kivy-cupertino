@@ -1,0 +1,62 @@
+{
+    "Home": {
+        "screen_name": "home",
+        "factory": "Factory.HomeScreen()",
+        "import": "from libs.baseclass.home_screen import HomeScreen"
+    },
+    "Bar": {
+        "screen_name": "bar",
+        "factory": "Factory.BarShowcaseScreen()",
+        "import": "from libs.baseclass.bar_screen import BarShowcaseScreen"
+    },
+    "Button": {
+        "screen_name": "button",
+        "factory": "Factory.ButtonShowcaseScreen()",
+        "import": "from libs.baseclass.button_screen import ButtonShowcaseScreen"
+    },
+    "Control": {
+        "screen_name": "control",
+        "factory": "Factory.ControlShowcaseScreen()",
+        "import": "from libs.baseclass.control_screen import ControlShowcaseScreen"
+    },
+    "Dialog": {
+        "screen_name": "dialog",
+        "factory": "Factory.DialogShowcaseScreen()",
+        "import": "from libs.baseclass.dialog_screen import DialogShowcaseScreen"
+    },
+    "Indicator": {
+        "screen_name": "indicator",
+        "factory": "Factory.IndicatorShowcaseScreen()",
+        "import": "from libs.baseclass.indicator_screen import IndicatorShowcaseScreen"
+    },
+    "Label": {
+        "screen_name": "label",
+        "factory": "Factory.LabelShowcaseScreen()",
+        "import": "from libs.baseclass.label_screen import LabelShowcaseScreen"
+    },
+    "Page": {
+        "screen_name": "page",
+        "factory": "Factory.PageShowcaseScreen()",
+        "import": "from libs.baseclass.page_screen import PageShowcaseScreen"
+    },
+    "Slider": {
+        "screen_name": "slider",
+        "factory": "Factory.SliderShowcaseScreen()",
+        "import": "from libs.baseclass.slider_screen import SliderShowcaseScreen"
+    },
+    "Switch": {
+        "screen_name": "switch",
+        "factory": "Factory.SwitchShowcaseScreen()",
+        "import": "from libs.baseclass.switch_screen import SwitchShowcaseScreen"
+    },
+    "Symbol": {
+        "screen_name": "symbol",
+        "factory": "Factory.SymbolShowcaseScreen()",
+        "import": "from libs.baseclass.symbol_screen import SymbolShowcaseScreen"
+    },
+    "Textinput": {
+        "screen_name": "textinput",
+        "factory": "Factory.TextinputShowcaseScreen()",
+        "import": "from libs.baseclass.textinput_screen import TextinputShowcaseScreen"
+    }
+}

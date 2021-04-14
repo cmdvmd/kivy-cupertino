@@ -1,0 +1,27 @@
+<TextinputShowcaseScreen>
+
+    BoxLayout:
+        orientation: "vertical"
+
+        TopBar:
+            id: topbar
+
+        FloatLayout:
+
+	        CupertinoSearchBar:
+	    		pos_hint: {"center_x": .5, "center_y": .5}
+	    		size_hint: 0.9, 0.2
+
+	    FloatLayout:
+
+	    	CupertinoTextField:
+	    		hint_text: "CupertinoTextField"
+	    		pos_hint: {"center_x": .5, "center_y": .5}
+	    		size_hint: 0.9, 0.2
+
+	    FloatLayout:
+
+	    	CupertinoTextView:
+	    		hint_text: "CupertinoTextView"
+	    		pos_hint: {"center_x": .5, "center_y": .5}
+	    		size_hint: 0.95, 0.35

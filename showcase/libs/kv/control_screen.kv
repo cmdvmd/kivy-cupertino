@@ -1,0 +1,21 @@
+<ControlShowcaseScreen>
+
+    BoxLayout:
+        orientation: "vertical"
+
+        TopBar:
+            id: topbar
+
+        FloatLayout:
+
+            CupertinoSegmentedControls:
+                id: segmented_controls
+                size_hint: 0.7, 0.15
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+
+        FloatLayout:
+
+            CupertinoStepper:
+                size_hint: 0.2, 0.15
+                pos_hint: {"center_x": .5, "center_y": .5}

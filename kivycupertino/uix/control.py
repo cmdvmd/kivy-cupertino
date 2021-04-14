@@ -9,8 +9,8 @@ Segmented Controls
 .. code-block:: python
 
    segmented_controls = CupertinoSegmentedControls()
-   segmented_controls.add_tab('Segmented')
-   segmented_controls.add_tab('Controls')
+   segmented_controls.add_segment('Segmented')
+   segmented_controls.add_segment('Controls')
 
 
 Stepper

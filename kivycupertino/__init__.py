@@ -10,6 +10,6 @@ __version__ = '0.1.1-beta'
 __license__ = 'MIT'
 
 root_path = os.path.dirname(__file__) + '/'
-fonts_path = os.path.join(root_path, 'fonts/')
+fonts_path = os.path.join(root_path, 'data/fonts/')
 
 from .init import fonts, widgets

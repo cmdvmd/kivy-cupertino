@@ -1,0 +1,24 @@
+<IndicatorShowcaseScreen>
+    on_enter: indicator.start()
+    on_leave: indicator.stop()
+
+    BoxLayout:
+        orientation: "vertical"
+
+        TopBar:
+            id: topbar
+
+        FloatLayout:
+
+            CupertinoActivityIndicator:
+                id: indicator
+                size_hint: None, None
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+        FloatLayout:
+
+            CupertinoProgressbar:
+                id: progressbar
+                value: 80
+                size_hint: .8, .1
+                pos_hint: {"center_x": .5, "center_y": .5}

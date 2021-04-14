@@ -67,7 +67,7 @@ Builder.load_string("""
 <CupertinoActionSheet>:
     actions: actions
     
-    background: root_path+'transparent.png'
+    background: root_path+'/data/transparent.png'
     background_color: 0, 0, 0, 0.5
     auto_dismiss: False
     size_hint_x: 0.95
@@ -104,7 +104,7 @@ Builder.load_string("""
 <CupertinoAlertDialog>:
     actions: actions
     
-    background: root_path+'transparent.png'
+    background: root_path+'/data/transparent.png'
     background_color: 0, 0, 0, 0.5
     auto_dismiss: False
     size_hint: 0.8, 0.3

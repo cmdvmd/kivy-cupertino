@@ -1,0 +1,20 @@
+<DialogShowcaseScreen>
+
+    BoxLayout:
+        orientation: "vertical"
+
+        TopBar:
+            id: topbar
+
+        BoxLayout:
+            padding: "90dp"
+            spacing: "30dp"
+            orientation: "vertical"
+
+            CupertinoButton:
+                text: "Open ActionSheet"
+                on_release: root.open_action_sheet()
+
+            CupertinoButton:
+                text: "Open AlertDialog"
+                on_release: root.open_alert_dialog()

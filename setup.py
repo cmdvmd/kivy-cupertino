@@ -25,9 +25,10 @@ setuptools.setup(
     ],
     package_data={
         'kivycupertino': [
-            'fonts/*',
+            'data/*',
             'init/*',
-            'uix/*'
+            'uix/*',
+            'data/fonts/*'
         ]
     },
     classifiers=[
