@@ -55,18 +55,15 @@ Text View
    CupertinoTextView:
 """
 
-from kivy.uix.textinput import TextInput
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, ColorProperty
 from kivy.lang.builder import Builder
+from kivy.properties import ColorProperty, StringProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
 
-__all__ = [
-    'CupertinoTextField',
-    'CupertinoTextView',
-    'CupertinoSearchBar'
-]
+__all__ = ["CupertinoTextField", "CupertinoTextView", "CupertinoSearchBar"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoTextField>:
     password_mask: '•'
     multiline: False
@@ -105,6 +102,7 @@ Builder.load_string("""
         symbol: 'search'
         color: root.symbol_color
         size_hint_x: 0.05
+
     TextInput:
         id: textfield
         multiline: False
@@ -116,13 +114,15 @@ Builder.load_string("""
         font_name: 'San Francisco'
         background_color: 0, 0, 0, 0
         foreground_color: root.foreground_color
+
     CupertinoSymbolButton:
         symbol: 'xmark_circle_fill' if textfield.text else ' '
         color_normal: root.symbol_color
         color_down: 0, 0, 0, 0
         on_release: textfield.text = ''
         size_hint_x: 0.05
-""")
+"""
+)
 
 
 class CupertinoTextField(TextInput):
@@ -130,7 +130,7 @@ class CupertinoTextField(TextInput):
     iOS style Text Field to be used for single-line input
     """
 
-    hint_text = StringProperty('')
+    hint_text = StringProperty("")
     """
     A :class:`~kivy.properties.StringProperty` defining the text of hint of
     :class:`~kivycupertino.uix.textfield.CupertinoTextField`

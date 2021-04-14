@@ -57,19 +57,16 @@ Tab Bar
    CupertinoTabBar:
 """
 
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ColorProperty, BooleanProperty, StringProperty
 from kivy.lang.builder import Builder
+from kivy.properties import BooleanProperty, ColorProperty, StringProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 
-__all__ = [
-    'CupertinoNavigationBar',
-    'CupertinoToolbar',
-    'CupertinoTabBar'
-]
+__all__ = ["CupertinoNavigationBar", "CupertinoToolbar", "CupertinoTabBar"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoNavigationBar>:
     canvas.before:
         Color:
@@ -102,6 +99,7 @@ Builder.load_string("""
     CupertinoSymbol:
         symbol: root.symbol
         color: root.color_selected if root.selected else root.color_unselected
+
     CupertinoLabel:
         text: root.text
         font_size: 12
@@ -115,11 +113,11 @@ Builder.load_string("""
     
     BoxLayout:
         id: items
-        orientation: 'horizontal'
         padding: 3
         size: root.size
         pos: root.pos
-""")
+"""
+)
 
 
 class CupertinoNavigationBar(FloatLayout):
@@ -189,7 +187,7 @@ class CupertinoTabBar(CupertinoToolbar):
     iOS style tab bar
     """
 
-    selected = StringProperty(' ')
+    selected = StringProperty(" ")
     """
     A :class:`~kivy.properties.StringProperty` defining the selected tab of
     :class:`~kivycupertino.uix.bar.CupertinoTabBar`
@@ -237,7 +235,7 @@ class CupertinoTabBar(CupertinoToolbar):
             symbol=symbol,
             color_selected=self.color_selected,
             color_unselected=self.color_unselected,
-            on_release=lambda button: setattr(self, 'selected', button.text)
+            on_release=lambda button: setattr(self, "selected", button.text),
         )
 
         self.items.add_widget(tab)

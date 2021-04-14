@@ -20,12 +20,10 @@ Label
        text: 'Hello World'
 """
 
+from kivy.properties import BooleanProperty, ColorProperty, StringProperty
 from kivy.uix.label import Label
-from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 
-__all__ = [
-    'CupertinoLabel'
-]
+__all__ = ["CupertinoLabel"]
 
 
 class CupertinoLabel(Label):
@@ -33,13 +31,13 @@ class CupertinoLabel(Label):
     iOS style Label
     """
 
-    text = StringProperty(' ')
+    text = StringProperty(" ")
     """
     A :class:`~kivy.properties.StringProperty` defining the text of
     :class:`~kivycupertino.uix.label.CupertinoLabel`
     """
 
-    font_name = StringProperty('San Francisco')
+    font_name = StringProperty("San Francisco")
     """
     A :class:`~kivy.properties.StringProperty` defining the font of
     :class:`~kivycupertino.uix.label.CupertinoLabel`. To comply with iOS standard, use

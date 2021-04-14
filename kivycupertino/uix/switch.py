@@ -19,16 +19,15 @@ Switch
    CupertinoSwitch:
 """
 
+from kivy.lang.builder import Builder
+from kivy.properties import BooleanProperty, ColorProperty, NumericProperty
 from kivy.uix.behaviors.button import ButtonBehavior
 from kivy.uix.widget import Widget
-from kivy.properties import BooleanProperty, ColorProperty, NumericProperty
-from kivy.lang.builder import Builder
 
-__all__ = [
-    'CupertinoSwitch'
-]
+__all__ = ["CupertinoSwitch"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoSwitch>: 
     on_press: self.toggled = not self.toggled
         
@@ -39,6 +38,7 @@ Builder.load_string("""
             radius: self.height/2.27,
             size: self.size
             pos: self.pos
+
     Widget:
         width: root.width/2
         height: root.height-(root.padding*2)
@@ -51,7 +51,8 @@ Builder.load_string("""
             Ellipse:
                 size: self.size
                 pos: self.pos
-""")
+"""
+)
 
 
 class CupertinoSwitch(ButtonBehavior, Widget):

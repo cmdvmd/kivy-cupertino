@@ -1,8 +1,9 @@
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.properties import StringProperty
+from kivy.uix.boxlayout import BoxLayout
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <TopBar>
     size_hint_y: None
     height: self.minimum_height
@@ -26,7 +27,8 @@ Builder.load_string("""
         size_hint_y: None
         height: self.texture_size[1]
         font_size: sp(25)
-""")
+"""
+)
 
 
 class TopBar(BoxLayout):

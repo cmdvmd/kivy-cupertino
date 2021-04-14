@@ -21,21 +21,22 @@ Symbol
        symbol: 'airplane'
 """
 
-from kivycupertino import root_path
-from kivy.uix.label import Label
-from kivy.properties import StringProperty, ColorProperty
-from kivy.lang.builder import Builder
 from json import load
 
-__all__ = [
-    'CupertinoSymbol'
-]
+from kivy.lang.builder import Builder
+from kivy.properties import ColorProperty, StringProperty
+from kivy.uix.label import Label
+from kivycupertino import root_path
 
-Builder.load_string("""
+__all__ = ["CupertinoSymbol"]
+
+Builder.load_string(
+    """
 <CupertinoSymbol>:
     font_name: 'SF Symbols'
     font_size: min(self.size)
-""")
+"""
+)
 
 
 class CupertinoSymbol(Label):
@@ -45,7 +46,7 @@ class CupertinoSymbol(Label):
     .. image:: ../_static/symbol.png
     """
 
-    symbol = StringProperty(' ')
+    symbol = StringProperty(" ")
     """
     A :class:`~kivy.properties.StringProperty` defining the symbol to be displayed by
     :class:`~kivycupertino.uix.symbol.CupertinoSymbol`.
@@ -65,6 +66,6 @@ class CupertinoSymbol(Label):
         :param symbol: Symbol to be displayed
         """
 
-        with open(root_path + '/data/symbols.json', 'r') as json:
+        with open(root_path + "/data/symbols.json", "r") as json:
             symbols = load(json)
-        self.text = chr(eval(symbols[symbol])) if symbol != ' ' else '\u2800'
+        self.text = chr(eval(symbols[symbol])) if symbol != " " else "\u2800"

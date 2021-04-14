@@ -2,19 +2,19 @@ import ast
 import os
 
 import kivycupertino
-from kivy.app import App
-from kivy.factory import Factory
 from kivy.core.window import Window
+from kivy.factory import Factory
 from kivy.lang import Builder
-
-from libs.root import Root
+from kivy.uix.screenmanager import ScreenManager
+from kivycupertino.app import CupertinoApp
 
 Factory.register("TopBar", module="libs.components.topbar")
 
-class CupertinoApp(App):
+
+class CupertinoApp(CupertinoApp):
     def build(self):
         Window.clearcolor = 0.98, 0.98, 0.98, 1
-        return Root()
+        return ScreenManager()
 
     def on_start(self):
         with open(os.path.join("screens.json")) as read_file:
@@ -51,7 +51,7 @@ class CupertinoApp(App):
             if "topbar" in screen_object.ids:
                 screen_object.ids.topbar.title = screen_name.title()
 
-        self.root.transition.direction = 'left'
+        self.root.transition.direction = "left"
         self.root.current = screen_name
 
 

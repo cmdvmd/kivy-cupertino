@@ -26,19 +26,19 @@ ScrollView
            height: self.minimum_height
 """
 
-from kivy.uix.scrollview import ScrollView
-from kivy.properties import ColorProperty
 from kivy.lang import Builder
+from kivy.properties import ColorProperty
+from kivy.uix.scrollview import ScrollView
 
-__all__ = [
-    'CupertinoScrollView'
-]
+__all__ = ["CupertinoScrollView"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoScrollView>:
     bar_margin: 2
     bar_width: 4
-""")
+"""
+)
 
 
 class CupertinoScrollView(ScrollView):

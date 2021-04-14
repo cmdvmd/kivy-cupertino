@@ -23,14 +23,15 @@ Page Controls
        CupertinoPageControls:
 """
 
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.uix.screenmanager import ScreenManager, NoTransition
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import BooleanProperty, ColorProperty
 from kivy.lang.builder import Builder
+from kivy.properties import BooleanProperty, ColorProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import NoTransition, ScreenManager
+from kivy.uix.widget import Widget
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <_CupertinoScreen>:
     on_press: self.parent._change_screen(self.parent.children[::-1].index(self))
     
@@ -51,7 +52,8 @@ Builder.load_string("""
         Rectangle:
             size: self.size
             pos: self.pos
-""")
+"""
+)
 
 
 class _CupertinoScreen(ButtonBehavior, Widget):
@@ -117,7 +119,9 @@ class CupertinoPageControls(BoxLayout):
         :param parent: Instance of :class:`~kivycupertino.uix.page.CupertinoScreenManager`
         """
 
-        assert isinstance(parent, CupertinoScreenManager), 'CupertinoPageControls must be added to an instance of CupertinoScreenManager'
+        assert isinstance(
+            parent, CupertinoScreenManager
+        ), "CupertinoPageControls must be added to an instance of CupertinoScreenManager"
         parent.bind(screen_names=self._add_screen, current=self._select_screen)
 
     def _add_screen(self, instance, name):
@@ -129,7 +133,12 @@ class CupertinoPageControls(BoxLayout):
         :param name: Name of added screen
         """
 
-        self.add_widget(_CupertinoScreen(color_selected=self.color_selected, color_unselected=self.color_unselected))
+        self.add_widget(
+            _CupertinoScreen(
+                color_selected=self.color_selected,
+                color_unselected=self.color_unselected,
+            )
+        )
 
     def _select_screen(self, instance, name):
         """
@@ -141,7 +150,9 @@ class CupertinoPageControls(BoxLayout):
         """
 
         for i in range(len(self.children)):
-            self.children[i].selected = len(self.children)-1-i == instance.screen_names.index(name)
+            self.children[i].selected = len(
+                self.children
+            ) - 1 - i == instance.screen_names.index(name)
 
     def _change_screen(self, index):
         """

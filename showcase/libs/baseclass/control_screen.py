@@ -1,7 +1,8 @@
 from kivy.uix.screenmanager import Screen
 
+
 class ControlShowcaseScreen(Screen):
-    
+
     loaded = False
 
     def on_pre_enter(self):

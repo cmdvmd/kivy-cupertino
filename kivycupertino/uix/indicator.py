@@ -36,18 +36,17 @@ Progress Bar
    CupertinoProgressbar:
 """
 
-from kivy.uix.widget import Widget
-from kivy.properties import ColorProperty, NumericProperty, BooleanProperty
-from kivy.graphics import PushMatrix, PopMatrix, Rotate, Color, RoundedRectangle
 from kivy.clock import Clock
+from kivy.graphics import (Color, PopMatrix, PushMatrix, Rotate,
+                           RoundedRectangle)
 from kivy.lang.builder import Builder
+from kivy.properties import BooleanProperty, ColorProperty, NumericProperty
+from kivy.uix.widget import Widget
 
-__all__ = [
-    'CupertinoProgressbar',
-    'CupertinoActivityIndicator'
-]
+__all__ = ["CupertinoProgressbar", "CupertinoActivityIndicator"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoProgressBar>:
     canvas.before:
         Color:
@@ -60,7 +59,8 @@ Builder.load_string("""
         Rectangle:
             size: self.width*(self.value/100), self.height
             pos: self.pos
-""")
+"""
+)
 
 
 class CupertinoProgressbar(Widget):
@@ -136,7 +136,9 @@ class CupertinoActivityIndicator(Widget):
         """
 
         self.__playing = True
-        self.__event = Clock.schedule_interval(lambda dt: self.__draw_spokes(), 1/self.num_spokes)
+        self.__event = Clock.schedule_interval(
+            lambda dt: self.__draw_spokes(), 1 / self.num_spokes
+        )
 
     def toggle(self):
         """
@@ -157,14 +159,20 @@ class CupertinoActivityIndicator(Widget):
         with self.canvas:
             for i in range(self.num_spokes):
                 PushMatrix()
-                Rotate(angle=i*(360/self.num_spokes), origin=self.center)
+                Rotate(angle=i * (360 / self.num_spokes), origin=self.center)
                 Color(
                     r=self.color[0],
                     g=self.color[1],
                     b=self.color[2],
-                    a=self.color[3]-(((i+self.main_spoke) % self.num_spokes)*(self.color[3]/self.num_spokes))
+                    a=self.color[3]
+                    - (
+                        ((i + self.main_spoke) % self.num_spokes)
+                        * (self.color[3] / self.num_spokes)
+                    ),
                 )
-                rect = RoundedRectangle(radius=(self.width/15,), size=(self.width/10, self.height/4))
-                rect.pos = self.x+self.width/2-rect.size[0]/2, self.y
+                rect = RoundedRectangle(
+                    radius=(self.width / 15,), size=(self.width / 10, self.height / 4)
+                )
+                rect.pos = self.x + self.width / 2 - rect.size[0] / 2, self.y
                 PopMatrix()
         self.main_spoke += 1

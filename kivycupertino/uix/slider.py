@@ -19,15 +19,14 @@ Slider
    CupertinoSlider:
 """
 
-from kivy.uix.widget import Widget
-from kivy.properties import NumericProperty, ColorProperty, BooleanProperty
 from kivy.lang.builder import Builder
+from kivy.properties import BooleanProperty, ColorProperty, NumericProperty
+from kivy.uix.widget import Widget
 
-__all__ = [
-    'CupertinoSlider'
-]
+__all__ = ["CupertinoSlider"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoSlider>:    
     canvas.before:
         Color:
@@ -62,7 +61,8 @@ Builder.load_string("""
                 size: self.size
                 pos: self.pos
                 segments: 1000
-""")
+"""
+)
 
 
 class CupertinoSlider(Widget):
@@ -126,7 +126,10 @@ class CupertinoSlider(Widget):
         """
 
         if self._thumb_pressed:
-            if self.x <= touch.x <= self.x+self.width:
-                self.value = int(((touch.x-self.x)/self.width)*(self.max-self.min))+self.min
+            if self.x <= touch.x <= self.x + self.width:
+                self.value = (
+                    int(((touch.x - self.x) / self.width) * (self.max - self.min))
+                    + self.min
+                )
             else:
                 self.value = self.min if touch.x < self.x else self.max

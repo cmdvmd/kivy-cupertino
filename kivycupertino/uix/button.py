@@ -90,20 +90,18 @@ Symbol Button
        symbol: 'info'
 """
 
-from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.symbol import CupertinoSymbol
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import StringProperty, NumericProperty, BooleanProperty, ColorProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
+from kivy.properties import (BooleanProperty, ColorProperty, NumericProperty,
+                             StringProperty)
+from kivy.uix.behaviors import ButtonBehavior
+from kivycupertino.uix.label import CupertinoLabel
+from kivycupertino.uix.symbol import CupertinoSymbol
 
-__all__ = [
-    'CupertinoButton',
-    'CupertinoSystemButton',
-    'CupertinoSymbolButton'
-]
+__all__ = ["CupertinoButton", "CupertinoSystemButton", "CupertinoSymbolButton"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <CupertinoButton>:    
     font_size: 17
     color: root.text_color
@@ -130,7 +128,8 @@ Builder.load_string("""
 <CupertinoSymbolButton>:
     color: self.color_normal
     disabled_color: self.color_disabled
-""")
+"""
+)
 
 
 class CupertinoButton(ButtonBehavior, CupertinoLabel):
@@ -138,7 +137,7 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
     iOS style button
     """
 
-    text = StringProperty(' ')
+    text = StringProperty(" ")
     """
     A :class:`~kivy.properties.StringProperty` defining the text of
     :class:`~kivycupertino.uix.button.CupertinoButton`
@@ -186,7 +185,7 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     iOS style System Button
     """
 
-    text = StringProperty(' ')
+    text = StringProperty(" ")
     """
     A :class:`~kivy.properties.StringProperty` defining the text of
     :class:`~kivycupertino.uix.button.CupertinoSystemButton`
@@ -236,12 +235,18 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
         :param state: State of :class:`~kivycupertino.uix.button.CupertinoSystemButton`
         """
 
-        if state == 'down':
-            animation = Animation(color=self.color_down, duration=self.transition_duration)
-        elif state == 'disabled':
-            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
+        if state == "down":
+            animation = Animation(
+                color=self.color_down, duration=self.transition_duration
+            )
+        elif state == "disabled":
+            animation = Animation(
+                color=self.color_disabled, duration=self.transition_duration
+            )
         else:
-            animation = Animation(color=self.color_normal, duration=self.transition_duration)
+            animation = Animation(
+                color=self.color_normal, duration=self.transition_duration
+            )
         animation.start(instance)
 
 
@@ -328,7 +333,7 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
     iOS style button that displays a symbol
     """
 
-    symbol = StringProperty(' ')
+    symbol = StringProperty(" ")
     """
     A :class:`~kivy.properties.StringProperty` defining the :ref:`symbol <symbol>` of
     :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
@@ -372,10 +377,16 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
         :param state: State of :class:`~kivycupertino.uix.button.CupertinoSymbolButton`
         """
 
-        if state == 'down':
-            animation = Animation(color=self.color_down, duration=self.transition_duration)
-        elif state == 'disabled':
-            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
+        if state == "down":
+            animation = Animation(
+                color=self.color_down, duration=self.transition_duration
+            )
+        elif state == "disabled":
+            animation = Animation(
+                color=self.color_disabled, duration=self.transition_duration
+            )
         else:
-            animation = Animation(color=self.color_normal, duration=self.transition_duration)
+            animation = Animation(
+                color=self.color_normal, duration=self.transition_duration
+            )
         animation.start(instance)

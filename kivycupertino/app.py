@@ -1,8 +1,6 @@
 from kivy.app import App
 
-__all__ = [
-    'CupertinoApp'
-]
+__all__ = ["CupertinoApp"]
 
 
 class CupertinoApp(App):

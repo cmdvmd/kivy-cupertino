@@ -23,19 +23,17 @@ Stepper
    stepper = CupertinoStepper()
 """
 
-from kivycupertino.uix.label import CupertinoLabel
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import StringProperty, BooleanProperty, ColorProperty
 from kivy.clock import Clock
 from kivy.lang.builder import Builder
+from kivy.properties import BooleanProperty, ColorProperty, StringProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.boxlayout import BoxLayout
+from kivycupertino.uix.label import CupertinoLabel
 
-__all__ = [
-    'CupertinoSegmentedControls',
-    'CupertinoStepper'
-]
+__all__ = ["CupertinoSegmentedControls", "CupertinoStepper"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <_CupertinoSegment>:   
     canvas.before:
         Color:
@@ -76,6 +74,7 @@ Builder.load_string("""
                 radius: root.height/4, 0, 0, root.height/4
                 size: self.size
                 pos: self.pos
+
     CupertinoSystemButton:
         text: '+'
         font_size: 25
@@ -90,7 +89,8 @@ Builder.load_string("""
                 radius: 0, root.height/4, root.height/4, 0
                 size: self.size
                 pos: self.pos
-""")
+"""
+)
 
 
 class _CupertinoSegment(ButtonBehavior, CupertinoLabel):
@@ -177,12 +177,12 @@ class CupertinoSegmentedControls(BoxLayout):
         tab = _CupertinoSegment(
             text=text,
             text_color=self.text_color,
-            on_release=lambda button: setattr(self, 'selected', button.text)
+            on_release=lambda button: setattr(self, "selected", button.text),
         )
 
         self.add_widget(tab)
         if len(self.children) == 1:
-            Clock.schedule_once(lambda dt: setattr(self, 'selected', tab.text), 0)
+            Clock.schedule_once(lambda dt: setattr(self, "selected", tab.text), 0)
 
 
 class CupertinoStepper(BoxLayout):
@@ -216,8 +216,8 @@ class CupertinoStepper(BoxLayout):
         """
 
         super().__init__(**kwargs)
-        self.register_event_type('on_minus')
-        self.register_event_type('on_plus')
+        self.register_event_type("on_minus")
+        self.register_event_type("on_plus")
 
     def on_minus(self):
         """

@@ -36,20 +36,19 @@ Alert Dialog
 """
 
 
+from re import sub
 
-from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty
+from kivy.lang.builder import Builder
+from kivy.properties import (ColorProperty, ListProperty, NumericProperty,
+                             StringProperty)
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.modalview import ModalView
 from kivycupertino.uix.label import CupertinoLabel
-from kivy.lang.builder import Builder
-from re import sub
 
-__all__ = [
-    'CupertinoActionSheet',
-    'CupertinoAlertDialog'
-]
+__all__ = ["CupertinoActionSheet", "CupertinoAlertDialog"]
 
-Builder.load_string("""
+Builder.load_string(
+    """
 #: import root_path kivycupertino.__init__.root_path
 
 <_CupertinoDialogButton>:
@@ -91,6 +90,7 @@ Builder.load_string("""
                 RoundedRectangle:
                     size: self.size
                     pos: self.pos
+
         CupertinoButton:
             id: cancel
             text: 'Cancel'
@@ -130,6 +130,7 @@ Builder.load_string("""
             bold: True
             text_size: self.width-20, None
             pos_hint: {'center_x': 0.5, 'top': 1.3}
+
         CupertinoLabel:
             id: content
             text: root.content
@@ -138,9 +139,9 @@ Builder.load_string("""
             text_size: self.width-20, None
             pos_hint: {'center_x': 0.5}
             y: title.y-title.texture_size[1]-20
+
         BoxLayout:
             id: actions
-            orientation: 'horizontal'
             spacing: 1
             padding: 0, 1, 0, 0
             size_hint_y: 0.25
@@ -153,7 +154,8 @@ Builder.load_string("""
                     radius: 0, 0, root.curve, root.curve
                     size: self.size
                     pos: self.pos
-""")
+"""
+)
 
 
 class _CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
@@ -195,7 +197,7 @@ class CupertinoActionSheet(ModalView):
     A :class:`~kivy.properties.NumericProperty` that degines the amount of curve of
     :class:`kivycupertino.uix.dialog.CupertinoActionSheet`
     """
-    
+
     def add_action(self, text, action):
         """
         Add an action to :class:`kivycupertino.uix.dialog.CupertinoActionSheet`
@@ -220,13 +222,13 @@ class CupertinoAlertDialog(ModalView):
     iOS style Alert Dialog
     """
 
-    title = StringProperty(' ')
+    title = StringProperty(" ")
     """
     A :class:`~kivy.property.StringProperty` defining the text of title of
     :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
     """
 
-    content = StringProperty(' ')
+    content = StringProperty(" ")
     """
     A :class:`~kivy.property.StringProperty` defining the text of content of
     :class:`~kivycupertino.uix.dialog.CupertinoAlertDialog`
@@ -258,17 +260,19 @@ class CupertinoAlertDialog(ModalView):
         :param action: Callback to be performed, bound to ``on_release`` of action
         """
 
-        self.actions.add_widget(_CupertinoDialogButton(
-            text=text,
-            on_release=action,
-            color_normal=self.color,
-            color_down=self.color_pressed
-        ))
+        self.actions.add_widget(
+            _CupertinoDialogButton(
+                text=text,
+                on_release=action,
+                color_normal=self.color,
+                color_down=self.color_pressed,
+            )
+        )
 
-        if len(self.actions.children) > 2 or len(sub(r'\[.*?\]', '', text)) > 10:
-            self.actions.orientation = 'vertical'
+        if len(self.actions.children) > 2 or len(sub(r"\[.*?\]", "", text)) > 10:
+            self.actions.orientation = "vertical"
 
-        if self.actions.orientation == 'vertical':
+        if self.actions.orientation == "vertical":
             self.size_hint_y += 0.05
             self.actions.size_hint_y += 0.05
 
