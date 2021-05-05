@@ -25,6 +25,7 @@ setuptools.setup(
     ],
     package_data={
         'kivycupertino': [
+            '*',
             'fonts/*',
             'init/*',
             'uix/*'

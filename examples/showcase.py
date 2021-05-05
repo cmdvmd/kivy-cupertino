@@ -8,8 +8,6 @@ A program to show all widgets in Kivy Cupertino
 __author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunossauro>
 __maintainer__ = 'cmdvmd'
 
-import sys
-sys.path.append("..")
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar
 from kivycupertino.uix.label import CupertinoLabel
@@ -38,13 +36,13 @@ class ShowcaseApp(CupertinoApp):
     @staticmethod
     def open_action_sheet():
         action_sheet = CupertinoActionSheet()
-        action_sheet.add_action('Sheet', action_sheet.dismiss)
         action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
+        action_sheet.add_action('Sheet', action_sheet.dismiss)
         action_sheet.open()
 
     def buttons(self):
         symbol_button = CupertinoSymbolButton()
-        symbol_button.symbol = 'info'
+        symbol_button.symbol = 'info_circle'
         symbol_button.color_normal = 0.05, 0.5, 0.95, 1
         symbol_button.color_down = 0, 0.15, 0.8, 1
         symbol_button.size_hint_y = 0.1
@@ -65,7 +63,7 @@ class ShowcaseApp(CupertinoApp):
         button.text = 'Toggle Activity Indicator'
         button.size_hint = 0.8, 0.1
         button.pos_hint = {'center': (0.5, 0.5)}
-        button.on_release = activity_indicator.toggle
+        button.on_release = lambda: setattr(activity_indicator, 'playing', not activity_indicator.playing)
 
         switch = CupertinoSwitch()
         switch.size_hint = 0.25, 0.1
@@ -171,9 +169,9 @@ class ShowcaseApp(CupertinoApp):
         tab_bar = CupertinoTabBar()
         tab_bar.size_hint_y = 0.1
         tab_bar.bind(selected=self.change_screen)
-        tab_bar.add_tab('Buttons', 'keypad_fill')
+        tab_bar.add_tab('Buttons', 'circle_grid_3x3_fill')
         tab_bar.add_tab('Controls', 'wrench_fill')
-        tab_bar.add_tab('Text', 'abc')
+        tab_bar.add_tab('Text', 'textformat_abc')
 
         navigation_bar.add_widget(title)
 

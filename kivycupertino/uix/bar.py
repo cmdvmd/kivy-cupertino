@@ -1,60 +1,6 @@
 """
 Bars are generally positioned at the top or bottom of a screen and
 contain widgets and/or information for easy access by users
-
-Navigation Bar
---------------
-
-.. image:: ../_static/navigation_bar.png
-
-**Python**
-
-.. code-block:: python
-
-   nav_bar = CupertinoNavigationBar()
-
-**KV**
-
-.. code-block::
-
-   CupertinoNavigationBar:
-
-Toolbar
--------
-
-.. image:: ../_static/toolbar.png
-
-**Python**
-
-.. code-block:: python
-
-   toolbar = CupertinoToolbar()
-
-**KV**
-
-.. code-block::
-
-   CupertinoToolbar:
-
-Tab Bar
--------
-
-.. image:: ../_static/tab_bar.gif
-
-**Python**
-
-.. code-block:: python
-
-   tab_bar = CupertinoTabBar()
-   tab_bar.add_tab('Stars', 'star_fill')
-   tab_bar.add_tab('People', 'person_circle')
-   tab_bar.add_tab('Recents', 'clock_fill')
-
-**KV**
-
-.. code-block::
-
-   CupertinoTabBar:
 """
 
 from kivy.uix.floatlayout import FloatLayout
@@ -124,100 +70,185 @@ Builder.load_string("""
 
 class CupertinoNavigationBar(FloatLayout):
     """
-    iOS style Navigation Bar. :class:`~kivycupertino.uix.bar.CupertinoNavigationBar`
+    iOS style Navigation Bar. :class:`CupertinoNavigationBar`
     is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+
+    .. image:: ../_static/navigation_bar/demo.png
     """
 
     color = ColorProperty([0.95, 0.95, 0.95, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.bar.CupertinoNavigationBar`
+    Background color of :class:`CupertinoNavigationBar`
+    
+    .. image:: ../_static/navigation_bar/color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoNavigationBar(color=(0.5, 0, 0, 1))
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoNavigationBar:
+           color: 0.5, 0, 0, 1
     """
 
 
 class CupertinoToolbar(FloatLayout):
     """
-    iOS style Toolbar. :class:`~kivycupertino.uix.bar.CupertinoToolbar`
+    iOS style Toolbar. :class:`CupertinoToolbar`
     is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+
+    .. image:: ../_static/toolbar/demo.png
     """
 
     color = ColorProperty([0.95, 0.95, 0.95, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.bar.CupertinoToolbar`
+    Background color of :class:`CupertinoToolbar`
+    
+    .. image:: ../_static/toolbar/color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoToolbar(color=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoToolbar:
+           color: 0.5, 0, 0, 1
     """
 
 
 class _CupertinoTab(ButtonBehavior, BoxLayout):
     """
-    iOS style tab for :class:`~kivycupertino.uix.bar.CupertinoTabBar`
+    iOS style tab for :class:`CupertinoTabBar`
     """
 
     text = StringProperty()
     """
-    A :class:`~kivy.properties.StringProperty` defining the text of
-    :class:`~kivycupertino.uix.bar._CupertinoTab`
+    Text of :class:`_CupertinoTab`
     """
 
     symbol = StringProperty()
     """
-    A :class:`~kivy.properties.StringProperty` defining the symbol of
-    :class:`~kivycupertino.uix.bar._CupertinoTab`
+    Symbol of :class:`_CupertinoTab`
     """
 
     selected = BooleanProperty(False)
     """
-    A :class:`~kivy.properties.Boolean` defining if
-    :class:`~kivycupertino.uix.bar._CupertinoTab` is selected
+    If :class:`_CupertinoTab` is selected
     """
 
     color_unselected = ColorProperty()
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of
-    :class:`~kivycupertino.uix.bar._CupertinoTab` when not selected
+    Color of :class:`_CupertinoTab` when not selected
     """
 
     color_selected = ColorProperty()
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of
-    :class:`~kivycupertino.uix.bar._CupertinoTab` when selected
+    Color of :class:`_CupertinoTab` when selected
     """
 
 
 class CupertinoTabBar(CupertinoToolbar):
     """
     iOS style tab bar
+
+    .. image:: ../_static/tab_bar/demo.gif
     """
 
     selected = StringProperty(' ')
     """
-    A :class:`~kivy.properties.StringProperty` defining the selected tab of
-    :class:`~kivycupertino.uix.bar.CupertinoTabBar`
+    Selected tab of :class:`CupertinoTabBar`
+    
+    .. image:: ../_static/tab_bar/selected.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTabBar(selected='Recents')
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTabBar:
+           selected: 'Recents'
     """
 
     background_color = ColorProperty([0.95, 0.95, 0.95, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.bar.CupertinoTabBar` when selected
+    Background color of :class:`CupertinoTabBar` when selected
+    
+    .. image:: ../_static/tab_bar/background_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTabBar(background_color=(0.5, 0, 0, 1))
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTabBar:
+           background_color: 0.5, 0, 0, 1
     """
 
     color_selected = ColorProperty([0.2, 0.45, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of the selected tab of
-    :class:`~kivycupertino.uix.bar.CupertinoTabBar` when selected
+    Color of the selected tab of :class:`CupertinoTabBar`
+    
+    .. image:: ../_static/tab_bar/color_selected.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTabBar(color_selected=(1, 0, 0, 1))
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTabBar:
+           color_selected: 1, 0, 0, 1
     """
 
     color_unselected = ColorProperty([0.7, 0.7, 0.75, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of unselected tabs of
-    :class:`~kivycupertino.uix.bar.CupertinoTabBar`
+    Color of unselected tabs of :class:`CupertinoTabBar`
+    
+    .. image:: ../_static/tab_bar/color_unselected.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTabBar(color_unselected=(0.5, 0, 0, 1))
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTabBar:
+           color_unselected: 0.5, 0, 0, 1
     """
 
-    def on_selected(self, widget, tab_text):
+    def on_selected(self, instance, tab_text):
         """
-        Callback when a new tab of :class:`kivycupertino.uix.bar.CupertinoTabBar` is selected
+        Callback when a new tab of :class:`CupertinoTabBar` is selected
 
-        :param widget: The instance of :class:`~kivycupertino.uix.control.CupertinoSegmentedControls`
+        :param instance: The instance of :class:`CupertinoTabBar`
         :param tab_text: Text of the selected tag
         """
 
@@ -226,10 +257,21 @@ class CupertinoTabBar(CupertinoToolbar):
 
     def add_tab(self, text, symbol):
         """
-        Add a tab to :class:`~kivycupertino.uix.control.CupertinoTabBar`
+        Add a tab to :class:`CupertinoTabBar`
 
         :param text: Text of tab
         :param symbol: :ref:`Symbol <symbol>` of tab
+
+        .. note::
+           Tabs can be only added to :class:`CupertinoTabBar` with Python,
+           not KV
+
+        .. code-block:: python
+
+           tab_bar = CupertinoTabBar()
+           tab_bar.add_tab('Stars', 'star_fill')
+           tab_bar.add_tab('People', 'person_alt_circle')
+           tab_bar.add_tab('Recents', 'clock_fill')
         """
 
         tab = _CupertinoTab(
