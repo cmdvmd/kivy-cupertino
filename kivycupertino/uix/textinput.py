@@ -1,58 +1,5 @@
 """
 Text fields allow users to enter input
-
-Search Bar
-----------
-
-.. image:: ../_static/search_bar.gif
-
-**Python**
-
-.. code-block:: python
-
-   search_bar = CupertinoSearchBar()
-
-**KV**
-
-.. code-block::
-
-   CupertinoSearchBar
-
-Text Field
-----------
-
-.. image:: ../_static/text_field.gif
-
-**Python**
-
-.. code-block:: python
-
-   text_field = CupertinoTextField(hint_text='Text Field')
-
-**KV**
-
-.. code-block::
-
-   CupertinoTextField:
-       hint_text: 'Text Field'
-
-Text View
----------
-
-.. image:: ../_static/text_view.gif
-
-**Python**
-
-.. code-block:: python
-
-   text_view = CupertinoTextView()
-
-
-**KV**
-
-.. code-block::
-
-   CupertinoTextView:
 """
 
 from kivy.uix.textinput import TextInput
@@ -87,7 +34,6 @@ Builder.load_string("""
     cursor_width: '2sp'
     cursor_color: 0.25, 0.5, 0.95, 1
     font_name: 'San Francisco'
-    hint_text: ''
 
 <CupertinoSearchBar>:
     orientation: 'horizontal'
@@ -128,64 +74,182 @@ Builder.load_string("""
 class CupertinoTextField(TextInput):
     """
     iOS style Text Field to be used for single-line input
+
+    .. image:: ../_static/text_field/demo.gif
     """
 
     hint_text = StringProperty('')
     """
-    A :class:`~kivy.properties.StringProperty` defining the text of hint of
-    :class:`~kivycupertino.uix.textfield.CupertinoTextField`
+    Text of hint of :class:`CupertinoTextField`
+    
+    .. image:: ../_static/text_field/hint_text.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(hint_text='Hello World')
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           hint_text: 'Hello World'
     """
 
     background_color = ColorProperty([0, 0, 0, 0])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.textfield.CupertinoTextField`
+    Background color of :class:`CupertinoTextField`
+    
+    .. image:: ../_static/text_field/background_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(background_color=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           background_color: 0.5, 0, 0, 1
     """
 
     foreground_color = ColorProperty([0, 0, 0, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the text color of
-    :class:`~kivycupertino.uix.textfield.CupertinoTextField`
+    Text color of :class:`CupertinoTextField`
+    
+    .. image:: ../_static/text_field/foreground_color.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(foreground_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           foreground_color: 1, 0, 0, 1
     """
 
 
 class CupertinoTextView(TextInput):
     """
     iOS style Text View for multiline input
+
+    .. image:: ../_static/text_view/demo.gif
     """
 
     background_color = ColorProperty([0, 0, 0, 0])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.textfield.CupertinoTextView`
+    Background color of :class:`CupertinoTextView`
+    
+    .. image:: ../_static/text_view/background_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(background_color=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           background_color: 0.5, 0, 0, 1
     """
 
     foreground_color = ColorProperty([0, 0, 0, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the text color of
-    :class:`~kivycupertino.uix.textfield.CupertinoTextView`
+    Text color of :class:`CupertinoTextView`
+    
+    .. image:: ../_static/text_view/foreground_color.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(foreground_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           foreground_color: 1, 0, 0, 1
     """
 
 
 class CupertinoSearchBar(BoxLayout):
     """
     iOS style search bar
+
+    .. image:: ../_static/search_bar/demo.gif
     """
 
     background_color = ColorProperty([0.85, 0.85, 0.85, 0.7])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.textfield.CupertinoSearchBar`
+    Background color of :class:`CupertinoSearchBar`
+    
+    .. image:: ../_static/search_bar/background_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(background_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           background_color: 1, 0, 0, 1
     """
 
     foreground_color = ColorProperty([0, 0, 0, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the text color of
-    :class:`~kivycupertino.uix.textfield.CupertinoSearchBar`
+    Text color of :class:`CupertinoSearchBar`
+    
+    .. image:: ../_static/search_bar/foreground_color.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(foreground_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           foreground_color: 1, 0, 0, 1
     """
 
     symbol_color = ColorProperty([0.55, 0.55, 0.6, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of the symbols of
-    :class:`~kivycupertino.uix.textfield.CupertinoSearchBar`
+    Color of the symbols of :class:`CupertinoSearchBar`
+    
+    .. image:: ../_static/search_bar/symbol_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTextField(symbol_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoTextField:
+           symbol_color: 1, 0, 0, 1
     """

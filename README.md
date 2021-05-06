@@ -2,8 +2,10 @@
 
 # Kivy Cupertino
 
-A collection of iOS style widgets for Kivy. Kivy Cupertino is currently in **beta** version.
-Many widgets are not yet implemented and stability is not guaranteed
+Kivy Cupertino is a collection of iOS style widgets following
+[Apple's Human Interface guidelines](https://developer.apple.com/design/human-interface-guidelines)
+to be used with the [Kivy](https://kivy.org/#home) cross-platform graphical framework without sacrificing
+ease of use or application performance.
 
 [![GitHub issues](https://img.shields.io/github/issues/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/issues)
 [![License](https://img.shields.io/github/license/cmdvmd/kivy-cupertino)](https://github.com/cmdvmd/kivy-cupertino/blob/main/LICENSE)
@@ -28,15 +30,10 @@ $ cd kivy-cupertino
 $ python setup.py install
 ```
 
-### Dependencies
-
-- [Kivy](https://kivy.org/doc/stable/gettingstarted/installation.html)
-- [Python 3](https://www.python.org/downloads)
-
 ## Examples
 
-Check out the [Showcase app](https://github.com/cmdvmd/kivy-cupertino/blob/main/examples/showcase.py)
-for an example of all widgets in Kivy Cupertino
+Check out [`examples/`](https://github.com/cmdvmd/kivy-cupertino/tree/main/examples) for examples of
+various widgets in Kivy Cupertino
 
 ![Showcase App](https://github.com/cmdvmd/kivy-cupertino/blob/main/docs/_static/showcase.gif?raw=true)
 
@@ -85,4 +82,6 @@ for an example of all widgets in Kivy Cupertino
 
 ## Contributing
 
-To help improve this project, [fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork)
+To help improve this project, [fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork).
+Visit the [projects page](https://github.com/cmdvmd/kivy-cupertino/projects) to view pending projects
+you may be able to work on

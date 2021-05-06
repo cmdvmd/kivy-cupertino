@@ -36,7 +36,7 @@ To document your module, add Docstrings to the Python file in the following form
 Description of module
 """
 
-from kivy.properties import NumericProperty
+from kivy.properties import Property
 
 class ExampleClass:
     """
@@ -45,12 +45,32 @@ class ExampleClass:
     ..
        Try to include an image of the widget (.gif if animated, .png if still)
 
-    .. image:: ../_static/widget.ext
+    .. image:: ../_static/widget/demo.ext
     """
     
-    example_property = NumericProperty(0)
+    property = Property('default value')
     """
-    Definition and type of property
+    Definition of property
+    
+    ..
+       Try to include an image of the property (.gif if animated, .png if still)
+
+    .. image:: ../_static/widget/property.ext
+    
+    ..
+       Include examples of usage in Python and/or KV
+    
+    **Python**
+    
+      .. code-block:: python
+      
+         ExampleClass()
+     
+    **KV**
+    
+    .. code-block::
+    
+       ExampleClass:
     """
     
     def example_function(self, example_parameter):

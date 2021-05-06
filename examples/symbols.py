@@ -31,11 +31,12 @@ class SymbolsApp(CupertinoApp):
         title.pos_hint = {'center': (0.5, 0.5)}
 
         scrollview = CupertinoScrollView()
+        scrollview.scroll_wheel_distance = 200
 
         layout = GridLayout()
         layout.cols = 1
         layout.spacing = 15
-        layout.padding = 15
+        layout.padding = 2, 15
         layout.size_hint_y = None
         layout.bind(
             minimum_height=layout.setter('height')
@@ -57,10 +58,11 @@ class SymbolsApp(CupertinoApp):
             symbol = CupertinoSymbol()
             symbol.symbol = s
             symbol.color = 0, 0, 0, 1
-            symbol.size_hint_x = 0.3
+            symbol.size_hint_x = 0.2
 
             name = CupertinoLabel()
             name.text = s
+            name.font_size = 14
             name.halign = 'left'
             name.bind(
                 size=name.setter('text_size')

@@ -1,22 +1,5 @@
 """
 Sliders allow users to choose values
-
-Slider
-------
-
-.. image:: ../_static/slider.gif
-
-**Python**
-
-.. code-block:: python
-
-   slider = CupertinoSlider()
-
-**KV**
-
-.. code-block::
-
-   CupertinoSlider:
 """
 
 from kivy.uix.widget import Widget
@@ -28,40 +11,50 @@ __all__ = [
 ]
 
 Builder.load_string("""
-<CupertinoSlider>:    
-    canvas.before:
-        Color:
-            rgba: self.color_unselected
-        RoundedRectangle:
-            radius: self.height/6,
-            size: self.width, self.height/5
-            pos: self.pos
-        Color:
-            rgba: self.color_selected
-        RoundedRectangle:
-            radius: self.height/6,
-            size: self.width*((self.value-self.min)/(self.max-self.min)), self.height/5
-            pos: self.pos
+<CupertinoSlider>:
+    _track: track
+    _selected: selected
+    _thumb: thumb
+    
     Widget:
-        size: root.height, root.height
-        y: root.y+(root.height/12)-(self.height/2)
-        x: root.x+root.width*((root.value-root.min)/(root.max-root.min))-self.width/2
-        on_touch_down: root._thumb_pressed = self.x <= args[1].x <= self.x+args[0].width and self.y <= args[1].y <= self.y+self.height
-        on_touch_up: root._thumb_pressed = False
-        on_touch_move: root._move_thumb(args[1])
-        
+        id: track
+        size: root.width-thumb.width, root.height*0.1
+        pos: root.x+(thumb.width/2), root.y+root.height/2-self.height/2
         canvas.before:
             Color:
-                rgba: 0, 0, 0, 0.3
-            Ellipse:
-                size: self.width+2, self.height+2
-                pos: self.x-1, self.y-1.5
+                rgba: root.color_unselected
+            RoundedRectangle:
+                radius: self.height/2,
+                size: self.size
+                pos: self.pos
+    Widget:
+        id: selected
+        size: track.width*((root.value-root.min)/(root.max-root.min)), track.height
+        pos: track.pos
+        canvas.before:
             Color:
-                rgba: 1, 1, 1, 1
+                rgba: root.color_selected
+            RoundedRectangle:
+                radius: self.height/2,
+                size: self.size
+                pos: self.pos
+    Widget:
+        id: thumb
+        size: root.height, root.height
+        pos: selected.x+selected.width-self.width/2, root.y
+        on_touch_down: root._thumb_pressed = self.x <= args[1].x <= self.x+args[0].width and self.y <= args[1].y <= self.y+self.height
+        on_touch_up: root._thumb_pressed = False
+        canvas.before:
+            Color:
+                rgba: 0.5, 0.5, 0.5, 0.5
             Ellipse:
                 size: self.size
                 pos: self.pos
-                segments: 1000
+            Color:
+                rgba: root.thumb_color
+            Ellipse:
+                size: self.width-2, self.height-4
+                pos: self.x+1, self.y+3
 """)
 
 
@@ -72,61 +65,176 @@ class CupertinoSlider(Widget):
 
     value = NumericProperty(0)
     """
-    A :class:`~kivy.properties.NumericProperty` defining the value of
-    :class:`~kivycupertino.uix.slider.CupertinoSlider`
+    Value of :class:`CupertinoSlider`
+    
+    .. image:: ../_static/slider/value.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(value=50)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           value: 50
     """
 
     min = NumericProperty(0)
     """
-    A :class:`~kivy.properties.NumericProperty` defining the minimum value of
-    :class:`~kivycupertino.uix.slider.CupertinoSlider`
+    Minimum value of :class:`CupertinoSlider`
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(min=-50)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           min: -50
     """
 
     max = NumericProperty(100)
     """
-    A :class:`~kivy.properties.NumericProperty` defining the maximum value of
-    :class:`~kivycupertino.uix.slider.CupertinoSlider`
+    Maximum value of :class:`CupertinoSlider`
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(max=50)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           max: 50
     """
 
     thumb_color = ColorProperty([1, 1, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of the thumb
-    of :class:`~kivycupertino.uix.slider.CupertinoSlider`
+    Color of the thumb of :class:`CupertinoSlider`
+    
+    .. image:: ../_static/slider/thumb_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(thumb_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           thumb_color: 1, 0, 0, 1
     """
 
     color_selected = ColorProperty([0, 0.5, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of the bar of occurred progress
-    of :class:`~kivycupertino.uix.slider.CupertinoSlider`
+    Color of the bar of occurred progress of :class:`CupertinoSlider`
+    
+    .. image:: ../_static/slider/color_selected.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(color_selected=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           color_selected: 1, 0, 0, 1
     """
 
     color_unselected = ColorProperty([0.7, 0.7, 0.7, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of bar of not yet occurred progress
-    of :class:`~kivycupertino.uix.slider.CupertinoSlider`
+    Color of bar of not yet occurred progress of :class:`CupertinoSlider`
+    
+    .. image:: ../_static/slider/color_unselected.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(color_unselected=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           color_unselected: 0.5, 0, 0, 1
+    """
+
+    tap = BooleanProperty(True)
+    """
+    If tapping :class:`CupertinoSlider` can change its :attr:`value`
+    
+    .. image:: ../_static/slider/tap.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSlider(tap=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSlider:
+           tap: True
     """
 
     _thumb_pressed = BooleanProperty(False)
     """
-    A :class:`~kivy.properties.BooleanProperty` defining if thumb
-    of :class:`~kivycupertino.uix.slider.CupertinoSlider` has been pressed
+    If thumb of :class:`CupertinoSlider` has been pressed
     """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.min = int(self.min)
         self.max = int(self.max)
-        self.value = self.min if self.value < self.min else self.value
+        self.value = int(self.value) if self.value != 0 else self.min
 
-    def _move_thumb(self, touch):
+    def _set_value(self, position):
         """
-        Callback when thumb of :class:`~kivy.uix.slider.CupertinoSlider` is dragged
+        Callback to set :attr:`value` based on position of touch
 
-        :param touch: Information about mouse position
+        :param position: Position of touch
+        """
+
+        self.value = int((self.max-self.min)*(min(1, max(0, (position-self._track.x)/self._track.width))))+self.min
+
+    def on_touch_up(self, touch):
+        """
+        Callback when :class:`CupertinoSlider` is released
+
+        :param touch: Touch on :class:`CuperitnoSlider`
+        """
+
+        if self.tap and self._track.x <= touch.x <= self._track.x+self._track.width and self.y <= touch.y <= self._track.y+self.height:
+            self._set_value(touch.x)
+
+    def on_touch_move(self, touch):
+        """
+        Callback when the thumb of :class:`CupertinoSlider` is dragged
+
+        :param touch: Touch on :class:`CuperitnoSlider`
         """
 
         if self._thumb_pressed:
-            if self.x <= touch.x <= self.x+self.width:
-                self.value = int(((touch.x-self.x)/self.width)*(self.max-self.min))+self.min
-            else:
-                self.value = self.min if touch.x < self.x else self.max
+            self._set_value(touch.x)

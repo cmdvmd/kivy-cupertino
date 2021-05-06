@@ -28,4 +28,3 @@ fonts = [
 
 for font in fonts:
     LabelBase.register(**font)
-

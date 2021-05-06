@@ -1,26 +1,5 @@
 """
 Pages allow for a separation of different features
-
-Page Controls
--------------
-
-.. image:: ../_static/page_controls.gif
-
-**Python**
-
-.. code-block:: python
-
-   screen_manager = CupertinoScreenManager()  # Must be CupertinoScreenManager
-   page_controls = CupertinoPageControls()
-
-   screen_manager.add_widget(page_controls)
-
-**KV**
-
-.. code-block::
-
-   CupertinoScreenManager:  # Must be CupertinoScreenManager
-       CupertinoPageControls:
 """
 
 from kivy.uix.boxlayout import BoxLayout
@@ -56,76 +35,131 @@ Builder.load_string("""
 
 class _CupertinoScreen(ButtonBehavior, Widget):
     """
-    Dot to be added to :class:`~kivycupertino.uix.page.CupertinoPageControls` indicating
-    a screen on :class:`~kivycupertino.uix.page.CupertinoScreenManager`
+    Dot to be added to :class:`CupertinoPageControls` indicating
+    a screen on :class:`CupertinoScreenManager`
     """
 
     selected = BooleanProperty(False)
     """
-    A :class:`~kivy.properties.BooleanProperty` defining if the screen represented by
-    :class:`~kivycupertino.uix.page._CupertinoScreen` is currently selected
+    If the screen represented by :class:`_CupertinoScreen` is currently selected
     """
 
     color_selected = ColorProperty()
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of
-    :class:`~kivycupertino.uix.page._CupertinoScreen` when selected
+    Color of :class:`_CupertinoScreen` when selected
     """
 
     color_unselected = ColorProperty()
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of
-    :class:`~kivycupertino.uix.page._CupertinoScreen` when not selected
+    Color of :class:`_CupertinoScreen` when not selected
     """
 
 
 class CupertinoPageControls(BoxLayout):
     """
-    iOS style Page Controls
+    iOS style Page Controls. Will automatically update the number of pages and current page
+    when added to an instance of :class:`CupertinoScreenManager`
+    
+    .. image:: ../_static/page_controls/demo.gif
     """
 
-    allow_tap = BooleanProperty(True)
+    tap = BooleanProperty(False)
     """
-    A :class:`~kivy.properties.ColorProperty` defining if tapping
-    :class:`~kivycupertino.uix.page.CupertinoPageControls` will switch to a screen
+    If tapping :class:`CupertinoPageControls` will switch to a screen
+    
+    .. image:: ../_static/page_controls/tap.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoPageControls(tap=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoPageControls:
+           tap: True
     """
 
     background_color = ColorProperty([0, 0, 0, 0])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.page.CupertinoPageControls`
+    Background color of :class:`CupertinoPageControls`
+    
+    .. image:: ../_static/page_controls/background_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoPageControls(background_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoPageControls:
+           background_color: 1, 0, 0, 1
     """
 
     color_selected = ColorProperty([1, 1, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of a dot on
-    :class:`~kivycupertino.uix.page.CupertinoPageControls` when not selected
+    A :class:`~kivy.properties.ColorProperty` defining the color of a dot on :class:`CupertinoPageControls` when not selected
+    
+    .. image:: ../_static/page_controls/color_selected.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoPageControls(color_selected=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoPageControls:
+           color_selected: 1, 0, 0, 1
     """
 
     color_unselected = ColorProperty([0.2, 0.2, 0.2, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of a dot on
-    :class:`~kivycupertino.uix.page.CupertinoPageControls` when not selected
+    Color of a dot on :class:`CupertinoPageControls` when not selected
+    
+    .. image:: ../_static/page_controls/color_unselected.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoPageControls(color_unselected=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoPageControls:
+           color_unselected: 0.5, 0, 0, 1
     """
 
     def on_parent(self, instance, parent):
         """
-        Callback when :class:`~kivycupertino.uix.page.CupertinoPageControls` is added to
-        :class:`~kivycupertino.uix.page.CupertinoScreenManager`
+        Callback when :class:`CupertinoPageControls` is added to :class:`CupertinoScreenManager`
 
-        :param instance: Instance of class :class:`~kivycupertino.uix.page.CupertinoPageControls`
-        :param parent: Instance of :class:`~kivycupertino.uix.page.CupertinoScreenManager`
+        :param instance: Instance of class :class:`CupertinoPageControls`
+        :param parent: Instance of :class:`CupertinoScreenManager`
         """
 
-        assert isinstance(parent, CupertinoScreenManager), 'CupertinoPageControls must be added to an instance of CupertinoScreenManager'
+        assert isinstance(parent, CupertinoScreenManager), 'CupertinoPageControls must be added to an ' \
+                                                           'instance of CupertinoScreenManager'
         parent.bind(screen_names=self._add_screen, current=self._select_screen)
 
     def _add_screen(self, instance, name):
         """
-        Callback when a new screen is added to the parent of
-        :class:`~kivycupertino.uix.page.CupertinoPageControls`
+        Callback when a new screen is added to the parent of :class:`CupertinoPageControls`
 
-        :param instance: Instance of class :class:`~kivycupertino.uix.page.CupertinoPageControls`
+        :param instance: Instance of class :class:`CupertinoPageControls`
         :param name: Name of added screen
         """
 
@@ -133,10 +167,10 @@ class CupertinoPageControls(BoxLayout):
 
     def _select_screen(self, instance, name):
         """
-        Callback when a screen of the parent of :class:`~kivycupertino.uix.page.CupertinoPageControls`
+        Callback when a screen of the parent of :class:`CupertinoPageControls`
         is selected
 
-        :param instance: Instance of class :class:`~kivycupertino.uix.page.CupertinoPageControls`
+        :param instance: Instance of class :class:`CupertinoPageControls`
         :param name: Name of selected screen
         """
 
@@ -145,12 +179,12 @@ class CupertinoPageControls(BoxLayout):
 
     def _change_screen(self, index):
         """
-        Callback when a new screen on :class:`~kivycupertino.uix.page.CupertinoPageControls` is selected
+        Callback when a new screen on :class:`CupertinoPageControls` is selected
 
         :param index: Index of screen
         """
 
-        if self.allow_tap:
+        if self.tap:
             self.parent.transition = NoTransition()
             self.parent.current = self.parent.screen_names[index]
 
@@ -158,16 +192,15 @@ class CupertinoPageControls(BoxLayout):
 class CupertinoScreenManager(ScreenManager):
     """
     A Screen Manager widget that also accepts an instance of
-    :class:`~kivycupertino.uix.page.CupertinoPageControls`
+    :class:`CupertinoPageControls`
     """
 
     def add_widget(self, widget):
         """
-        Callback when a :class:`~kivy.uix.screenmanager.Screen` or a
-        :class:`~kivycupertino.uix.page.CupertinoPageControls` is added to
-        :class:`~kivycupertino.uix.page.CupertinoScreenManager`
+        Callback when a :class:`Screen` or a :class:`CupertinoPageControls` is added to
+        :class:`CupertinoScreenManager`
 
-        :param widget: Widget to be added to :class:`~kivycupertino.uix.page.CupertinoScreenManager`
+        :param widget: Widget to be added to :class:`CupertinoScreenManager`
         """
 
         if isinstance(widget, CupertinoPageControls):

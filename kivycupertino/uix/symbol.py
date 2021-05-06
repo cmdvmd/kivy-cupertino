@@ -1,26 +1,6 @@
 """
-Symbols help portray an action with a simple symbol. To test all symbols
-in Kivy Cupertino, run the Symbols program (below)
-
-:download:`Symbols <../../examples/symbols.py>`
-
-.. image:: ../_static/symbol_showcase.gif
-
-Symbol
-------
-
-**Python**
-
-.. code-block::
-
-   symbol = CupertinoSymbol(symbol='airplane')
-
-**KV**
-
-.. code-block::
-
-   CupertinoSymbol:
-       symbol: 'airplane'
+Symbols help portray an action with a simple symbol. To view all symbols in Kivy Cupertino,
+visit `Framework7 <https://framework7.io/icons/>`_ or run the Symbols program
 """
 
 from kivycupertino import root_path
@@ -44,29 +24,57 @@ class CupertinoSymbol(Label):
     """
     Display an iOS style symbol.
 
-    .. image:: ../_static/symbol.png
+    .. image:: ../_static/symbol/demo.png
     """
 
     symbol = StringProperty(' ')
     """
-    A :class:`~kivy.properties.StringProperty` defining the symbol to be displayed by
-    :class:`~kivycupertino.uix.symbol.CupertinoSymbol`.
+    Symbol to be displayed by :class:`CupertinoSymbol`.
+    
+    .. image:: ../_static/symbol/symbol.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSymbol(symbol='alarm_fill')
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSymbol:
+           symbol: 'alarm_fill'
     """
 
     color = ColorProperty([0, 0, 0, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of
-    :class:`~kivycupertino.uix.symbol.CupertinoSymbol`
+    Color of :class:`CupertinoSymbol`
+    
+    .. image:: ../_static/symbol/color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSymbol(color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSymbol:
+           color: 1, 0, 0, 1
     """
 
-    def on_symbol(self, widget, symbol):
+    def on_symbol(self, instance, symbol):
         """
         Callback when symbol of :class:`~kivy.uix.symbol.CupertinoSymbol` is changed
 
-        :param widget: Instance of :class:`~kivy.uix.symbol.CupertinoSymbol`
+        :param instance: Instance of :class:`CupertinoSymbol`
         :param symbol: Symbol to be displayed
         """
 
         with open(root_path + 'symbols.json', 'r') as json:
             symbols = load(json)
-        self.text = chr(eval(symbols[symbol])) if symbol != ' ' else '\u2800'
+        self.text = chr(symbols[symbol]) if symbol != ' ' else '\u2800'

@@ -1,4 +1,4 @@
-ScrollView
+Scrollview
 ==========
 
 .. automodule:: kivycupertino.uix.scrollview

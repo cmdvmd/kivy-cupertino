@@ -1,22 +1,5 @@
 """
 Switches allow users to toggle settings off/on
-
-Switch
-------
-
-.. image:: ../_static/switch.gif
-
-**Python**
-
-.. code-block:: python
-
-   switch = CupertinoSwitch()
-
-**KV**
-
-.. code-block::
-
-   CupertinoSwitch:
 """
 
 from kivy.uix.behaviors.button import ButtonBehavior
@@ -34,16 +17,16 @@ Builder.load_string("""
         
     canvas.before:
         Color:
-            rgba: root.background_toggled if root.toggled else root.background_untoggled
+            rgba: root.color_toggled if root.toggled else root.color_untoggled
         RoundedRectangle:
-            radius: self.height/2.27,
+            radius: self.height/2,
             size: self.size
             pos: self.pos
     Widget:
         width: root.width/2
-        height: root.height-(root.padding*2)
+        height: root.height-(4)
         y: root.y+(root.height/2)-(self.height/2)
-        x: root.x + ((root.width-self.width-root.padding) if root.toggled else root.padding)
+        x: root.x + ((root.width-self.width-4) if root.toggled else 4)
         
         canvas.before:
             Color:
@@ -57,35 +40,87 @@ Builder.load_string("""
 class CupertinoSwitch(ButtonBehavior, Widget):
     """
     iOS style Switch. To comply with iOS standard, keep the width to height ratio of
-    :class:`~kivycupertino.uix.switch.CupertinoSwitch` at 2:1
+    :class:`CupertinoSwitch` at 2:1
+
+    .. image:: ../_static/switch/demo.gif
     """
 
     toggled = BooleanProperty(False)
     """
-    A :class:`~kivy.properties.BooleanProperty` defining if
-    :class:`~kivycupertino.uix.switch.CupertinoSwitch` is on
+    If :class:`CupertinoSwitch` is on
+    
+    .. image:: ../_static/switch/toggled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSwitch(toggled=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSwitch:
+           toggled: True
     """
 
     thumb_color = ColorProperty([1, 1, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` that degines the color of thumb of
-    :class:`~kivycupertino.uix.switch.CupertinoSwitch`
+    Color of thumb of :class:`CupertinoSwitch`
+    
+    .. image:: ../_static/switch/thumb_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSwitch(thumb_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSwitch:
+           thumb_color: 1, 0, 0, 1
     """
 
-    background_toggled = ColorProperty([0.3, 0.85, 0.4, 1])
+    color_toggled = ColorProperty([0.3, 0.85, 0.4, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.switch.CupertinoSwitch` when on
+    Background color of :class:`CupertinoSwitch` when on
+    
+    .. image:: ../_static/switch/color_toggled.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSwitch(color_toggled=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSwitch:
+           color_toggled: 1, 0, 0, 1
     """
 
-    background_untoggled = ColorProperty([0.95, 0.95, 0.95, 1])
+    color_untoggled = ColorProperty([0.95, 0.95, 0.95, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the background color of
-    :class:`~kivycupertino.uix.switch.CupertinoSwitch` when off
-    """
-
-    padding = NumericProperty(2)
-    """
-    A :class:`~kivy.properties.ColorProperty` defining the padding around the thumb of
-    :class:`~kivycupertino.uix.switch.CupertinoSwitch`
+    Background color of :class:`CupertinoSwitch` when off
+    
+    .. image:: ../_static/switch/color_untoggled.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSwitch(color_untoggled=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSwitch:
+           color_untoggled: 0.5, 0, 0, 1
     """

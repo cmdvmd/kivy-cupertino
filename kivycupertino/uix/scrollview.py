@@ -1,29 +1,5 @@
 """
 ScrollViews help show lots of information within a set screen size
-
-ScrollView
-----------
-
-.. image:: ../_static/scrollview.gif
-
-**Python**
-
-.. code-block:: python
-
-   scrollview = CupertinoScrollView()
-   layout = GridLayout(cols=1, size_hint_y=None)
-   layout.bind(minimum_height=layout.setter('height'))
-   scrollview.add_widget(layout)
-
-**KV**
-
-.. code-block::
-
-   CupertinoScrollView:
-       GridLayout:
-           cols: 1
-           size_hint_y: None
-           height: self.minimum_height
 """
 
 from kivy.uix.scrollview import ScrollView
@@ -44,16 +20,46 @@ Builder.load_string("""
 class CupertinoScrollView(ScrollView):
     """
     iOS style ScrollView
+
+    .. image:: ../_static/scrollview/demo.gif
     """
 
     bar_color = ColorProperty([0.65, 0.65, 0.65, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of the bar of
-    :class:`~kivycupertino.uix.scrollview.CupertinoScrollView` when scrolling
+    Color of the bar of :class:`CupertinoScrollView` when scrolling
+    
+    .. image:: ../_static/scrollview/bar_color.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoScrollview(bar_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoScrollview:
+           bar_color: 1, 0, 0, 1
     """
 
     bar_inactive_color = ColorProperty([0, 0, 0, 0])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of the bar of
-    :class:`~kivycupertino.uix.scrollview.CupertinoScrollView` when not scrolling
+    Color of the bar of :class:`CupertinoScrollView` when not scrolling
+    
+    .. image:: ../_static/scrollview/bar_inactive_color.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoScrollview(bar_inactive_color=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoScrollview:
+           bar_inactive_color: 0.5, 0, 0, 1
     """
