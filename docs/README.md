@@ -11,11 +11,11 @@ $ pip install sphinx
 $ pip install sphinx-rtd-theme
 ```
 
-### Documenting an Existing Module
+## Documenting an Existing Module
 
 To edit documentation for an existing module, update the Docstrings in the file
 
-### Documenting a New Module
+## Documenting a New Module
 
 To document a new module, create a `.rst` file under [`_source/`](_source) with the same name as
 the module to be documented. The following code must be included in the file:
@@ -82,7 +82,7 @@ class ExampleClass:
         """
 ```
 
-### Testing Documentation
+## Testing Documentation
 
 To test written documentation, [install Sphinx](https://www.sphinx-doc.org/en/master/usage/installation.html)
 and run the following commands in [`docs/`](.):
@@ -91,6 +91,6 @@ and run the following commands in [`docs/`](.):
 $ make clean
 $ make html
 ```
-_Note: a [`make.bat`](make.bat) file is included under [`docs/`](.) for Windows users_
+_Note: a [`make.bat`](make.bat) file is included under [`docs/`](.) for Windows users and a [`Makefile`_
 
 These commands will create `.html` files under `_build/html`
