@@ -66,7 +66,7 @@ various widgets in Kivy Cupertino
 | Symbol Button | ✔ |
 | System Button | ✔ |
 | Tab Bar | ✔ |
-| Table | 📝 |
+| Table | ✔ |
 | Text Field | ✔ |
 | Text View | ✔ |
 | Time Picker | 📝 |

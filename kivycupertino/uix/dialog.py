@@ -54,10 +54,12 @@ Builder.load_string("""
                 Color:
                     rgb: 0.9, 0.9, 0.9
                 RoundedRectangle:
+                    radius: root.curve,
                     size: self.size
                     pos: self.pos
-        CupertinoButton:
+        _CupertinoDialogButton:
             id: cancel
+            radii: root.curve,
             text: 'Cancel'
             text_color: 0.05, 0.5, 1
             color_normal: root.color_normal
@@ -124,6 +126,11 @@ Builder.load_string("""
 class _CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
     """
     Adaptive button to be used in Dialogs
+    """
+
+    text = StringProperty(' ')
+    """
+    Text of :class:`_CupertinoDialogButton`
     """
 
     color_normal = ColorProperty()
@@ -194,6 +201,26 @@ class CupertinoActionSheet(ModalView):
            color_down: 0.5, 0, 0, 1
     """
 
+    curve = NumericProperty(12)
+    """
+    Curve of  :class:`CupertinoActionSheet`
+    
+    .. image:: ../_static/action_sheet/curve.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoActionSheet(curve=20)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoActionSheet:
+           curve: 20
+    """
+
     def add_action(self, text, action):
         """
         Add an action to :class:`dialog.CupertinoActionSheet`
@@ -221,11 +248,10 @@ class CupertinoActionSheet(ModalView):
         self.actions.size_hint_y += 0.1
         self.actions.add_widget(button)
 
-        self.actions.children[0].radii = (0, 0, 10, 10)
-        self.actions.children[-1].radii[:2] = (10, 10, 0, 0)
-
-        for b in self.actions.children[1:-1]:
-            b.radii = (0, 0, 0, 0)
+        for b in self.actions.children:
+            b.radii = 0, 0, 0, 0
+        self.actions.children[0].radii[2:] = self.curve, self.curve
+        self.actions.children[-1].radii[:2] = self.curve, self.curve
 
 
 class CupertinoAlertDialog(ModalView):

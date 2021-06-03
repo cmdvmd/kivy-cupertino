@@ -48,6 +48,7 @@ To use newly implemented widgets that have not yet been published to PyPI, insta
    _source/slider
    _source/switch
    _source/symbol
+   _source/table
    _source/textinput
 
 Contributing
