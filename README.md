@@ -42,7 +42,10 @@ various widgets in Kivy Cupertino
 | Functionality | Status |
 |---------------|--------|
 | Dark Mode | 📝 |
-| SF Symbols | 🚧 |
+| Haptic Touch | 📝 |
+| Peek and Pop | 📝 |
+| Swipe | 📝 |
+| SF Symbols | ✔ |
 | Action Sheet | ✔ |
 | Activity Indicator | ✔ |
 | Alert Dialog | ✔ |
