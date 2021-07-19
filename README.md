@@ -42,7 +42,8 @@ various widgets in Kivy Cupertino
 | Functionality | Status |
 |---------------|--------|
 | Dark Mode | 📝 |
-| Haptic Touch | 📝 |
+| Haptic Touch | ✔ |
+| Long Press | ✔ |
 | Peek and Pop | 📝 |
 | Swipe | 📝 |
 | SF Symbols | ✔ |
