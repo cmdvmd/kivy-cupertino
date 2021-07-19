@@ -42,8 +42,8 @@ Builder.load_string("""
         id: thumb
         size: root.height, root.height
         pos: selected.x+selected.width-self.width/2, root.y
-        on_touch_down: root._thumb_pressed = self.x <= args[1].x <= self.x+args[0].width and self.y <= args[1].y <= self.y+self.height
-        on_touch_up: root._thumb_pressed = False
+        on_touch_down: args[1].ud['thumb_pressed'] = self.collide_point(args[1].x, args[1].y)
+        on_touch_up: args[1].ud['thumb_pressed'] = False
         canvas.before:
             Color:
                 rgba: 0.5, 0.5, 0.5, 0.5
@@ -199,16 +199,11 @@ class CupertinoSlider(Widget):
            tap: True
     """
 
-    _thumb_pressed = BooleanProperty(False)
-    """
-    If thumb of :class:`CupertinoSlider` has been pressed
-    """
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.min = int(self.min)
         self.max = int(self.max)
-        self.value = int(self.value) if self.value != 0 else self.min
+        self.value = int(self.value) if 'value' in kwargs else self.min
 
     def _set_value(self, position):
         """
@@ -223,18 +218,18 @@ class CupertinoSlider(Widget):
         """
         Callback when :class:`CupertinoSlider` is released
 
-        :param touch: Touch on :class:`CuperitnoSlider`
+        :param touch: Touch on :class:`CupertinoSlider`
         """
 
-        if self.tap and self._track.x <= touch.x <= self._track.x+self._track.width and self.y <= touch.y <= self._track.y+self.height:
+        if self.tap and self._track.collide_point(touch.x, touch.y):
             self._set_value(touch.x)
 
     def on_touch_move(self, touch):
         """
         Callback when the thumb of :class:`CupertinoSlider` is dragged
 
-        :param touch: Touch on :class:`CuperitnoSlider`
+        :param touch: Touch on :class:`CupertinoSlider`
         """
 
-        if self._thumb_pressed:
+        if touch.ud['thumb_pressed']:
             self._set_value(touch.x)

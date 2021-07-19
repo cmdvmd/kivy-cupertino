@@ -30,7 +30,7 @@ Builder.load_string("""
             pos: self.pos
 
 <CupertinoActionSheet>:
-    actions: actions
+    _actions: actions
     
     background: root_path+'transparent.png'
     background_color: 0, 0, 0, 0.5
@@ -69,7 +69,7 @@ Builder.load_string("""
             on_release: root.dismiss()
 
 <CupertinoAlertDialog>:
-    actions: actions
+    _actions: actions
     
     background: root_path+'transparent.png'
     background_color: 0, 0, 0, 0.5
@@ -245,13 +245,13 @@ class CupertinoActionSheet(ModalView):
             color_down=self.color_down,
             on_release=action
         )
-        self.actions.size_hint_y += 0.1
-        self.actions.add_widget(button)
+        self._actions.size_hint_y += 0.1
+        self._actions.add_widget(button)
 
-        for b in self.actions.children:
+        for b in self._actions.children:
             b.radii = 0, 0, 0, 0
-        self.actions.children[0].radii[2:] = self.curve, self.curve
-        self.actions.children[-1].radii[:2] = self.curve, self.curve
+        self._actions.children[0].radii[2:] = self.curve, self.curve
+        self._actions.children[-1].radii[:2] = self.curve, self.curve
 
 
 class CupertinoAlertDialog(ModalView):
@@ -369,23 +369,23 @@ class CupertinoAlertDialog(ModalView):
         :param action: Callback to be performed, bound to ``on_release`` of action
         """
 
-        self.actions.add_widget(_CupertinoDialogButton(
+        self._actions.add_widget(_CupertinoDialogButton(
             text=text,
             color_normal=self.color,
             color_down=self.color_down,
             on_release=action
         ))
 
-        if len(self.actions.children) > 2 or len(sub(r'\[.*?\]', '', text)) > 10:
-            self.actions.orientation = 'vertical'
+        if len(self._actions.children) > 2 or len(sub(r'\[.*?]', '', text)) > 10:
+            self._actions.orientation = 'vertical'
 
-        if self.actions.orientation == 'vertical':
+        if self._actions.orientation == 'vertical':
             self.size_hint_y += 0.05
-            self.actions.size_hint_y += 0.05
+            self._actions.size_hint_y += 0.05
 
-            self.actions.children[0].radii[-2:] = [self.curve, self.curve]
-            for button in self.actions.children[1:]:
+            self._actions.children[0].radii[-2:] = [self.curve, self.curve]
+            for button in self._actions.children[1:]:
                 button.radii = [0, 0, 0, 0]
         else:
-            self.actions.children[-1].radii[-2:] = (0, self.curve)
-            self.actions.children[0].radii[2] = self.curve
+            self._actions.children[-1].radii[-2:] = (0, self.curve)
+            self._actions.children[0].radii[2] = self.curve

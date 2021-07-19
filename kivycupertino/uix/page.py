@@ -105,7 +105,8 @@ class CupertinoPageControls(BoxLayout):
 
     color_selected = ColorProperty([1, 1, 1, 1])
     """
-    A :class:`~kivy.properties.ColorProperty` defining the color of a dot on :class:`CupertinoPageControls` when not selected
+    A :class:`~kivy.properties.ColorProperty` defining the color of a dot on :class:`CupertinoPageControls`
+    when not selected
     
     .. image:: ../_static/page_controls/color_selected.gif
     
