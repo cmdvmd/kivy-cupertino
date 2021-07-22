@@ -46,11 +46,12 @@ Builder.load_string("""
     orientation: 'vertical'
     
     CupertinoSymbol:
+        id: symbol
         symbol: root.symbol
         color: root.color_selected if root.selected else root.color_unselected
     CupertinoLabel:
         text: root.text
-        font_size: 12
+        font_size: symbol.font_size*0.55
         color: root.color_selected if root.selected else root.color_unselected
         size_hint_y: 0.7
 
