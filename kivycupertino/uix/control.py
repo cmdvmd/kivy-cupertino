@@ -4,8 +4,9 @@ Controls allow users to control information on their screen
 
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import StringProperty, BooleanProperty, ColorProperty
+from kivy.uix.floatlayout import FloatLayout
+from kivy.properties import StringProperty, ColorProperty, NumericProperty
+from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
 __all__ = [
@@ -14,29 +15,40 @@ __all__ = [
 ]
 
 Builder.load_string("""
-<_CupertinoSegment>:
-    color: self.text_color
-
-    canvas.before:
-        Color:
-            rgba: self.color_selected if self.selected else (0, 0, 0, 0)
-        RoundedRectangle:
-            radius: 10,
-            size: self.size
-            pos: self.pos
-
 <CupertinoSegmentedControls>:
-    orientation: 'horizontal'
-    spacing: 3
-    padding: 3
+    _segments: segments
+    _selected_segment: selected_segment
+    
+    on_touch_down: args[1].ud['pressed'] = self.collide_point(args[1].x, args[1].y)
     
     canvas.before:
         Color:
-            rgba: root.background_color
+            rgba: self.background_color
         RoundedRectangle:
             radius: 10,
             size: self.size
             pos: self.pos
+    
+    Widget:
+        id: selected_segment
+        size_hint: None, None
+        size: segments.size
+        pos: segments.pos
+        
+        canvas.before:
+            Color:
+                rgba: root.color_selected
+            RoundedRectangle:
+                radius: 10,
+                size: self.size
+                pos: self.pos    
+    BoxLayout:
+        id: segments
+        orientation: 'horizontal'
+        spacing: 3
+        padding: 3
+        size: root.size
+        pos: root.pos
 
 <CupertinoStepper>:
     orientation: 'horizontal'
@@ -73,33 +85,7 @@ Builder.load_string("""
 """)
 
 
-class _CupertinoSegment(ButtonBehavior, CupertinoLabel):
-    """
-    iOS style segment for :class:`~kivycupertino.uix.controls.CupertinoSegmented Controls`
-    """
-
-    text = StringProperty()
-    """
-    Text :class:`_CupertinoSegment`
-    """
-
-    selected = BooleanProperty(False)
-    """
-    If :class:`_CupertinoSegment` is selected
-    """
-
-    text_color = ColorProperty([0, 0, 0, 1])
-    """
-    Text of :class:`_CupertinoSegment`
-    """
-
-    color_selected = ColorProperty([1, 1, 1, 1])
-    """
-    Background color of :class:`_CupertinoSegment` when selected
-    """
-
-
-class CupertinoSegmentedControls(BoxLayout):
+class CupertinoSegmentedControls(FloatLayout):
     """
     iOS style Segmented Controls
 
@@ -130,7 +116,7 @@ class CupertinoSegmentedControls(BoxLayout):
     """
     Background color of :class:`CupertinoSegmentedControls`
     
-    .. image:: ../_static/segmented_controls/background_color.png
+    .. image:: ../_static/segmented_controls/background_color.gif
     
     **Python**
     
@@ -150,7 +136,7 @@ class CupertinoSegmentedControls(BoxLayout):
     """
     Background color of selected tab of :class:`CupertinoSegmentedControls`
     
-    .. image:: ../_static/segmented_controls/color_selected.png
+    .. image:: ../_static/segmented_controls/color_selected.gif
     
     **Python**
     
@@ -170,7 +156,7 @@ class CupertinoSegmentedControls(BoxLayout):
     """
     Color of text of tabs of :class:`CupertinoSegmentedControls`
     
-    .. image:: ../_static/segmented_controls/text_color.png
+    .. image:: ../_static/segmented_controls/text_color.gif
     
     **Python**
     
@@ -186,6 +172,32 @@ class CupertinoSegmentedControls(BoxLayout):
            text_color: 1, 0, 0, 1
     """
 
+    transition_duration = NumericProperty(0.1)
+    """
+    Duration of change of selected segment of :class:`CupertinoSegmentedControls`
+    
+    .. image:: ../_static/segmented_controls/transition_duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSegmentedControls(transition_duration=0.5)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSegmentedControls:
+           transition_duration: 0.5
+    """
+
+    def on_touch_up(self, touch):
+        for segment in self._segments.children:
+            if segment.collide_point(touch.x, touch.y) and touch.ud['pressed']:
+                self.selected = segment.text
+                break
+
     def on_selected(self, instance, text):
         """
         Callback when a new tab is selected
@@ -194,8 +206,15 @@ class CupertinoSegmentedControls(BoxLayout):
         :param text: Text of the selected tab
         """
 
-        for segment in self.children:
-            segment.selected = segment.text == text
+        for segment in self._segments.children:
+            if segment.text == text:
+                animation = Animation(
+                    size=segment.size,
+                    pos=segment.pos,
+                    duration=self.transition_duration
+                )
+                animation.start(self._selected_segment)
+                break
 
     def add_segment(self, text):
         """
@@ -214,19 +233,13 @@ class CupertinoSegmentedControls(BoxLayout):
            segmented_controls.add_segment('Second')
         """
 
-        for child in self.children:
+        for child in self._segments.children:
             assert child.text != text, f'A tab named "{text}" already exists'
 
-        segment = _CupertinoSegment(
-            text=text,
-            text_color=self.text_color,
-            color_selected=self.color_selected,
-            on_release=lambda button: setattr(self, 'selected', button.text)
-        )
+        segment = CupertinoLabel(text=text, color=self.text_color)
+        self._segments.add_widget(segment)
 
-        self.add_widget(segment)
-
-        if len(self.children) == 1:
+        if len(self._segments.children) == 1:
             self.selected = text
 
 

@@ -43,7 +43,7 @@ Builder.load_string("""
         size: root.height, root.height
         pos: selected.x+selected.width-self.width/2, root.y
         on_touch_down: args[1].ud['thumb_pressed'] = self.collide_point(args[1].x, args[1].y)
-        on_touch_up: args[1].ud['thumb_pressed'] = False
+        
         canvas.before:
             Color:
                 rgba: 0.5, 0.5, 0.5, 0.5
