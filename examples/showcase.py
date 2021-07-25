@@ -2,6 +2,8 @@
 Showcase
 ========
 
+.. codeauthor:: cmdvmd <vcmd43@gmail.com>
+
 A program to show all widgets in Kivy Cupertino
 """
 

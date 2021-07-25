@@ -15,7 +15,7 @@ __all__ = [
 ]
 
 Builder.load_string("""
-#: import root_path kivycupertino.__init__.root_path
+#: import root_path kivycupertino.root_path
 
 <_CupertinoDialogButton>:
     color: root.text_color

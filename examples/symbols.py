@@ -2,6 +2,8 @@
 Symbols
 =======
 
+.. codeauthor:: cmdvmd <vcmd43@gmail.com>
+
 A program to show all symbols in Kivy Cupertino
 """
 
