@@ -1,8 +1,8 @@
 # Kivy Cupertino Documentation
 
-Kivy Cupertino Documentation is written with [Sphinx](https://www.sphinx-doc.org/en/master/) and
-[Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html). To improve this documentation,
-[fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below
+The [Kivy Cupertino Documentation](https://kivy-cupertino.rtfd.io) is written with [Sphinx](https://www.sphinx-doc.org/en/master/)
+and [Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html). To improve this documentation,
+[fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below:
 
 ### Installing Dependencies
 
@@ -24,7 +24,7 @@ the module to be documented. The following code must be included in the file:
 Module
 ======
 
-.. automodule:: module
+.. automodule:: kivycupertino.uix.module
    :members:
 ```
 
@@ -37,6 +37,7 @@ Description of module
 """
 
 from kivy.properties import Property
+
 
 class ExampleClass:
     """
@@ -64,13 +65,14 @@ class ExampleClass:
     
       .. code-block:: python
       
-         ExampleClass()
+         ExampleClass(property='value')
      
     **KV**
     
     .. code-block::
     
        ExampleClass:
+           property: 'value'
     """
     
     def example_function(self, example_parameter):
@@ -84,13 +86,10 @@ class ExampleClass:
 
 ## Testing Documentation
 
-To test written documentation, [install Sphinx](https://www.sphinx-doc.org/en/master/usage/installation.html)
-and run the following commands in [`docs/`](.):
+To test written documentation, run the following commands in `docs/` to create `.html` files under `_build/html/_source`:
 
 ```shell
 $ make clean
 $ make html
 ```
-_Note: a [`make.bat`](make.bat) file is included under [`docs/`](.) for Windows users and a [`Makefile`_
-
-These commands will create `.html` files under `_build/html`
+_Note: a [`Makefile`](Makefile) has been included as well as a [`make.bat`](make.bat) file for Windows users_
