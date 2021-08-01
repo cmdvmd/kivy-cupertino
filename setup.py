@@ -18,8 +18,7 @@ setuptools.setup(
         'Documentation': 'https://kivy-cupertino.rtfd.io'
     },
     install_requires=[
-        'kivy>=2.0.0',
-        'plyer>=2.0.0'
+        'kivy>=2.0.0'
     ],
     packages=[
         'kivycupertino'

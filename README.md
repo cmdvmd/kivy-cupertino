@@ -21,13 +21,11 @@ To install Kivy Cupertino from [PyPI](https://pypi.org/project/kivycupertino/), 
 $ pip install kivycupertino
 ```
 
-To use newly implemented functionalities that have not yet been published to PyPI, install with `git`
+To use newly implemented functionalities that have not yet been published to PyPI, install from GitHub
 (**not recommended for production use**):
 
 ```shell
-$ git clone https://github.com/cmdvmd/kivy-cupertino.git
-$ cd kivy-cupertino
-$ python setup.py install
+$ pip install git+https://github.com/cmdvmd/kivy-cupertino.git
 ```
 
 ## Examples
@@ -42,7 +40,6 @@ various widgets in Kivy Cupertino
 | Functionality | Status |
 |---------------|--------|
 | Dark Mode | 📝 |
-| Haptic Touch | ✔ |
 | Long Press | ✔ |
 | Swipe | 📝 |
 | SF Symbols | ✔ |
