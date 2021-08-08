@@ -1,6 +1,7 @@
 # Kivy Cupertino Documentation
 
-The [Kivy Cupertino Documentation](https://kivy-cupertino.rtfd.io) is written with [Sphinx](https://www.sphinx-doc.org/en/master/)
+The [Kivy Cupertino Documentation](https://kivy-cupertino.rtfd.io) is written
+with [Sphinx](https://www.sphinx-doc.org/en/master/)
 and [Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html). To improve this documentation,
 [fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below:
 
@@ -17,8 +18,8 @@ To edit documentation for an existing module, update the Docstrings in the file
 
 ## Documenting a New Module
 
-To document a new module, create a `.rst` file under [`_source/`](_source) with the same name as
-the module to be documented. The following code must be included in the file:
+To document a new module, create a `.rst` file under [`_source/`](_source) with the same name as the module to be
+documented. The following code must be included in the file:
 
 ```rst
 Module
@@ -48,7 +49,7 @@ class ExampleClass:
 
     .. image:: ../_static/widget/demo.ext
     """
-    
+
     property = Property('default value')
     """
     Definition of property
@@ -74,7 +75,7 @@ class ExampleClass:
        ExampleClass:
            property: 'value'
     """
-    
+
     def example_function(self, example_parameter):
         """
         Description of function
@@ -86,10 +87,12 @@ class ExampleClass:
 
 ## Testing Documentation
 
-To test written documentation, run the following commands in `docs/` to create `.html` files under `_build/html/_source`:
+To test written documentation, run the following commands in `docs/` to create `.html` files
+under `_build/html/_source`:
 
 ```shell
 $ make clean
 $ make html
 ```
+
 _Note: a [`Makefile`](Makefile) has been included as well as a [`make.bat`](make.bat) file for Windows users_

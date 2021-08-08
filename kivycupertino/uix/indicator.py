@@ -174,9 +174,9 @@ class CupertinoActivityIndicator(Widget):
 
     def __init__(self, **kwargs):
         """
-        Initialize :class:`CupertinoActivityIndicator`
+        Initialize variables of :class:`CupertinoActivityIndicator`
 
-        :param kwargs: Keyword arguments of :class:`CupertinoActivityIndicator`
+        :param kwargs: Keyword arguments for :class:`CupertinoActivityIndicator`
         """
 
         super().__init__(**kwargs)
@@ -193,15 +193,15 @@ class CupertinoActivityIndicator(Widget):
         with self.canvas:
             for i in range(self.spokes):
                 PushMatrix()
-                Rotate(angle=i*(360/self.spokes), origin=self.center)
+                Rotate(angle=i * (360 / self.spokes), origin=self.center)
                 Color(
                     r=self.color[0],
                     g=self.color[1],
                     b=self.color[2],
-                    a=self.color[3]-(((i+self.__main_spoke) % self.spokes)*(self.color[3]/self.spokes))
+                    a=self.color[3] - (((i + self.__main_spoke) % self.spokes) * (self.color[3] / self.spokes))
                 )
-                rect = RoundedRectangle(radius=(self.width/15,), size=(self.width/10, self.height/4))
-                rect.pos = self.x+self.width/2-rect.size[0]/2, self.y
+                rect = RoundedRectangle(radius=(self.width / 15,), size=(self.width / 10, self.height / 4))
+                rect.pos = self.x + self.width / 2 - rect.size[0] / 2, self.y
                 PopMatrix()
         self.__main_spoke += 1
 
@@ -214,7 +214,7 @@ class CupertinoActivityIndicator(Widget):
         """
 
         if value:
-            self.__event = Clock.schedule_interval(lambda dt: self.__draw_spokes(), 1/self.spokes)
+            self.__event = Clock.schedule_interval(lambda dt: self.__draw_spokes(), 1 / self.spokes)
         else:
             self.canvas.clear()
             Clock.unschedule(self.__event)

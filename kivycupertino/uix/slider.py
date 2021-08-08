@@ -42,7 +42,7 @@ Builder.load_string("""
         id: thumb
         size: root.height, root.height
         pos: selected.x+selected.width-self.width/2, root.y
-        on_touch_down: args[1].ud['thumb_pressed'] = self.collide_point(args[1].x, args[1].y)
+        on_touch_down: args[1].ud['thumb_pressed'] = self.collide_point(*args[1].pos)
         
         canvas.before:
             Color:
@@ -200,6 +200,12 @@ class CupertinoSlider(Widget):
     """
 
     def __init__(self, **kwargs):
+        """
+        Initialize variables of :class:`CupertinoSlider`
+
+        :param kwargs: Keyword arguments of :class:`CupertinoSlider`
+        """
+
         super().__init__(**kwargs)
         self.min = int(self.min)
         self.max = int(self.max)
@@ -212,7 +218,8 @@ class CupertinoSlider(Widget):
         :param position: Position of touch
         """
 
-        self.value = int((self.max-self.min)*(min(1, max(0, (position-self._track.x)/self._track.width))))+self.min
+        self.value = int(
+            (self.max - self.min) * (min(1, max(0, (position - self._track.x) / self._track.width)))) + self.min
 
     def on_touch_up(self, touch):
         """
@@ -221,7 +228,7 @@ class CupertinoSlider(Widget):
         :param touch: Touch on :class:`CupertinoSlider`
         """
 
-        if self.tap and self._track.collide_point(touch.x, touch.y):
+        if self.tap and self._track.collide_point(*touch.pos):
             self._set_value(touch.x)
 
     def on_touch_move(self, touch):

@@ -19,7 +19,7 @@ Builder.load_string("""
     _segments: segments
     _selected_segment: selected_segment
     
-    on_touch_down: args[1].ud['pressed'] = self.collide_point(args[1].x, args[1].y)
+    on_touch_down: args[1].ud['pressed'] = self.collide_point(*args[1].pos)
     
     canvas.before:
         Color:
@@ -194,7 +194,7 @@ class CupertinoSegmentedControls(FloatLayout):
 
     def on_touch_up(self, touch):
         for segment in self._segments.children:
-            if segment.collide_point(touch.x, touch.y) and touch.ud['pressed']:
+            if segment.collide_point(*touch.pos) and touch.ud['pressed']:
                 self.selected = segment.text
                 break
 
