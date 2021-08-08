@@ -45,11 +45,17 @@ class LongPressBehavior:
     """
 
     def __init__(self, **kwargs):
+        """
+        Initialize behaviors of :class:`CupertinoActivityIndicator`
+
+        :param kwargs: Keyword arguments for :class:`LongPressBehavior`
+        """
+
         super().__init__(**kwargs)
         self.register_event_type('on_long_press')
 
     def on_touch_down(self, touch):
-        if self.collide_point(touch.ox, touch.oy):
+        if self.collide_point(*touch.opos):
             touch.ud['callback'] = Clock.schedule_once(
                 lambda dt: self.dispatch('on_long_press', touch),
                 self.long_press_duration

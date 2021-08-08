@@ -1,6 +1,6 @@
 """
 Symbols help portray an action with a simple symbol. To view all symbols in Kivy Cupertino,
-visit `Framework7 <https://framework7.io/icons/>`_ or run the Symbols program
+visit `Framework7 <https://framework7.io/icons/>`_ or run the :download:`Symbols program <../../examples/symbols.py>`
 """
 
 from kivycupertino import root_path

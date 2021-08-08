@@ -176,7 +176,7 @@ class CupertinoPageControls(BoxLayout):
         """
 
         for i in range(len(self.children)):
-            self.children[i].selected = len(self.children)-1-i == instance.screen_names.index(name)
+            self.children[i].selected = len(self.children) - 1 - i == instance.screen_names.index(name)
 
     def _change_screen(self, index):
         """

@@ -71,7 +71,6 @@ Builder.load_string("""
 <CupertinoAlertDialog>:
     _actions: actions
     
-    background: root_path+'transparent.png'
     background_color: 0, 0, 0, 0.5
     auto_dismiss: False
     size_hint: 0.8, 0.3
