@@ -45,6 +45,12 @@ class LongPressBehavior:
     """
 
     def __init__(self, **kwargs):
+        """
+        Initialize behaviors of :class:`CupertinoActivityIndicator`
+
+        :param kwargs: Keyword arguments for :class:`LongPressBehavior`
+        """
+
         super().__init__(**kwargs)
         self.register_event_type('on_long_press')
 

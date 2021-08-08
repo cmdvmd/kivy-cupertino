@@ -1,9 +1,7 @@
 """
 Symbols
 =======
-
 .. codeauthor:: cmdvmd <vcmd43@gmail.com>
-
 A program to show all symbols in Kivy Cupertino
 """
 
@@ -48,7 +46,7 @@ class SymbolsApp(CupertinoApp):
 
         scrollview.add_widget(layout)
 
-        with open(root_path+'symbols.json', 'r') as json:
+        with open(root_path + 'symbols.json', 'r') as json:
             symbols = load(json)
 
         for s in symbols:

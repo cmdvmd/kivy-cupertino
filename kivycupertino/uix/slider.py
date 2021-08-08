@@ -200,6 +200,12 @@ class CupertinoSlider(Widget):
     """
 
     def __init__(self, **kwargs):
+        """
+        Initialize variables of :class:`CupertinoSlider`
+
+        :param kwargs: Keyword arguments of :class:`CupertinoSlider`
+        """
+
         super().__init__(**kwargs)
         self.min = int(self.min)
         self.max = int(self.max)
@@ -212,7 +218,8 @@ class CupertinoSlider(Widget):
         :param position: Position of touch
         """
 
-        self.value = int((self.max-self.min)*(min(1, max(0, (position-self._track.x)/self._track.width))))+self.min
+        self.value = int(
+            (self.max - self.min) * (min(1, max(0, (position - self._track.x) / self._track.width)))) + self.min
 
     def on_touch_up(self, touch):
         """

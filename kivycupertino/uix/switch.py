@@ -175,6 +175,12 @@ class CupertinoSwitch(ButtonBehavior, Widget):
     """
 
     def __init__(self, **kwargs):
+        """
+        Initialize :class:`CupertinoSwitch` and register events
+
+        :param kwargs: Keyword arguments of :class:`CupertinoSwitch`
+        """
+
         super().__init__(**kwargs)
         self.bind(pos=lambda instance, value: self.on_toggled(instance, self.toggled))
 
@@ -188,10 +194,11 @@ class CupertinoSwitch(ButtonBehavior, Widget):
 
         if state:
             color_animation = Animation(_background_color=self.color_toggled, duration=self.switch_duration)
-            thumb_animation = Animation(x=self.x+self.width-self._thumb.width-self._padding, duration=self.switch_duration)
+            thumb_animation = Animation(x=self.x + self.width - self._thumb.width - self._padding,
+                                        duration=self.switch_duration)
         else:
             color_animation = Animation(_background_color=self.color_untoggled, duration=self.switch_duration)
-            thumb_animation = Animation(x=self.x+self._padding, duration=self.switch_duration)
+            thumb_animation = Animation(x=self.x + self._padding, duration=self.switch_duration)
         color_animation.start(self)
         thumb_animation.start(self._thumb)
 
@@ -205,5 +212,5 @@ class CupertinoSwitch(ButtonBehavior, Widget):
         if self.collide_point(touch.ox, touch.oy):
             if touch.x <= self.x:
                 self.toggled = False
-            elif touch.x >= self.x+self.width:
+            elif touch.x >= self.x + self.width:
                 self.toggled = True

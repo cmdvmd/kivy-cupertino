@@ -240,7 +240,7 @@ class CupertinoTableGroup(BoxLayout):
         """
 
         super().add_widget(widget, index, canvas)
-        smallest = len(self.children)-1
+        smallest = len(self.children) - 1
         largest = 0
         for index, child in enumerate(self.children):
             if isinstance(child, CupertinoCell):
