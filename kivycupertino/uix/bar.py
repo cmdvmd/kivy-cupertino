@@ -3,7 +3,7 @@ Bars are generally positioned at the top or bottom of a screen and
 contain widgets and/or information for easy access by users
 """
 
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ColorProperty, BooleanProperty, StringProperty
@@ -69,10 +69,10 @@ Builder.load_string("""
 """)
 
 
-class CupertinoNavigationBar(FloatLayout):
+class CupertinoNavigationBar(RelativeLayout):
     """
     iOS style Navigation Bar. :class:`CupertinoNavigationBar`
-    is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    is a :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
     .. image:: ../_static/navigation_bar/demo.png
     """
@@ -98,10 +98,10 @@ class CupertinoNavigationBar(FloatLayout):
     """
 
 
-class CupertinoToolbar(FloatLayout):
+class CupertinoToolbar(RelativeLayout):
     """
     iOS style Toolbar. :class:`CupertinoToolbar`
-    is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    is a :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
     .. image:: ../_static/toolbar/demo.png
     """

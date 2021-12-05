@@ -4,7 +4,7 @@ Controls allow users to control information on their screen
 
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.properties import StringProperty, ColorProperty, NumericProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
@@ -85,7 +85,7 @@ Builder.load_string("""
 """)
 
 
-class CupertinoSegmentedControls(FloatLayout):
+class CupertinoSegmentedControls(RelativeLayout):
     """
     iOS style Segmented Controls
 

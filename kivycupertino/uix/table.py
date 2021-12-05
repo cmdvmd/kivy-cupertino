@@ -2,7 +2,7 @@
 Tables help organize data and information for users to view and interact with
 """
 
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ColorProperty, NumericProperty, BooleanProperty, StringProperty
@@ -54,10 +54,10 @@ Builder.load_string("""
 """)
 
 
-class CupertinoCell(FloatLayout):
+class CupertinoCell(RelativeLayout):
     """
     iOS style Cell for Table View. :class:`CupertinoCell` is a
-    :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
     .. image:: ../_static/cell/demo.png
     """
@@ -96,7 +96,7 @@ class CupertinoCell(FloatLayout):
 class CupertinoClickableCell(ButtonBehavior, CupertinoCell):
     """
     iOS style clickable Cell for Table View. :class:`CupertinoClickableCell` is a
-    :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
     .. image:: ../_static/clickable_cell/demo.gif
     """
