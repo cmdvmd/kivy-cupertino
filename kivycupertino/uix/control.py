@@ -10,11 +10,15 @@ from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
 __all__ = [
+    'CupertinoSegment',
     'CupertinoSegmentedControls',
     'CupertinoStepper'
 ]
 
 Builder.load_string("""
+<CupertinoSegment>:
+    font_size: self.parent.height / 2 if self.parent is not None else 15
+
 <CupertinoSegmentedControls>:
     _segments: segments
     _selected_segment: selected_segment
@@ -85,6 +89,28 @@ Builder.load_string("""
 """)
 
 
+class CupertinoSegment(CupertinoLabel):
+    color = ColorProperty([0, 0, 0, 1])
+    """
+    Color of text of :class:`CupertinoSegment`
+    
+    .. image:: ../_static/segment/color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSegment(color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSegment:
+           text_color: 1, 0, 0, 1
+    """
+
+
 class CupertinoSegmentedControls(FloatLayout):
     """
     iOS style Segmented Controls
@@ -116,7 +142,7 @@ class CupertinoSegmentedControls(FloatLayout):
     """
     Background color of :class:`CupertinoSegmentedControls`
     
-    .. image:: ../_static/segmented_controls/background_color.gif
+    .. image:: ../_static/segmented_controls/background_color.png
     
     **Python**
     
@@ -136,7 +162,7 @@ class CupertinoSegmentedControls(FloatLayout):
     """
     Background color of selected tab of :class:`CupertinoSegmentedControls`
     
-    .. image:: ../_static/segmented_controls/color_selected.gif
+    .. image:: ../_static/segmented_controls/color_selected.png
     
     **Python**
     
@@ -150,26 +176,6 @@ class CupertinoSegmentedControls(FloatLayout):
     
        CupertinoSegmentedControls:
            color_selected: 1, 0, 0, 1
-    """
-
-    text_color = ColorProperty([0, 0, 0, 1])
-    """
-    Color of text of tabs of :class:`CupertinoSegmentedControls`
-    
-    .. image:: ../_static/segmented_controls/text_color.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoSegmentedControls(text_color=(1, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoSegmentedControls:
-           text_color: 1, 0, 0, 1
     """
 
     transition_duration = NumericProperty(0.1)
@@ -216,31 +222,25 @@ class CupertinoSegmentedControls(FloatLayout):
                 animation.start(self._selected_segment)
                 break
 
-    def add_segment(self, text):
+    def add_widget(self, widget, index=0, canvas=None):
         """
-        Add a tab to :class:`CupertinoSegmentedControls`
-
-        :param text: Text of tab
-
         .. note::
-           Segments can be only added to :class:`CupertinoSegmentedControls` with Python,
-           not KV
+           The :attr:`text` of every :class:`CupertinoSegment` added must be unique
 
-        .. code-block:: python
-
-           segmented_controls = CupertinoSegmentedControls()
-           segmented_controls.add_segment('First')
-           segmented_controls.add_segment('Second')
+        Add an instance of :class:`CupertinoSegment` to :class:`CupertinoSegmentedControls`
         """
 
-        for child in self._segments.children:
-            assert child.text != text, f'A tab named "{text}" already exists'
+        if len(self.children) >= 2:
+            assert isinstance(widget,
+                              CupertinoSegment), 'CupertinoSegmentedControls accepts only CupertinoSegment widget'
+            for child in self._segments.children:
+                assert child.text != widget.text, f'A tab named "{widget.text}" already exists'
 
-        segment = CupertinoLabel(text=text, color=self.text_color)
-        self._segments.add_widget(segment)
-
-        if len(self._segments.children) == 1:
-            self.selected = text
+            self._segments.add_widget(widget)
+            if len(self._segments.children) == 1:
+                self.selected = widget.text
+        else:
+            super().add_widget(widget, index, canvas)
 
 
 class CupertinoStepper(BoxLayout):

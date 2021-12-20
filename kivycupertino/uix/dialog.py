@@ -4,36 +4,73 @@ Dialogs help alert users to information
 
 from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.widget import Widget
 from kivy.uix.modalview import ModalView
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.lang.builder import Builder
-from re import sub
+from kivy.core.window import Window
 
 __all__ = [
+    'CupertinoDialogButton',
     'CupertinoActionSheet',
-    'CupertinoAlertDialog'
+    'CupertinoDialog'
 ]
 
 Builder.load_string("""
 #: import root_path kivycupertino.root_path
 
-<_CupertinoDialogButton>:
+<_Separator>:
+    canvas.before:
+        Color:
+            rgb: 0.8, 0.8, 0.8
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<CupertinoDialogButton>:
     color: root.text_color
-    markup: True
     
     canvas.before:
         Color:
             rgba: root.color_down if self.state == 'down' else root.color_normal
         RoundedRectangle:
-            radius: root.radii
+            radius: root._radii
             size: self.size
             pos: self.pos
+
+<CupertinoDialog>:
+    _content: content
+    _actions: actions
+    
+    background: root_path + 'transparent.png'
+    auto_dismiss: False
+    pos_hint: {'center': (0.5, 0.5)}
+    
+    BoxLayout:
+        orientation: 'vertical'
+        
+        FloatLayout:
+            id: content
+            
+            canvas.before:
+                Color:
+                    rgba: root.color
+                RoundedRectangle:
+                    radius: root.curve, root.curve, 0, 0
+                    size: self.size
+                    pos: self.pos
+        _Separator:
+            size_hint_y: None
+            height: root.spacing
+        BoxLayout:
+            id: actions
+            orientation: 'horizontal'
+            pos: root.pos
 
 <CupertinoActionSheet>:
     _actions: actions
     
-    background: root_path+'transparent.png'
-    background_color: 0, 0, 0, 0.5
+    background: root_path + 'transparent.png'
     auto_dismiss: False
     size_hint_x: 0.95
     pos_hint: {'center_x': 0.5}
@@ -45,112 +82,285 @@ Builder.load_string("""
         BoxLayout:
             id: actions
             orientation: 'vertical'
-            spacing: 2
-            size_hint_y: 0
+            y: cancel.y + cancel.height + 10
             pos_hint: {'center_x': 0.5}
-            y: cancel.y+cancel.height+10
-            
-            canvas.before:
-                Color:
-                    rgb: 0.9, 0.9, 0.9
-                RoundedRectangle:
-                    radius: root.curve,
-                    size: self.size
-                    pos: self.pos
-        _CupertinoDialogButton:
+        
+        CupertinoDialogButton:
             id: cancel
-            radii: root.curve,
+            _radii: root.curve,
             text: 'Cancel'
             text_color: 0.05, 0.5, 1
+            bold: True
             color_normal: root.color_normal
             color_down: root.color_down
-            size_hint_y: 0.09
-            pos_hint: {'center_x': 0.5, 'y': 0.02}
-            on_release: root.dismiss()
-
-<CupertinoAlertDialog>:
-    _actions: actions
-    
-    background_color: 0, 0, 0, 0.5
-    auto_dismiss: False
-    size_hint: 0.8, 0.3
-    pos_hint: {'center': (0.5, 0.5)}
-    
-    canvas:
-        Color:
-            rgba: self.color
-        RoundedRectangle:
-            radius: self.curve,
-            size: self.size
-            pos: self.pos
-            
-    FloatLayout:
-        size: root.size
-        pos: root.pos
-        
-        CupertinoLabel:
-            id: title
-            text: root.title
-            font_size: 15
-            halign: 'center'
-            bold: True
-            text_size: self.width-20, None
-            pos_hint: {'center_x': 0.5, 'top': 1.3}
-        CupertinoLabel:
-            id: content
-            text: root.content
-            font_size: 12
-            halign: 'center'
-            text_size: self.width-20, None
+            size_hint_y: 0.08
+            y: 10
             pos_hint: {'center_x': 0.5}
-            y: title.y-title.texture_size[1]-20
-        BoxLayout:
-            id: actions
-            orientation: 'horizontal'
-            spacing: 1
-            padding: 0, 1, 0, 0
-            size_hint_y: 0.25
-            pos: root.pos
-            
-            canvas.before:
-                Color:
-                    rgb: 0.9, 0.9, 0.9
-                RoundedRectangle:
-                    radius: 0, 0, root.curve, root.curve
-                    size: self.size
-                    pos: self.pos
+            on_release: root.dismiss()
 """)
 
 
-class _CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
+class _Separator(Widget):
+    pass
+
+
+class CupertinoDialogButton(ButtonBehavior, CupertinoLabel):
     """
     Adaptive button to be used in Dialogs
     """
 
     text = StringProperty(' ')
     """
-    Text of :class:`_CupertinoDialogButton`
+    Text of :class:`CupertinoDialogButton`
+    
+    .. image:: ../_static/dialog_button/text.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialogButton(text='Hello World')
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialogButton:
+           text: 'Hello World'
     """
 
-    color_normal = ColorProperty()
+    font_size = NumericProperty(14)
     """
-    Background color of :class:`_CupertinoDialogButton` when not pressed
+    Size of text of :class:`CupertinoDialogButton`
+    
+    .. image:: ../_static/dialog_button/font_size.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialogButton(font_size=20)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialogButton:
+           font_size: 20
     """
 
-    color_down = ColorProperty()
+    color_normal = ColorProperty([1, 1, 1, 0.85])
     """
-    Background color of :class:`_CupertinoDialogButton` when pressed
+    Background color of :class:`CupertinoDialogButton` when not pressed
+    
+    .. image:: ../_static/dialog_button/color_normal.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialogButton(color_normal=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialogButton:
+           color_normal: 0.5, 0, 0, 1
+    """
+
+    color_down = ColorProperty([1, 1, 1, 0.75])
+    """
+    Background color of :class:`CupertinoDialogButton` when pressed
+    
+    .. image:: ../_static/dialog_button/color_down.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialogButton(color_down=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialogButton:
+           color_down: 0.5, 0, 0, 1
     """
 
     text_color = ColorProperty([0.05, 0.5, 1, 1])
     """
-    Text of :class:`_CupertinoDialogButton` when not pressed
+    Color of the text of :class:`CupertinoDialogButton`
+    
+    .. image:: ../_static/dialog_button/text_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialogButton(text_color=(1, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialogButton:
+           color_down: 1, 0, 0, 1
     """
 
-    radii = ListProperty([0, 0, 0, 0])
+    _radii = ListProperty([0, 0, 0, 0])
     """
-    A :class:`~kivy.properties.ListProperty` defining the radii values of :class:`_CupertinoDialogButton`
+    A :class:`~kivy.properties.ListProperty` defining the radii values of the corners of :class:`CupertinoDialogButton`
     """
+
+
+class CupertinoDialog(ModalView):
+    """
+    iOS style dialog
+
+    .. image:: ../_static/dialog/demo.gif
+    """
+
+    color = ColorProperty([1, 1, 1, 0.85])
+    """
+    Background color of :class:`CupertinoDialog`
+    
+    .. image:: ../_static/dialog/color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialog(color=(1, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialog:
+           color: 1, 0, 0, 1
+    """
+
+    spacing = NumericProperty(1)
+    """
+    Spacing between :attr:`children` of  :class:`CupertinoDialog`
+    
+    .. image:: ../_static/dialog/spacing.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialog(spacing=5)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialog:
+           spacing: 5
+    """
+
+    curve = NumericProperty(10)
+    """
+    Curve of  :class:`CupertinoDialog`
+    
+    .. image:: ../_static/dialog/curve.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoDialog(curve=20)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoDialog:
+           curve: 20
+    """
+
+    def __init__(self, **kwargs):
+        """
+        Initialize :class:`CupertinoDialog`
+        """
+
+        super().__init__(**kwargs)
+
+        self._og_size_hint_y = self.size_hint_y
+        self.bind(size_hint_y=lambda instance, value: self.__setattr__('_og_size_hint_y', value))
+
+    def _configure_shape(self):
+        """
+        Configure :attr:`orientation` and placement of actions in the layout
+        """
+
+        longest_text = len(self._actions.children[0].text)
+        for child in self._actions.children:
+            if isinstance(child, CupertinoDialogButton):
+                longest_text = max(longest_text, len(child.text))
+                child._radii = 0, 0, 0, 0
+
+        orientation = 'vertical' if len(self._actions.children) > 3 or longest_text > 10 else 'horizontal'
+        self._actions.orientation = orientation
+        for child in self._actions.children:
+            if isinstance(child, _Separator):
+                if orientation == 'vertical':
+                    child.size_hint = (1, None)
+                    child.height = self.spacing
+                else:
+                    child.size_hint = (None, 1)
+                    child.width = self.spacing
+
+        if orientation == 'vertical':
+            actions_height = Window.height * self._og_size_hint_y * 0.35 * ((len(self._actions.children) + 1) / 2)
+            super().__setattr__('size_hint_y', ((Window.height * self._og_size_hint_y * 0.65) + actions_height) / Window.height)
+            self._actions.size_hint_y = actions_height / (Window.height * self.size_hint_y)
+            self._actions.children[0]._radii[-2:] = self.curve, self.curve
+        else:
+            self.size_hint_y = self._og_size_hint_y
+            self._actions.size_hint_y = 0.35
+            self._actions.children[-1]._radii[-2:] = 0, self.curve
+            self._actions.children[0]._radii[2] = self.curve
+
+    def add_widget(self, widget, index=0, canvas=None):
+        """
+        Add :attr:`children` to :class:`CupertinoDialog`
+
+        .. note::
+           Instances of :class:`CupertinoDialogButton` will be rendered at the
+           bottom of the dialog rather than in the content area
+        """
+
+        if len(self.children) >= 1:
+            if isinstance(widget, CupertinoDialogButton):
+                self._actions.add_widget(widget, index)
+                if len(self._actions.children) > 1:
+                    self._actions.add_widget(_Separator(size_hint=(None, None), size=(0, 0)), index + 1)
+                self._configure_shape()
+            else:
+                self._content.add_widget(widget, index)
+        else:
+            super().add_widget(widget, index, canvas)
+
+    def remove_widget(self, widget):
+        """
+        Remove :attr:`children` from their respective layouts
+        """
+
+        if isinstance(widget, CupertinoDialogButton):
+            try:
+                index = self._actions.children.index(widget)
+                if index != len(self._actions.children) - 1:
+                    self._actions.remove_widget(self.children[index + 1])
+                self._actions.remove_widget(widget)
+                self._configure_shape()
+            except ValueError:
+                return
+        else:
+            self._content.remove_widget(widget)
 
 
 class CupertinoActionSheet(ModalView):
@@ -162,7 +372,7 @@ class CupertinoActionSheet(ModalView):
 
     color_normal = ColorProperty([1, 1, 1, 0.95])
     """
-    Background color of the actions of :class:`CupertinoActionSheet` when not pressed
+    Background color of :class:`CupertinoActionSheet` 'Cancel' button when not pressed
     
     .. image:: ../_static/action_sheet/color_normal.png
     
@@ -180,9 +390,9 @@ class CupertinoActionSheet(ModalView):
            color_normal: 0.5, 0, 0, 1
     """
 
-    color_down = ColorProperty([1, 1, 1, 0.5])
+    color_down = ColorProperty([1, 1, 1, 0.8])
     """
-    Background color of the actions of :class:`CupertinoActionSheet` when pressed
+    Background color of :class:`CupertinoActionSheet` 'Cancel' button when pressed
     
     .. image:: ../_static/action_sheet/color_down.gif
     
@@ -200,7 +410,27 @@ class CupertinoActionSheet(ModalView):
            color_down: 0.5, 0, 0, 1
     """
 
-    curve = NumericProperty(12)
+    spacing = NumericProperty(1)
+    """
+    Spacing between :attr:`children` of  :class:`CupertinoActionSheet`
+    
+    .. image:: ../_static/action_sheet/spacing.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoActionSheet(spacing=5)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoActionSheet:
+           spacing: 5
+    """
+
+    curve = NumericProperty(10)
     """
     Curve of  :class:`CupertinoActionSheet`
     
@@ -220,171 +450,44 @@ class CupertinoActionSheet(ModalView):
            curve: 20
     """
 
-    def add_action(self, text, action):
+    def _configure_shape(self):
         """
-        Add an action to :class:`dialog.CupertinoActionSheet`
-
-        :param text: Text of action. :attr:`markup` is enabled
-        :param action: Callback to be performed, bound to attr:`on_release` of action
-
-        .. note::
-           Actions can only be added to :class:`CupertinoActionSheet`
-           in Python, not KV
-
-        .. code-block:: python
-
-           action_sheet = CupertinoActionSheet()
-           action_sheet.add_action('[color=ff0000]Action[/color]', callback)
-           action_sheet.add_action('Sheet', callback)
+        Configure shape of dialog based on present :attr:`children`
         """
 
-        button = _CupertinoDialogButton(
-            text=text,
-            color_normal=self.color_normal,
-            color_down=self.color_down,
-            on_release=action
-        )
-        self._actions.size_hint_y += 0.1
-        self._actions.add_widget(button)
+        self._actions.size_hint_y = 0.08 * ((len(self._actions.children) + 1) / 2)
 
         for b in self._actions.children:
-            b.radii = 0, 0, 0, 0
-        self._actions.children[0].radii[2:] = self.curve, self.curve
-        self._actions.children[-1].radii[:2] = self.curve, self.curve
+            b._radii = 0, 0, 0, 0
+        self._actions.children[0]._radii[2:] = self.curve, self.curve
+        self._actions.children[-1]._radii[:2] = self.curve, self.curve
 
-
-class CupertinoAlertDialog(ModalView):
-    """
-    iOS style Alert Dialog
-
-    .. image:: ../_static/alert_dialog/demo.gif
-    """
-
-    title = StringProperty(' ')
-    """
-    Text of title of :class:`CupertinoAlertDialog`
-    
-    .. image:: ../_static/alert_dialog/title.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoAlertDialog(title='Hello World')
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoAlertDialog:
-           title: 'Hello World'
-    """
-
-    content = StringProperty(' ')
-    """
-    Text of content of :class:`CupertinoAlertDialog`
-    
-    .. image:: ../_static/alert_dialog/content.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoAlertDialog(content='Hello World')
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoAlertDialog:
-           content: 'Hello World'
-    """
-
-    color = ColorProperty([1, 1, 1, 0.95])
-    """
-    Background color of :class:`CupertinoAlertDialog`
-    
-    .. image:: ../_static/alert_dialog/color.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoAlertDialog(color=(1, 0, 0, 1))
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoAlertDialog:
-           color: 1, 0, 0, 1
-    """
-
-    color_down = ColorProperty([0.9, 0.9, 0.9, 1])
-    """
-    Background color of action of :class:`CupertinoAlertDialog` when pressed
-    
-    .. image:: ../_static/alert_dialog/color_down.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoAlertDialog(color_down=(0.5, 0, 0, 1))
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoAlertDialog:
-           color_down: 0.5, 0, 0, 1
-    """
-
-    curve = NumericProperty(15)
-    """
-    Curve of  :class:`CupertinoAlertDialog`
-    
-    .. image:: ../_static/alert_dialog/curve.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoAlertDialog(curve=20)
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoAlertDialog:
-           curve: 20
-    """
-
-    def add_action(self, text, action):
+    def add_widget(self, widget, index=0, canvas=None):
         """
-        Add an action to :class:`CupertinoAlertDialog`
-
-        :param text: Text of action. ``markup`` is enabled
-        :param action: Callback to be performed, bound to ``on_release`` of action
+        Add an instance of :class:`CupertinoDialogButton` to :class:`CupertinoActionSheet`
         """
 
-        self._actions.add_widget(_CupertinoDialogButton(
-            text=text,
-            color_normal=self.color,
-            color_down=self.color_down,
-            on_release=action
-        ))
+        if len(self.children) >= 1:
+            assert isinstance(widget,
+                              CupertinoDialogButton), 'CupertinoActionSheet accepts only CupertinoDialogButton widget'
 
-        if len(self._actions.children) > 2 or len(sub(r'\[.*?]', '', text)) > 10:
-            self._actions.orientation = 'vertical'
-
-        if self._actions.orientation == 'vertical':
-            self.size_hint_y += 0.05
-            self._actions.size_hint_y += 0.05
-
-            self._actions.children[0].radii[-2:] = [self.curve, self.curve]
-            for button in self._actions.children[1:]:
-                button.radii = [0, 0, 0, 0]
+            self._actions.add_widget(widget)
+            if len(self._actions.children) > 1:
+                self._actions.add_widget(_Separator(size_hint_y=None, height=self.spacing), index + 1)
+            self._configure_shape()
         else:
-            self._actions.children[-1].radii[-2:] = (0, self.curve)
-            self._actions.children[0].radii[2] = self.curve
+            super().add_widget(widget, index, canvas)
+
+    def remove_widget(self, widget):
+        """
+        Remove :attr:`children` from :class:`CupertinoActionSheet`
+        """
+
+        try:
+            index = self._actions.children.index(widget)
+            if index != len(self._actions.children) - 1:
+                self._actions.remove_widget(self.children[index + 1])
+            self._actions.remove_widget(widget)
+            self._configure_shape()
+        except ValueError:
+            return

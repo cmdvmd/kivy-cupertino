@@ -5,13 +5,13 @@ contain widgets and/or information for easy access by users
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ColorProperty, BooleanProperty, StringProperty
 from kivy.lang.builder import Builder
 
 __all__ = [
     'CupertinoNavigationBar',
     'CupertinoToolbar',
+    'CupertinoTab',
     'CupertinoTabBar'
 ]
 
@@ -42,21 +42,21 @@ Builder.load_string("""
             size: self.width, 1
             pos: self.x, self.y+self.height
 
-<_CupertinoTab>:
+<CupertinoTab>:
     orientation: 'vertical'
     
     CupertinoSymbol:
         id: symbol
         symbol: root.symbol
-        color: root.color_selected if root.selected else root.color_unselected
+        color: root.color_selected if root._selected else root.color_unselected
     CupertinoLabel:
         text: root.text
         font_size: symbol.font_size*0.55
-        color: root.color_selected if root.selected else root.color_unselected
+        color: root.color_selected if root._selected else root.color_unselected
         size_hint_y: 0.7
 
 <CupertinoTabBar>:
-    items: items
+    _items: items
 
     color: root.background_color
     
@@ -127,34 +127,96 @@ class CupertinoToolbar(FloatLayout):
     """
 
 
-class _CupertinoTab(ButtonBehavior, BoxLayout):
+class CupertinoTab(BoxLayout):
     """
-    iOS style tab for :class:`CupertinoTabBar`
+    iOS style tab which can only be used with :class:`CupertinoTabBar`
+
+    .. image:: ../_static/tab/demo.png
     """
 
-    text = StringProperty()
+    _selected = BooleanProperty(False)
     """
-    Text of :class:`_CupertinoTab`
-    """
-
-    symbol = StringProperty()
-    """
-    Symbol of :class:`_CupertinoTab`
+    If :class:`CupertinoTab` is selected in its :attr:`parent`
     """
 
-    selected = BooleanProperty(False)
+    text = StringProperty(' ')
     """
-    If :class:`_CupertinoTab` is selected
+    Text of :class:`CupertinoTab`
+    
+    .. image:: ../_static/tab/text.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTab(text='Tab')
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTab:
+           text: 'Tab'
     """
 
-    color_unselected = ColorProperty()
+    symbol = StringProperty(' ')
     """
-    Color of :class:`_CupertinoTab` when not selected
+    Symbol of :class:`CupertinoTab`
+    
+    .. image:: ../_static/tab/symbol.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTab(symbol='hammer_fill')
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTab:
+           symbol: 'hammer_fill'
     """
 
-    color_selected = ColorProperty()
+    color_selected = ColorProperty([0.2, 0.45, 1, 1])
     """
-    Color of :class:`_CupertinoTab` when selected
+    Color of the selected tab of :class:`CupertinoTab`
+    
+    .. image:: ../_static/tab/color_selected.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTabBar(color_selected=(1, 0, 0, 1))
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTab:
+           color_selected: 1, 0, 0, 1
+    """
+
+    color_unselected = ColorProperty([0.7, 0.7, 0.75, 1])
+    """
+    Color of :class:`CupertinoTabBar` when not selected
+    
+    .. image:: ../_static/tab/color_unselected.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoTab(color_unselected=(0.5, 0, 0, 1))
+   
+    **KV**
+   
+    .. code-block::
+    
+       CupertinoTab:
+           color_unselected: 0.5, 0, 0, 1
     """
 
 
@@ -205,46 +267,6 @@ class CupertinoTabBar(CupertinoToolbar):
            background_color: 0.5, 0, 0, 1
     """
 
-    color_selected = ColorProperty([0.2, 0.45, 1, 1])
-    """
-    Color of the selected tab of :class:`CupertinoTabBar`
-    
-    .. image:: ../_static/tab_bar/color_selected.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoTabBar(color_selected=(1, 0, 0, 1))
-   
-    **KV**
-   
-    .. code-block::
-    
-       CupertinoTabBar:
-           color_selected: 1, 0, 0, 1
-    """
-
-    color_unselected = ColorProperty([0.7, 0.7, 0.75, 1])
-    """
-    Color of unselected tabs of :class:`CupertinoTabBar`
-    
-    .. image:: ../_static/tab_bar/color_unselected.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoTabBar(color_unselected=(0.5, 0, 0, 1))
-   
-    **KV**
-   
-    .. code-block::
-    
-       CupertinoTabBar:
-           color_unselected: 0.5, 0, 0, 1
-    """
-
     def on_selected(self, instance, tab_text):
         """
         Callback when a new tab of :class:`CupertinoTabBar` is selected
@@ -253,37 +275,28 @@ class CupertinoTabBar(CupertinoToolbar):
         :param tab_text: Text of the selected tag
         """
 
-        for tab in self.items.children:
-            tab.selected = tab.text == tab_text
+        for tab in self._items.children:
+            tab._selected = tab.text == tab_text
 
-    def add_tab(self, text, symbol):
+    def on_touch_up(self, touch):
+        for tab in self._items.children:
+            self.selected = tab.text if tab.collide_point(*touch.pos) else self.selected
+
+    def add_widget(self, widget, index=0, canvas=None):
         """
-        Add a tab to :class:`CupertinoTabBar`
-
-        :param text: Text of tab
-        :param symbol: :ref:`Symbol <symbol>` of tab
-
         .. note::
-           Tabs can be only added to :class:`CupertinoTabBar` with Python,
-           not KV
+           The :attr:`text` of every :class:`CupertinoTab` added must be unique
 
-        .. code-block:: python
-
-           tab_bar = CupertinoTabBar()
-           tab_bar.add_tab('Stars', 'star_fill')
-           tab_bar.add_tab('People', 'person_alt_circle')
-           tab_bar.add_tab('Recents', 'clock_fill')
+        Add an instance of :class:`CupertinoTab` to :class:`CupertinoTabBar`
         """
 
-        tab = _CupertinoTab(
-            text=text,
-            symbol=symbol,
-            color_selected=self.color_selected,
-            color_unselected=self.color_unselected,
-            on_release=lambda button: setattr(self, 'selected', button.text)
-        )
+        if len(self.children) >= 1:
+            assert isinstance(widget, CupertinoTab), 'CupertinoTabBar accepts only CupertinoTab widget'
+            for child in self._items.children:
+                assert child.text != widget.text, f'A tab named "{widget.text}" already exists'
 
-        self.items.add_widget(tab)
-
-        if len(self.items.children) == 1:
-            self.selected = text
+            self._items.add_widget(widget)
+            if len(self._items.children) == 1:
+                self.selected = widget.text
+        else:
+            super().add_widget(widget, index, canvas)
