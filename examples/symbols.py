@@ -1,24 +1,65 @@
 """
 Symbols
 =======
+
 .. codeauthor:: cmdvmd <vcmd43@gmail.com>
+
 A program to show all symbols in Kivy Cupertino
 """
 
-from kivycupertino.uix.scrollview import CupertinoScrollView
 from kivycupertino import root_path
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar
 from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.symbol import CupertinoSymbol
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.recycleview import RecycleView
 from kivy.core.window import Window
+from kivy.properties import StringProperty
+from kivy.lang.builder import Builder
 from json import load
+
+Builder.load_string("""
+<RV>:
+    viewclass: 'Symbol'
+    
+    RecycleBoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 5
+        default_size: None, 20
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+
+<Symbol>:
+    orientation: 'horizontal'
+    spacing: 10
+    
+    CupertinoSymbol:
+        symbol: root.symbol
+        color: 0, 0, 0, 1
+        size_hint_x: 0.1
+    CupertinoLabel:
+        text: root.symbol
+        font_size: 14
+        halign: 'left'
+        text_size: self.size
+""")
+
+
+class RV(RecycleView):
+    pass
+
+
+class Symbol(BoxLayout):
+    symbol = StringProperty(' ')
 
 
 class SymbolsApp(CupertinoApp):
     def build(self):
+        with open(root_path + 'symbols.json', 'r') as json:
+            symbols = load(json)
+
         box = BoxLayout()
         box.orientation = 'vertical'
 
@@ -30,58 +71,18 @@ class SymbolsApp(CupertinoApp):
         title.bold = True
         title.pos_hint = {'center': (0.5, 0.5)}
 
-        scrollview = CupertinoScrollView()
-        scrollview.scroll_wheel_distance = 200
-
-        layout = GridLayout()
-        layout.cols = 1
-        layout.spacing = 15
-        layout.padding = 2, 15
-        layout.size_hint_y = None
-        layout.bind(
-            minimum_height=layout.setter('height')
-        )
+        rv = RV()
+        rv.data = [{'symbol': symbol} for symbol in symbols]
 
         navigation_bar.add_widget(title)
-
-        scrollview.add_widget(layout)
-
-        with open(root_path + 'symbols.json', 'r') as json:
-            symbols = load(json)
-
-        for s in symbols:
-            cell = BoxLayout()
-            cell.orientation = 'horizontal'
-            cell.size_hint_y = None
-            cell.height = 20
-
-            symbol = CupertinoSymbol()
-            symbol.symbol = s
-            symbol.color = 0, 0, 0, 1
-            symbol.size_hint_x = 0.2
-
-            name = CupertinoLabel()
-            name.text = s
-            name.font_size = 14
-            name.halign = 'left'
-            name.bind(
-                size=name.setter('text_size')
-            )
-
-            cell.add_widget(symbol)
-            cell.add_widget(name)
-
-            layout.add_widget(cell)
-
         box.add_widget(navigation_bar)
-        box.add_widget(scrollview)
+        box.add_widget(rv)
 
         return box
 
 
-Window.clearcolor = (0.98, 0.98, 0.98, 1)
-Window.size = (300, 530)
-
 if __name__ == '__main__':
+    Window.clearcolor = (0.98, 0.98, 0.98, 1)
+    Window.size = (300, 530)
     app = SymbolsApp()
     app.run()
