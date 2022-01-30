@@ -7,12 +7,10 @@ Showcase
 A program to display all widgets in Kivy Cupertino
 """
 
-__author__ = 'cmdvmd'
-
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar, CupertinoTab
 from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.dialog import CupertinoDialogButton, CupertinoDialog, CupertinoActionSheet
+from kivycupertino.uix.modal import CupertinoModalButton, CupertinoDialog, CupertinoActionSheet
 from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton
 from kivycupertino.uix.switch import CupertinoSwitch
 from kivycupertino.uix.indicator import CupertinoActivityIndicator, CupertinoProgressbar
@@ -28,7 +26,7 @@ class ShowcaseApp(CupertinoApp):
     @staticmethod
     def open_dialog():
         dialog = CupertinoDialog()
-        dialog.size_hint = 0.8, 0.25
+        dialog.size_hint = 0.8, 0.2
 
         dialog_title = CupertinoLabel()
         dialog_title.text = 'Alert Dialog'
@@ -45,7 +43,7 @@ class ShowcaseApp(CupertinoApp):
             width=lambda *args: dialog_content.setter('text_size')(dialog_content, (dialog_content.width - 20, None))
         )
 
-        close_button = CupertinoDialogButton()
+        close_button = CupertinoModalButton()
         close_button.text = 'Close'
         close_button.on_release = dialog.dismiss
 
@@ -59,11 +57,11 @@ class ShowcaseApp(CupertinoApp):
     def open_action_sheet():
         action_sheet = CupertinoActionSheet()
 
-        action_button = CupertinoDialogButton()
+        action_button = CupertinoModalButton()
         action_button.text = 'Action'
         action_button.text_color = 1, 0, 0, 1
 
-        sheet_button = CupertinoDialogButton()
+        sheet_button = CupertinoModalButton()
         sheet_button.text = 'Sheet'
 
         action_sheet.add_widget(action_button)
@@ -233,9 +231,9 @@ class ShowcaseApp(CupertinoApp):
         return layout
 
 
-Window.clearcolor = 0.98, 0.98, 0.98, 1
-Window.size = (300, 550)
-
 if __name__ == '__main__':
+    Window.clearcolor = 0.98, 0.98, 0.98, 1
+    Window.size = (300, 550)
+
     app = ShowcaseApp()
     app.run()

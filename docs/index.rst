@@ -40,10 +40,10 @@ To use newly implemented widgets that have not yet been published to PyPI, insta
    _source/bar
    _source/button
    _source/control
-   _source/dialog
    _source/gesture
    _source/indicator
    _source/label
+   _source/modal
    _source/page
    _source/scrollview
    _source/slider

@@ -21,9 +21,9 @@ r('CupertinoSegment', module='kivycupertino.uix.control')
 r('CupertinoSegmentedControls', module='kivycupertino.uix.control')
 r('CupertinoStepper', module='kivycupertino.uix.control')
 
-r('CupertinoDialogButton', module='kivycupertino.uix.dialog')
-r('CupertinoActionSheet', module='kivycupertino.uix.dialog')
-r('CupertinoDialog', module='kivycupertino.uix.dialog')
+r('CupertinoModalButton', module='kivycupertino.uix.modal')
+r('CupertinoActionSheet', module='kivycupertino.uix.modal')
+r('CupertinoDialog', module='kivycupertino.uix.modal')
 
 r('CupertinoActivityIndicator', module='kivycupertino.uix.indicator')
 r('CupertinoProgressBar', module='kivycupertino.uix.indicator')
