@@ -56,6 +56,8 @@ class ShowcaseApp(CupertinoApp):
     @staticmethod
     def open_action_sheet():
         action_sheet = CupertinoActionSheet()
+        action_sheet.title = 'Action Sheet'
+        action_sheet.message = 'This is an iOS style action sheet'
 
         action_button = CupertinoModalButton()
         action_button.text = 'Action'
