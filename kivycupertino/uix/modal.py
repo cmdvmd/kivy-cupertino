@@ -2,7 +2,7 @@
 Modals help alert users to information
 """
 
-from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty
+from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty, BooleanProperty
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.widget import Widget
 from kivy.uix.modalview import ModalView
@@ -82,6 +82,7 @@ Builder.load_string("""
 <CupertinoActionSheet>:
     _message_frame: message_frame
     _actions: actions
+    _cancel: cancel
     _show_frame: (root.title).strip() or (root.message).strip()
     
     size_hint_x: 0.95
@@ -117,19 +118,13 @@ Builder.load_string("""
             size_hint_y: None
             y: cancel.y + cancel.height + 10
             pos_hint: {'center_x': 0.5}
-        CupertinoModalButton:
+        GridLayout:
             id: cancel
-            _radii: root.curve,
-            text: 'Cancel'
-            text_color: 0.05, 0.5, 1
-            bold: True
-            color_normal: root.color_normal
-            color_down: root.color_down
+            cols: 1
             size_hint_y: None
-            height: root.action_height
+            height: root.action_height if self.children else 0
             y: 10
             pos_hint: {'center_x': 0.5}
-            on_release: root.dismiss()
 """)
 
 
@@ -246,6 +241,26 @@ class CupertinoModalButton(ButtonBehavior, CupertinoLabel):
            color_down: 1, 0, 0, 1
     """
 
+    cancel = BooleanProperty(False)
+    """
+    If :class:`CupertinoModalButton` should be a cancel button when added to an instance of :class:`CupertinoActionSheet`
+    
+    .. image:: ../_static/modal_button/cancel.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(cancel=True)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           cancel: True
+    """
+
     _radii = ListProperty([0, 0, 0, 0])
     """
     A :class:`~kivy.properties.ListProperty` defining the radii values of the corners of :class:`CupertinoModalButton`
@@ -259,22 +274,27 @@ class CupertinoModal(ModalView):
 
     def remove_widget(self, widget):
         """
-        Remove :attr:`children` from instance of :class:`CupertinoModal`
+        Remove an instance of :class:`CupertinoModalButton` from instance of :class:`CupertinoModal`
 
         :param widget: :class:`Widget` to be removed from :class:`CupertinoModal`
         """
 
-        if isinstance(widget, CupertinoModalButton):
-            try:
-                index = self._actions.children.index(widget)
-                if index != len(self._actions.children) - 1:
-                    self._actions.remove_widget(self._actions.children[index + 1])
-                self._actions.remove_widget(widget)
-                self._configure_shape()
-            except ValueError:
-                return
-        else:
-            self._content.remove_widget(widget)
+        index = self._actions.children.index(widget)
+        if index != len(self._actions.children) - 1:
+            self._actions.remove_widget(self._actions.children[index + 1])
+        self._actions.remove_widget(widget)
+        self._configure_shape()
+
+    def clear_widgets(self, children=None):
+        """
+        Remove all widgets (or the widgets specified in :param children:) from the actions of instances
+        of :class:`CupertinoModal`
+
+        :param children: List of instances of :class:`Widget` to be removed from :class:`CupertinoModal` (Optional)
+        """
+
+        self._actions.clear_widgets(children)
+        self._configure_shape()
 
 
 class CupertinoDialog(CupertinoModal):
@@ -368,7 +388,7 @@ class CupertinoDialog(CupertinoModal):
         super().__init__(**kwargs)
         self._content.height = (Window.height * self.size_hint_y) if self.size_hint_y is not None else self.height
         self.size_hint_y = None
-        self._configure_shape()
+        self.bind(action_height=lambda *args: self._configure_shape())
 
     def _configure_shape(self):
         """
@@ -380,7 +400,7 @@ class CupertinoDialog(CupertinoModal):
             for child in self._actions.children:
                 if isinstance(child, CupertinoModalButton):
                     longest_text = max(longest_text, len(child.text))
-                    child._radii = 0, 0, 0, 0
+                    child._radii = (0,) * 4
 
             orientation = 'vertical' if len(self._actions.children) > 3 or longest_text > 10 else 'horizontal'
             self._actions.orientation = orientation
@@ -436,6 +456,28 @@ class CupertinoDialog(CupertinoModal):
                 self._content.add_widget(widget, index)
         else:
             super().add_widget(widget, index, canvas)
+
+    def remove_widget(self, widget):
+        """
+        Remove :attr:`children` from instance of :class:`CupertinoActionSheet`
+
+        :param widget: :class:`Widget` to be removed from :class:`CupertinoActionSheet`
+        """
+
+        if isinstance(widget, CupertinoModalButton):
+            super().remove_widget(widget)
+        else:
+            self._content.remove_widget(widget)
+
+    def clear_widgets(self, children=None):
+        """
+        Remove all widgets (or the widgets specified in :param children:) from :class:`CupertinoDialog`
+
+        :param children: List of instances of :class:`Widget` to be removed from :class:`CupertinoDialog` (Optional)
+        """
+
+        self._content.clear_widgets(children)
+        super().clear_widgets(children)
 
 
 class ActionSheetLabel(CupertinoLabel):
@@ -513,7 +555,7 @@ class CupertinoActionSheet(CupertinoModal):
 
     color_normal = ColorProperty([1, 1, 1, 0.9])
     """
-    Background color of :class:`CupertinoActionSheet` 'Cancel' button when not pressed
+    Background color of message frame of :class:`CupertinoActionSheet`
     
     .. image:: ../_static/action_sheet/color_normal.png
     
@@ -529,26 +571,6 @@ class CupertinoActionSheet(CupertinoModal):
     
        CupertinoActionSheet:
            color_normal: 0.5, 0, 0, 1
-    """
-
-    color_down = ColorProperty([0.9, 0.9, 0.9, 1])
-    """
-    Background color of :class:`CupertinoActionSheet` 'Cancel' button when pressed
-    
-    .. image:: ../_static/action_sheet/color_down.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoActionSheet(color_down=(0.5, 0, 0, 1))
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoActionSheet:
-           color_down: 0.5, 0, 0, 1
     """
 
     action_height = NumericProperty(45)
@@ -622,6 +644,7 @@ class CupertinoActionSheet(CupertinoModal):
 
         self._title_label = ActionSheetLabel(bold=True, color=self.text_color)
         self._message_label = ActionSheetLabel(color=self.text_color)
+        self.bind(action_height=lambda *args: self._configure_shape())
 
     def _configure_shape(self):
         """
@@ -631,8 +654,8 @@ class CupertinoActionSheet(CupertinoModal):
         if self._actions.children:
             self._actions.height = ((len(self._actions.children) + 1) / 2) * self.action_height
 
-            for b in self._actions.children:
-                b._radii = 0, 0, 0, 0
+            for action in self._actions.children:
+                action._radii = (0,) * 4
             self._actions.children[0]._radii[2:] = self.curve, self.curve
             self._actions.children[-1]._radii[:2] = (0, 0) if self._show_frame else (self.curve, self.curve)
 
@@ -686,9 +709,36 @@ class CupertinoActionSheet(CupertinoModal):
             assert isinstance(widget,
                               CupertinoModalButton), 'CupertinoActionSheet accepts only CupertinoModalButton widget'
 
-            self._actions.add_widget(widget, index)
-            if len(self._actions.children) > 1:
-                self._actions.add_widget(Separator(size_hint_y=None, height=self.spacing), index + 1)
+            if widget.cancel:
+                widget._radii = (self.curve,) * 4
+                self._cancel.add_widget(widget, index)
+            else:
+                self._actions.add_widget(widget, index)
+                if len(self._actions.children) > 1:
+                    self._actions.add_widget(Separator(size_hint_y=None, height=self.spacing), index + 1)
             self._configure_shape()
         else:
             super().add_widget(widget, index, canvas)
+
+    def remove_widget(self, widget):
+        """
+        Remove :attr:`children` from instance of :class:`CupertinoActionSheet`
+
+        :param widget: :class:`Widget` to be removed from :class:`CupertinoActionSheet`
+        """
+
+        if isinstance(widget, CupertinoModalButton):
+            if widget.cancel:
+                self._cancel.remove_widget(widget)
+            else:
+                super().remove_widget(widget)
+
+    def clear_widgets(self, children=None):
+        """
+        Remove all widgets (or the widgets specified in :param children:) from :class:`CupertinoActionSheet`
+
+        :param children: List of instances of :class:`Widget` to be removed from :class:`CupertinoActionSheet` (Optional)
+        """
+
+        self._cancel.clear_widgets(children)
+        super().clear_widgets(children)

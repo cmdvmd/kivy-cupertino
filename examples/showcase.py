@@ -66,8 +66,15 @@ class ShowcaseApp(CupertinoApp):
         sheet_button = CupertinoModalButton()
         sheet_button.text = 'Sheet'
 
+        cancel_button = CupertinoModalButton()
+        cancel_button.text = 'Cancel'
+        cancel_button.cancel = True
+        cancel_button.color_normal = 1, 1, 1, 1
+        cancel_button.on_release = action_sheet.dismiss
+
         action_sheet.add_widget(action_button)
         action_sheet.add_widget(sheet_button)
+        action_sheet.add_widget(cancel_button)
 
         action_sheet.open()
 
