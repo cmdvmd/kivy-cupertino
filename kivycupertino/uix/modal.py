@@ -20,7 +20,7 @@ Builder.load_string("""
 #: import root_path kivycupertino.root_path
 #: import BoxLayout kivy.uix.boxlayout.BoxLayout
 
-<Separator>:
+<_Separator>:
     canvas.before:
         Color:
             rgb: 0.8, 0.8, 0.8
@@ -39,7 +39,7 @@ Builder.load_string("""
             size: self.size
             pos: self.pos
 
-<CupertinoModal>:
+<_CupertinoModal>:
     background: root_path + 'transparent.png'
     overlay_color: 0, 0, 0, 0.45
     auto_dismiss: False
@@ -63,7 +63,7 @@ Builder.load_string("""
                     radius: (root.curve, root.curve, 0, 0) if root._instantiated else (root.curve,) * 4 
                     size: self.size
                     pos: self.pos
-        Separator:
+        _Separator:
             size_hint_y: None
             height: root.spacing if root._instantiated else 0
         BoxLayout:
@@ -72,7 +72,7 @@ Builder.load_string("""
             size_hint_y: None
             pos: root.pos
 
-<ActionSheetLabel>:
+<_ActionSheetLabel>:
     halign: 'center'
     font_size: 11
     size_hint_y: None
@@ -107,7 +107,7 @@ Builder.load_string("""
                     radius: root.curve, root.curve, 0, 0
                     size: self.size
                     pos: self.pos
-        Separator:
+        _Separator:
             id: frame_separator
             size_hint_y: None
             height: root.spacing if root._show_frame else 0
@@ -128,9 +128,9 @@ Builder.load_string("""
 """)
 
 
-class Separator(Widget):
+class _Separator(Widget):
     """
-    A widget to separate instances of :class:`CupertinoModalButton` when added to an instance of :class:`CupertinoModal`
+    A widget to separate instances of :class:`CupertinoModalButton` when added to an instance of :class:`_CupertinoModal`
     """
 
 
@@ -267,16 +267,16 @@ class CupertinoModalButton(ButtonBehavior, CupertinoLabel):
     """
 
 
-class CupertinoModal(ModalView):
+class _CupertinoModal(ModalView):
     """
     Base class for iOS style modals with separate content and actions
     """
 
     def remove_widget(self, widget):
         """
-        Remove an instance of :class:`CupertinoModalButton` from instance of :class:`CupertinoModal`
+        Remove an instance of :class:`CupertinoModalButton` from instance of :class:`_CupertinoModal`
 
-        :param widget: :class:`Widget` to be removed from :class:`CupertinoModal`
+        :param widget: :class:`Widget` to be removed from :class:`_CupertinoModal`
         """
 
         index = self._actions.children.index(widget)
@@ -288,16 +288,16 @@ class CupertinoModal(ModalView):
     def clear_widgets(self, children=None):
         """
         Remove all widgets (or the widgets specified in :param children:) from the actions of instances
-        of :class:`CupertinoModal`
+        of :class:`_CupertinoModal`
 
-        :param children: List of instances of :class:`Widget` to be removed from :class:`CupertinoModal` (Optional)
+        :param children: List of instances of :class:`Widget` to be removed from :class:`_CupertinoModal` (Optional)
         """
 
         self._actions.clear_widgets(children)
         self._configure_shape()
 
 
-class CupertinoDialog(CupertinoModal):
+class CupertinoDialog(_CupertinoModal):
     """
     iOS style dialog that dynamically adapts to the amount of actions (:class:`CupertinoModalButton`) it has
 
@@ -405,7 +405,7 @@ class CupertinoDialog(CupertinoModal):
             orientation = 'vertical' if len(self._actions.children) > 3 or longest_text > 10 else 'horizontal'
             self._actions.orientation = orientation
             for child in self._actions.children:
-                if isinstance(child, Separator):
+                if isinstance(child, _Separator):
                     if orientation == 'vertical':
                         child.size_hint = 1, None
                         child.height = self.spacing
@@ -450,7 +450,7 @@ class CupertinoDialog(CupertinoModal):
             if isinstance(widget, CupertinoModalButton):
                 self._actions.add_widget(widget, index)
                 if len(self._actions.children) > 1:
-                    self._actions.add_widget(Separator(size_hint=(None, None), size=(0, 0)), index + 1)
+                    self._actions.add_widget(_Separator(size_hint=(None, None), size=(0, 0)), index + 1)
                 self._configure_shape()
             else:
                 self._content.add_widget(widget, index)
@@ -480,13 +480,13 @@ class CupertinoDialog(CupertinoModal):
         super().clear_widgets(children)
 
 
-class ActionSheetLabel(CupertinoLabel):
+class _ActionSheetLabel(CupertinoLabel):
     """
     Label for message frame of :class:`CupertinoActionSheet` that wraps text
     """
 
 
-class CupertinoActionSheet(CupertinoModal):
+class CupertinoActionSheet(_CupertinoModal):
     """
     iOS style Action Sheet
 
@@ -642,8 +642,8 @@ class CupertinoActionSheet(CupertinoModal):
 
         super().__init__(**kwargs)
 
-        self._title_label = ActionSheetLabel(bold=True, color=self.text_color)
-        self._message_label = ActionSheetLabel(color=self.text_color)
+        self._title_label = _ActionSheetLabel(bold=True, color=self.text_color)
+        self._message_label = _ActionSheetLabel(color=self.text_color)
         self.bind(action_height=lambda *args: self._configure_shape())
 
     def _configure_shape(self):
@@ -715,7 +715,7 @@ class CupertinoActionSheet(CupertinoModal):
             else:
                 self._actions.add_widget(widget, index)
                 if len(self._actions.children) > 1:
-                    self._actions.add_widget(Separator(size_hint_y=None, height=self.spacing), index + 1)
+                    self._actions.add_widget(_Separator(size_hint_y=None, height=self.spacing), index + 1)
             self._configure_shape()
         else:
             super().add_widget(widget, index, canvas)
