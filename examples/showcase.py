@@ -4,20 +4,17 @@ Showcase
 
 .. codeauthor:: cmdvmd <vcmd43@gmail.com>
 
-A program to show all widgets in Kivy Cupertino
+A program to display all widgets in Kivy Cupertino
 """
 
-__author__ = 'Eduardo Mendes'  # dunossauro on GitHub <https://github.com/dunossauro>
-__maintainer__ = 'cmdvmd'
-
 from kivycupertino.app import CupertinoApp
-from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar
+from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar, CupertinoTab
 from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.dialog import CupertinoAlertDialog, CupertinoActionSheet
+from kivycupertino.uix.modal import CupertinoModalButton, CupertinoDialog, CupertinoActionSheet
 from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton
 from kivycupertino.uix.switch import CupertinoSwitch
 from kivycupertino.uix.indicator import CupertinoActivityIndicator, CupertinoProgressbar
-from kivycupertino.uix.control import CupertinoSegmentedControls, CupertinoStepper
+from kivycupertino.uix.control import CupertinoSegment, CupertinoSegmentedControls, CupertinoStepper
 from kivycupertino.uix.slider import CupertinoSlider
 from kivycupertino.uix.textinput import CupertinoSearchBar, CupertinoTextField, CupertinoTextView
 from kivy.uix.boxlayout import BoxLayout
@@ -27,19 +24,58 @@ from kivy.core.window import Window
 
 class ShowcaseApp(CupertinoApp):
     @staticmethod
-    def open_alert_dialog():
-        alert_dialog = CupertinoAlertDialog()
-        alert_dialog.title = 'Alert Dialog'
-        alert_dialog.content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' \
-                               'Quisque tincidunt ut magna quis placerat'
-        alert_dialog.add_action('Close', alert_dialog.dismiss)
-        alert_dialog.open()
+    def open_dialog():
+        dialog = CupertinoDialog()
+        dialog.size_hint = 0.8, 0.2
+
+        dialog_title = CupertinoLabel()
+        dialog_title.text = 'Alert Dialog'
+        dialog_title.font_size = 15
+        dialog_title.bold = True
+        dialog_title.pos_hint = {'center_x': 0.5, 'top': 1.3}
+
+        dialog_content = CupertinoLabel()
+        dialog_content.text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt ut magna quis placerat'
+        dialog_content.font_size = 12
+        dialog_content.halign = 'center'
+        dialog_content.pos_hint = {'center_x': 0.5, 'top': 0.9}
+        dialog_content.bind(
+            width=lambda *args: dialog_content.setter('text_size')(dialog_content, (dialog_content.width - 20, None))
+        )
+
+        close_button = CupertinoModalButton()
+        close_button.text = 'Close'
+        close_button.on_release = dialog.dismiss
+
+        dialog.add_widget(dialog_title)
+        dialog.add_widget(dialog_content)
+        dialog.add_widget(close_button)
+
+        dialog.open()
 
     @staticmethod
     def open_action_sheet():
         action_sheet = CupertinoActionSheet()
-        action_sheet.add_action('[color=ff0000]Action[/color]', action_sheet.dismiss)
-        action_sheet.add_action('Sheet', action_sheet.dismiss)
+        action_sheet.title = 'Action Sheet'
+        action_sheet.message = 'This is an iOS style action sheet'
+
+        action_button = CupertinoModalButton()
+        action_button.text = 'Action'
+        action_button.text_color = 1, 0, 0, 1
+
+        sheet_button = CupertinoModalButton()
+        sheet_button.text = 'Sheet'
+
+        cancel_button = CupertinoModalButton()
+        cancel_button.text = 'Cancel'
+        cancel_button.cancel = True
+        cancel_button.color_normal = 1, 1, 1, 1
+        cancel_button.on_release = action_sheet.dismiss
+
+        action_sheet.add_widget(action_button)
+        action_sheet.add_widget(sheet_button)
+        action_sheet.add_widget(cancel_button)
+
         action_sheet.open()
 
     def buttons(self):
@@ -49,7 +85,7 @@ class ShowcaseApp(CupertinoApp):
         symbol_button.color_down = 0, 0.15, 0.8, 1
         symbol_button.size_hint_y = 0.1
         symbol_button.pos_hint = {'center': (0.5, 0.8)}
-        symbol_button.on_release = self.open_alert_dialog
+        symbol_button.on_release = self.open_dialog
 
         system_button = CupertinoSystemButton()
         system_button.text = 'Open Action Sheet'
@@ -84,8 +120,12 @@ class ShowcaseApp(CupertinoApp):
         segmented_controls = CupertinoSegmentedControls()
         segmented_controls.size_hint = 0.7, 0.075
         segmented_controls.pos_hint = {'center': (0.5, 0.9)}
-        segmented_controls.add_segment('Segmented')
-        segmented_controls.add_segment('Controls')
+
+        segmented_tab = CupertinoSegment()
+        segmented_tab.text = 'Segmented'
+
+        controls_tab = CupertinoSegment()
+        controls_tab.text = 'Controls'
 
         self.progressbar = CupertinoProgressbar()
         self.progressbar.size_hint = 0.95, 0.01
@@ -103,6 +143,9 @@ class ShowcaseApp(CupertinoApp):
         slider = CupertinoSlider()
         slider.size_hint = 0.8, 0.075
         slider.pos_hint = {'center': (0.5, 0.45)}
+
+        segmented_controls.add_widget(segmented_tab)
+        segmented_controls.add_widget(controls_tab)
 
         self.contents.add_widget(segmented_controls)
         self.contents.add_widget(self.progressbar)
@@ -171,11 +214,24 @@ class ShowcaseApp(CupertinoApp):
         tab_bar = CupertinoTabBar()
         tab_bar.size_hint_y = 0.1
         tab_bar.bind(selected=self.change_screen)
-        tab_bar.add_tab('Buttons', 'circle_grid_3x3_fill')
-        tab_bar.add_tab('Controls', 'wrench_fill')
-        tab_bar.add_tab('Text', 'textformat_abc')
+
+        button_tab = CupertinoTab()
+        button_tab.text = 'Buttons'
+        button_tab.symbol = 'circle_grid_3x3_fill'
+
+        controls_tab = CupertinoTab()
+        controls_tab.text = 'Controls'
+        controls_tab.symbol = 'wrench_fill'
+
+        text_tab = CupertinoTab()
+        text_tab.text = 'Text'
+        text_tab.symbol = 'textformat_abc'
 
         navigation_bar.add_widget(title)
+
+        tab_bar.add_widget(button_tab)
+        tab_bar.add_widget(controls_tab)
+        tab_bar.add_widget(text_tab)
 
         layout.add_widget(navigation_bar)
         layout.add_widget(self.contents)
@@ -184,9 +240,9 @@ class ShowcaseApp(CupertinoApp):
         return layout
 
 
-Window.clearcolor = 0.98, 0.98, 0.98, 1
-Window.size = (300, 530)
-
 if __name__ == '__main__':
+    Window.clearcolor = 0.98, 0.98, 0.98, 1
+    Window.size = (300, 550)
+
     app = ShowcaseApp()
     app.run()
