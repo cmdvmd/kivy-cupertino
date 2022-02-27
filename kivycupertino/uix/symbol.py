@@ -16,7 +16,7 @@ __all__ = [
 Builder.load_string("""
 <CupertinoSymbol>:
     font_name: 'SF Symbols'
-    font_size: min(self.size)
+    font_size: sp(min(self.size))
 """)
 
 

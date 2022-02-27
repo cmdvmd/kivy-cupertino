@@ -17,7 +17,7 @@ __all__ = [
 
 Builder.load_string("""
 <CupertinoSegment>:
-    font_size: self.parent.height / 2 if self.parent is not None else 15
+    font_size: self.parent.height / 2 if self.parent is not None else '15sp'
 
 <CupertinoSegmentedControls>:
     _segments: segments
@@ -29,7 +29,7 @@ Builder.load_string("""
         Color:
             rgba: self.background_color
         RoundedRectangle:
-            radius: 10,
+            radius: dp(10),
             size: self.size
             pos: self.pos
     
@@ -43,24 +43,24 @@ Builder.load_string("""
             Color:
                 rgba: root.color_selected
             RoundedRectangle:
-                radius: 10,
+                radius: dp(10),
                 size: self.size
                 pos: self.pos    
     BoxLayout:
         id: segments
         orientation: 'horizontal'
-        spacing: 3
-        padding: 3
+        spacing: dp(3)
+        padding: dp(3)
         size: root.size
         pos: root.pos
 
 <CupertinoStepper>:
     orientation: 'horizontal'
-    spacing: 2
+    spacing: dp(2)
     
     CupertinoSystemButton:
         text: '-'
-        font_size: 25
+        font_size: '25sp'
         color_normal: root.text_color
         color_down: root.text_color
         on_release: root.dispatch('on_minus')
@@ -69,12 +69,12 @@ Builder.load_string("""
             Color:
                 rgba: root.color_down if self.state == 'down' else root.color_normal
             RoundedRectangle:
-                radius: root.height/4, 0, 0, root.height/4
+                radius: dp(root.height/4), 0, 0, dp(root.height/4)
                 size: self.size
                 pos: self.pos
     CupertinoSystemButton:
         text: '+'
-        font_size: 25
+        font_size: '25sp'
         color_normal: root.text_color
         color_down: root.text_color
         on_release: root.dispatch('on_plus')
@@ -83,7 +83,7 @@ Builder.load_string("""
             Color:
                 rgba: root.color_down if self.state == 'down' else root.color_normal
             RoundedRectangle:
-                radius: 0, root.height/4, root.height/4, 0
+                radius: 0, dp(root.height/4), dp(root.height/4), 0
                 size: self.size
                 pos: self.pos
 """)

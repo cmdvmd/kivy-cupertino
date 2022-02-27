@@ -24,16 +24,16 @@ Builder.load_string("""
     
     RecycleBoxLayout:
         orientation: 'vertical'
-        padding: 10
-        spacing: 5
-        default_size: None, 20
+        padding: dp(10)
+        spacing: dp(5)
+        default_size: None, dp(20)
         default_size_hint: 1, None
         size_hint_y: None
-        height: self.minimum_height
+        height: dp(self.minimum_height)
 
 <Symbol>:
     orientation: 'horizontal'
-    spacing: 10
+    spacing: dp(10)
     
     CupertinoSymbol:
         symbol: root.symbol
@@ -41,7 +41,7 @@ Builder.load_string("""
         size_hint_x: 0.1
     CupertinoLabel:
         text: root.symbol
-        font_size: 14
+        font_size: '14sp'
         halign: 'left'
         text_size: self.size
 """)

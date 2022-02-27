@@ -17,7 +17,7 @@ Builder.load_string("""
         Color:
             rgba: self.color_selected if self.selected else self.color_unselected
         Ellipse:
-            size: self.height, self.height
+            size: dp(self.height), dp(self.height)
             pos: self.x+self.width/2-self.height/2, self.y
 
 <CupertinoPageControls>:

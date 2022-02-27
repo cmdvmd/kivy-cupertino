@@ -57,7 +57,7 @@ class CupertinoLabel(Label):
            font_name: 'New York'
     """
 
-    font_size = NumericProperty(15)
+    font_size = NumericProperty('15sp')
     """
     Size of the font of :class:`CupertinoLabel`
     
@@ -67,14 +67,14 @@ class CupertinoLabel(Label):
     
     .. code-block:: python
     
-       CupertinoLabel(font_size=20)
+       CupertinoLabel(font_size='20sp')
     
     **KV**
     
     .. code-block::
     
        CupertinoLabel:
-           font_size: 20
+           font_size: '20sp'
     """
 
     bold = BooleanProperty(False)

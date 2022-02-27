@@ -9,6 +9,7 @@ from kivy.uix.modalview import ModalView
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.core.window import Window
 from kivy.lang.builder import Builder
+from kivy.metrics import dp
 
 __all__ = [
     'CupertinoModalButton',
@@ -60,12 +61,12 @@ Builder.load_string("""
                 Color:
                     rgba: root.color
                 RoundedRectangle:
-                    radius: (root.curve, root.curve, 0, 0) if root._instantiated else (root.curve,) * 4 
+                    radius: (dp(root.curve), dp(root.curve), 0, 0) if root._instantiated else (dp(root.curve),) * 4 
                     size: self.size
                     pos: self.pos
         _Separator:
             size_hint_y: None
-            height: root.spacing if root._instantiated else 0
+            height: dp(root.spacing) if root._instantiated else 0
         BoxLayout:
             id: actions
             orientation: 'horizontal'
@@ -74,10 +75,10 @@ Builder.load_string("""
 
 <_ActionSheetLabel>:
     halign: 'center'
-    font_size: 11
+    font_size: '11sp'
     size_hint_y: None
-    text_size: self.width, None
-    height: self.texture_size[1]
+    text_size: dp(self.width), None
+    height: dp(self.texture_size[1])
 
 <CupertinoActionSheet>:
     _message_frame: message_frame
@@ -94,36 +95,36 @@ Builder.load_string("""
         GridLayout:
             id: message_frame
             cols: 1
-            padding: (30, 10, 30, 20) if len(self.children) > 2 else (30, 10)
-            spacing: 10
+            padding: (dp(30), dp(10), dp(30), dp(20)) if len(self.children) > 2 else (dp(30), dp(10))
+            spacing: dp(10)
             size_hint_y: None
-            height: self.minimum_height if self.children else 0
-            pos: frame_separator.x, frame_separator.y + frame_separator.height
+            height: dp(self.minimum_height) if self.children else 0
+            pos: dp(frame_separator.x), dp(frame_separator.y + frame_separator.height)
 
             canvas.before:
                 Color:
                     rgba: root.color_normal
                 RoundedRectangle:
-                    radius: root.curve, root.curve, 0, 0
+                    radius: dp(root.curve), dp(root.curve), 0, 0
                     size: self.size
                     pos: self.pos
         _Separator:
             id: frame_separator
             size_hint_y: None
-            height: root.spacing if root._show_frame else 0
-            pos: actions.x, actions.y + actions.height
+            height: dp(root.spacing) if root._show_frame else 0
+            pos: dp(actions.x), dp(actions.y + actions.height)
         BoxLayout:
             id: actions
             orientation: 'vertical'
             size_hint_y: None
-            y: cancel.y + cancel.height + 10
+            y: dp(cancel.y + cancel.height + 10)
             pos_hint: {'center_x': 0.5}
         GridLayout:
             id: cancel
             cols: 1
             size_hint_y: None
-            height: root.action_height if self.children else 0
-            y: 10
+            height: dp(root.action_height) if self.children else 0
+            y: dp(10)
             pos_hint: {'center_x': 0.5}
 """)
 
@@ -161,7 +162,7 @@ class CupertinoModalButton(ButtonBehavior, CupertinoLabel):
            text: 'Hello World'
     """
 
-    font_size = NumericProperty(14)
+    font_size = NumericProperty('14sp')
     """
     Size of text of :class:`CupertinoModalButton`
     
@@ -171,14 +172,14 @@ class CupertinoModalButton(ButtonBehavior, CupertinoLabel):
     
     .. code-block:: python
     
-       CupertinoModalButton(font_size=20)
+       CupertinoModalButton(font_size='20sp')
    
     **KV**
     
     .. code-block::
     
        CupertinoModalButton:
-           font_size: 20
+           font_size: '20sp'
     """
 
     color_normal = ColorProperty([1, 1, 1, 0.9])
@@ -324,7 +325,7 @@ class CupertinoDialog(_CupertinoModal):
            color: 1, 0, 0, 1
     """
 
-    action_height = NumericProperty(40)
+    action_height = NumericProperty(dp(40))
     """
     Height of :class:`CupertinoModalButton` when added to :class:`CupertinoDialog`
     
@@ -344,7 +345,7 @@ class CupertinoDialog(_CupertinoModal):
            action_height: 75
     """
 
-    spacing = NumericProperty(1)
+    spacing = NumericProperty(dp(1))
     """
     Spacing between :attr:`children` of  :class:`CupertinoDialog`
     
@@ -364,7 +365,7 @@ class CupertinoDialog(_CupertinoModal):
            spacing: 5
     """
 
-    curve = NumericProperty(10)
+    curve = NumericProperty(dp(10))
     """
     Curve of  :class:`CupertinoDialog`
     
@@ -415,11 +416,11 @@ class CupertinoDialog(_CupertinoModal):
 
             if orientation == 'vertical':
                 self._actions.height = ((len(self._actions.children) + 1) / 2) * self.action_height
-                self._actions.children[0]._radii[-2:] = (self.curve,) * 2
+                self._actions.children[0]._radii[-2:] = (dp(self.curve),) * 2
             elif orientation == 'horizontal':
                 self._actions.height = self.action_height
-                self._actions.children[-1]._radii[3] = self.curve
-                self._actions.children[0]._radii[2] = self.curve
+                self._actions.children[-1]._radii[3] = dp(self.curve)
+                self._actions.children[0]._radii[2] = dp(self.curve)
 
             self.height = self._content.height + self._actions.height
 
@@ -573,7 +574,7 @@ class CupertinoActionSheet(_CupertinoModal):
            color_normal: 0.5, 0, 0, 1
     """
 
-    action_height = NumericProperty(45)
+    action_height = NumericProperty(dp(45))
     """
     Height of :class:`CupertinoModalButton` when added to :class:`CupertinoActionSheet`
     
@@ -593,7 +594,7 @@ class CupertinoActionSheet(_CupertinoModal):
            action_height: 75
     """
 
-    spacing = NumericProperty(1)
+    spacing = NumericProperty(dp(1))
     """
     Spacing between :attr:`children` of  :class:`CupertinoActionSheet`
     
@@ -613,7 +614,7 @@ class CupertinoActionSheet(_CupertinoModal):
            spacing: 5
     """
 
-    curve = NumericProperty(10)
+    curve = NumericProperty(dp(10))
     """
     Curve of  :class:`CupertinoActionSheet`
     
@@ -656,8 +657,8 @@ class CupertinoActionSheet(_CupertinoModal):
 
             for action in self._actions.children:
                 action._radii = (0,) * 4
-            self._actions.children[0]._radii[2:] = self.curve, self.curve
-            self._actions.children[-1]._radii[:2] = (0, 0) if self._show_frame else (self.curve, self.curve)
+            self._actions.children[0]._radii[2:] = dp(self.curve), dp(self.curve)
+            self._actions.children[-1]._radii[:2] = (0, 0) if self._show_frame else (dp(self.curve), dp(self.curve))
 
     def on_text_color(self, instance, value):
         """
@@ -710,7 +711,7 @@ class CupertinoActionSheet(_CupertinoModal):
                               CupertinoModalButton), 'CupertinoActionSheet accepts only CupertinoModalButton widget'
 
             if widget.cancel:
-                widget._radii = (self.curve,) * 4
+                widget._radii = (dp(self.curve),) * 4
                 self._cancel.add_widget(widget, index)
             else:
                 self._actions.add_widget(widget, index)

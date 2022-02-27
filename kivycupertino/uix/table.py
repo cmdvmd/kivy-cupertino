@@ -25,17 +25,17 @@ Builder.load_string("""
         Color:
             rgb: 0.9, 0.9, 0.9
         Rectangle:
-            size: self.width*self._upper_border, 1
-            pos: (self.x+self.width)-(self.width*self._upper_border), self.y
+            size: dp(self.width * self._upper_border), dp(1)
+            pos: (self.x + self.width) - (self.width * self._upper_border), self.y
         Rectangle:
-            size: self.width*self._lower_border, 1
-            pos: (self.x+self.width)-(self.width*self._lower_border), self.y+self.height
+            size: dp(self.width * self._lower_border), dp(1)
+            pos: (self.x + self.width) - (self.width * self._lower_border), self.y + self.height
 
 <CupertinoClickableCell>:
     color: self.color_down if self.state == 'down' else self.color_disabled if self.disabled else self.color_normal
     CupertinoLabel:
         text: '›'
-        font_size: 25
+        font_size: '25sp'
         color: 0.75, 0.75, 0.8, 1
         size_hint_x: 0.01
         pos_hint: {'right': 0.95, 'center_y': 0.5}
@@ -45,8 +45,8 @@ Builder.load_string("""
     
     CupertinoLabel:
         id: label
-        text: (' '*4)+root.text
-        font_size: 12
+        text: (' ' * 4) + root.text
+        font_size: '12sp'
         text_size: self.size
         halign: 'left'
         color: root.text_color
