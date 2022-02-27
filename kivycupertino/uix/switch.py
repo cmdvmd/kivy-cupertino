@@ -7,6 +7,7 @@ from kivy.uix.widget import Widget
 from kivy.properties import BooleanProperty, NumericProperty, ColorProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
+from kivy.metrics import dp
 
 __all__ = [
     'CupertinoSwitch'
@@ -24,13 +25,13 @@ Builder.load_string("""
         Color:
             rgba: self._background_color if self._background_color else self.color_untoggled
         RoundedRectangle:
-            radius: self.height/2,
+            radius: dp(self.height/2),
             segments: 500
             size: self.size
             pos: self.pos
     Widget:
         id: thumb
-        height: root.height-root._padding
+        height: dp(root.height-root._padding)
         width: self.height
         x: root.x+root._padding
         center_y: root.y+(root.height/2)
@@ -153,7 +154,7 @@ class CupertinoSwitch(ButtonBehavior, Widget):
            color_untoggled: 0.5, 0, 0, 1
     """
 
-    thumb_padding = NumericProperty(0.05)
+    thumb_padding = NumericProperty(dp(0.05))
     """
     Amount of padding around thumb of :class:`CupertinoSwitch` in interval [0, 1] as a percentage of the
     :attr:`height` of :class:`CupertinoSwitch`

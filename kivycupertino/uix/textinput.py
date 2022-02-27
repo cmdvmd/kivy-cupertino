@@ -25,7 +25,7 @@ Builder.load_string("""
         Color:
             rgba: 0.95, 0.95, 0.95, 1
         Rectangle:
-            size: self.width, 2
+            size: dp(self.width), dp(2)
             pos: self.pos
 
 <CupertinoTextView>:
@@ -37,13 +37,13 @@ Builder.load_string("""
 
 <CupertinoSearchBar>:
     orientation: 'horizontal'
-    padding: 5, 0
+    padding: dp(5), dp(0)
     
     canvas.before:
         Color:
             rgba: self.background_color
         RoundedRectangle:
-            radius: self.height/4,
+            radius: dp(self.height/4),
             size: self.size
             pos: self.pos
     
@@ -58,7 +58,7 @@ Builder.load_string("""
         cursor_width: '2sp'
         cursor_color: 0.25, 0.5, 0.95, 1
         hint_text: 'Search'
-        font_size: root.height/2.5
+        font_size: root.height / 2.5
         font_name: 'San Francisco'
         background_color: 0, 0, 0, 0
         foreground_color: root.foreground_color

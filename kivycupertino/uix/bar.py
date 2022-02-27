@@ -3,7 +3,7 @@ Bars are generally positioned at the top or bottom of a screen and
 contain widgets and/or information for easy access by users
 """
 
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ColorProperty, BooleanProperty, StringProperty
 from kivy.lang.builder import Builder
@@ -22,12 +22,12 @@ Builder.load_string("""
             rgba: root.color
         Rectangle:
             size: self.size
-            pos: self.pos
+            pos: 0, 0
         Color:
             rgba: 0.8, 0.8, 0.8, 1
         Rectangle:
-            size: self.width, 1
-            pos: self.pos
+            size: self.width, dp(1)
+            pos: 0, 0
 
 <CupertinoToolbar>:
     canvas.before:
@@ -35,12 +35,12 @@ Builder.load_string("""
             rgba: root.color
         Rectangle:
             size: self.size
-            pos: self.pos
+            pos: 0, 0
         Color:
             rgba: 0.8, 0.8, 0.8, 1
         Rectangle:
-            size: self.width, 1
-            pos: self.x, self.y+self.height
+            size: self.width, dp(1)
+            pos: 0, self.height
 
 <CupertinoTab>:
     orientation: 'vertical'
@@ -63,13 +63,13 @@ Builder.load_string("""
     BoxLayout:
         id: items
         orientation: 'horizontal'
-        padding: 3
+        padding: dp(3)
         size: root.size
-        pos: root.pos
+        pos: 0, 0
 """)
 
 
-class CupertinoNavigationBar(FloatLayout):
+class CupertinoNavigationBar(RelativeLayout):
     """
     iOS style Navigation Bar. :class:`CupertinoNavigationBar`
     is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
@@ -98,7 +98,7 @@ class CupertinoNavigationBar(FloatLayout):
     """
 
 
-class CupertinoToolbar(FloatLayout):
+class CupertinoToolbar(RelativeLayout):
     """
     iOS style Toolbar. :class:`CupertinoToolbar`
     is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets

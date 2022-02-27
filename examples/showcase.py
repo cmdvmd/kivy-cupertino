@@ -20,6 +20,7 @@ from kivycupertino.uix.textinput import CupertinoSearchBar, CupertinoTextField, 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.core.window import Window
+from kivy.metrics import dp
 
 
 class ShowcaseApp(CupertinoApp):
@@ -30,13 +31,13 @@ class ShowcaseApp(CupertinoApp):
 
         dialog_title = CupertinoLabel()
         dialog_title.text = 'Alert Dialog'
-        dialog_title.font_size = 15
+        dialog_title.font_size = '15sp'
         dialog_title.bold = True
         dialog_title.pos_hint = {'center_x': 0.5, 'top': 1.3}
 
         dialog_content = CupertinoLabel()
         dialog_content.text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt ut magna quis placerat'
-        dialog_content.font_size = 12
+        dialog_content.font_size = '12sp'
         dialog_content.halign = 'center'
         dialog_content.pos_hint = {'center_x': 0.5, 'top': 0.9}
         dialog_content.bind(
@@ -242,7 +243,7 @@ class ShowcaseApp(CupertinoApp):
 
 if __name__ == '__main__':
     Window.clearcolor = 0.98, 0.98, 0.98, 1
-    Window.size = (300, 550)
+    Window.size = dp(300), dp(550)
 
     app = ShowcaseApp()
     app.run()

@@ -12,8 +12,8 @@ __all__ = [
 
 Builder.load_string("""
 <CupertinoScrollView>:
-    bar_margin: 2
-    bar_width: 4
+    bar_margin: dp(2)
+    bar_width: dp(4)
 """)
 
 

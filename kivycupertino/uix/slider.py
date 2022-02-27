@@ -18,29 +18,29 @@ Builder.load_string("""
     
     Widget:
         id: track
-        size: root.width-thumb.width, root.height*0.1
+        size: dp(root.width - thumb.width), dp(root.height * 0.1)
         pos: root.x+(thumb.width/2), root.y+root.height/2-self.height/2
         canvas.before:
             Color:
                 rgba: root.color_unselected
             RoundedRectangle:
-                radius: self.height/2,
+                radius: dp(self.height/2),
                 size: self.size
                 pos: self.pos
     Widget:
         id: selected
-        size: track.width*((root.value-root.min)/(root.max-root.min)), track.height
+        size: dp(track.width*((root.value-root.min)/(root.max-root.min))), dp(track.height)
         pos: track.pos
         canvas.before:
             Color:
                 rgba: root.color_selected
             RoundedRectangle:
-                radius: self.height/2,
+                radius: dp(self.height/2),
                 size: self.size
                 pos: self.pos
     Widget:
         id: thumb
-        size: root.height, root.height
+        size: dp(root.height), dp(root.height)
         pos: selected.x+selected.width-self.width/2, root.y
         on_touch_down: args[1].ud['thumb_pressed'] = self.collide_point(*args[1].pos)
         
@@ -53,8 +53,8 @@ Builder.load_string("""
             Color:
                 rgba: root.thumb_color
             Ellipse:
-                size: self.width-2, self.height-4
-                pos: self.x+1, self.y+3
+                size: dp(self.width - 2), dp(self.height - 4)
+                pos: dp(self.x + 1), dp(self.y + 3)
 """)
 
 

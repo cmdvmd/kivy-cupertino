@@ -19,14 +19,14 @@ __all__ = [
 
 Builder.load_string("""
 <CupertinoButton>:    
-    font_size: 17
+    font_size: '17sp'
     color: root.text_color
     
     canvas.before:
         Color:
             rgba: self.color_down if self.state == 'down' else self.color_disabled if self.disabled else self.color_normal
         RoundedRectangle:
-            radius: self.height/5,
+            radius: dp(self.height/5),
             size: self.size
             pos: self.pos
 
@@ -73,7 +73,7 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
           text: 'Hello World'
     """
 
-    font_size = NumericProperty(15)
+    font_size = NumericProperty('15sp')
     """
     text of :class:`CupertinoButton`
     
@@ -83,14 +83,14 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
     
     .. code-block:: python
     
-       CupertinoButton(font_size=20)
+       CupertinoButton(font_size='20sp')
    
    **KV**
    
    .. code-block::
    
       CupertinoButton:
-          font_size: 20
+          font_size: '20sp'
     """
 
     disabled = BooleanProperty(False)
@@ -223,7 +223,7 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
            text: 'Send'
     """
 
-    font_size = NumericProperty(15)
+    font_size = NumericProperty('15sp')
     """
     Font size of the text of :class:`CupertinoSystemButton`
     
@@ -233,14 +233,14 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
     
     .. code-block:: python
     
-       CupertinoSystemButton(font_size=20)
+       CupertinoSystemButton(font_size='20sp')
        
     **KV**
     
     .. code-block::
 
        CupertinoSystemButton:
-           font_size: 20
+           font_size: '20sp'
     """
 
     disabled = BooleanProperty(False)
@@ -366,7 +366,7 @@ class CupertinoBackButton(CupertinoSystemButton):
     .. image:: ../_static/back_button/demo.gif
     """
 
-    font_size = NumericProperty(50)
+    font_size = NumericProperty('50sp')
     """
     Font size of the text of :class:`CupertinoBackButton`
     
@@ -376,14 +376,14 @@ class CupertinoBackButton(CupertinoSystemButton):
     
     .. code-block:: python
     
-       CupertinoBackButton(font_size=100)
+       CupertinoBackButton(font_size='100sp')
     
     **KV**
     
     .. code-block::
     
        CupertinoBackButton:
-           font_size: 100
+           font_size: '100sp'
     """
 
     disabled = BooleanProperty(False)
@@ -495,7 +495,7 @@ class CupertinoNextButton(CupertinoSystemButton):
     .. image:: ../_static/next_button/demo.gif
     """
 
-    font_size = NumericProperty(50)
+    font_size = NumericProperty('50sp')
     """
     Font size of the text of :class:`CupertinoNextButton`
     
@@ -505,14 +505,14 @@ class CupertinoNextButton(CupertinoSystemButton):
     
     .. code-block:: python
     
-       CupertinoNextButton(font_size=100)
+       CupertinoNextButton(font_size='100sp')
     
     **KV**
     
     .. code-block::
     
        CupertinoNextButton:
-           font_size: 100
+           font_size: '100sp'
     """
 
     disabled = BooleanProperty(False)

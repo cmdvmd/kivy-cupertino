@@ -24,7 +24,7 @@ Builder.load_string("""
         Color:
             rgba: self.color_selected
         Rectangle:
-            size: self.width*(self.value/100), self.height
+            size: dp(self.width*(self.value/100)), dp(self.height)
             pos: self.pos
 """)
 
