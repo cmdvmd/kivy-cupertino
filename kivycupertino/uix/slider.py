@@ -61,6 +61,8 @@ Builder.load_string("""
 class CupertinoSlider(Widget):
     """
     iOS style slider
+
+    .. image:: ../_static/slider/demo.gif
     """
 
     value = NumericProperty(0)
