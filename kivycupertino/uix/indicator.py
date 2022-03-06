@@ -134,6 +134,26 @@ class CupertinoActivityIndicator(Widget):
            spokes: 20
     """
 
+    duration = NumericProperty(1)
+    """
+    Time for one cycle of :class:`CupertinoActivityIndicator` (in seconds)
+    
+    .. image:: ../_static/activity_indicator/duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoActivityIndicator(duration=2)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoActivityIndicator:
+           duration: 2
+    """
+
     color = ColorProperty([0.6, 0.6, 0.65, 1])
     """
     Color of the spokes of :class:`CupertinoActivityIndicator`
@@ -181,10 +201,15 @@ class CupertinoActivityIndicator(Widget):
 
         super().__init__(**kwargs)
 
-        self.__main_spoke = 0
-        self.__event = None
+        self._main_spoke = 0
+        self._event = None
 
-    def __draw_spokes(self):
+        self.bind(
+            duration=lambda *args: self._change_state(),
+            playing=lambda *args: self._change_state()
+        )
+
+    def _draw_spokes(self):
         """
         Draw spokes of :class:`CupertinoActivityIndicator`
         """
@@ -198,14 +223,14 @@ class CupertinoActivityIndicator(Widget):
                     r=self.color[0],
                     g=self.color[1],
                     b=self.color[2],
-                    a=self.color[3] - (((i + self.__main_spoke) % self.spokes) * (self.color[3] / self.spokes))
+                    a=self.color[3] - (((i + self._main_spoke) % self.spokes) * (self.color[3] / self.spokes))
                 )
-                rect = RoundedRectangle(radius=(self.width / 15,), size=(self.width / 10, self.height / 4))
+                rect = RoundedRectangle(radius=(self.width / 15,), size=(self.width / self.spokes, self.height / 4))
                 rect.pos = self.x + self.width / 2 - rect.size[0] / 2, self.y
                 PopMatrix()
-        self.__main_spoke += 1
+        self._main_spoke += 1
 
-    def on_playing(self, instance, value):
+    def _change_state(self):
         """
         Callback when the state of :class:`CupertinoActivityIndicator` changes
 
@@ -213,8 +238,8 @@ class CupertinoActivityIndicator(Widget):
         :param value: State of :class:`CupertinoActivityIndicator`
         """
 
-        if value:
-            self.__event = Clock.schedule_interval(lambda dt: self.__draw_spokes(), 1 / self.spokes)
+        if self.playing:
+            self._event = Clock.schedule_interval(lambda dt: self._draw_spokes(), self.duration / self.spokes)
         else:
             self.canvas.clear()
-            Clock.unschedule(self.__event)
+            Clock.unschedule(self._event)
