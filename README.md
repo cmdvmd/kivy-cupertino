@@ -28,49 +28,55 @@ To use newly implemented functionalities that have not yet been published to PyP
 $ pip install git+https://github.com/cmdvmd/kivy-cupertino.git
 ```
 
+To install Kivy Cupertino for development use, install with the `dev` extra:
+
+```shell
+$ pip install kivycupertino[dev]
+```
+
 ## Examples
 
-Check out [`examples/`](https://github.com/cmdvmd/kivy-cupertino/tree/main/examples) for examples of various widgets in
-Kivy Cupertino
+Check out [`examples/`](https://github.com/cmdvmd/kivy-cupertino/tree/main/examples) for examples of various
+widgets in Kivy Cupertino
 
 ![Showcase App](https://github.com/cmdvmd/kivy-cupertino/blob/main/docs/_static/showcase.gif?raw=true)
 
 ## Functionalities
 
-| Functionality | Status |
-|---------------|--------|
-| Dark Mode | 📝 |
-| Long Press | ✔ |
-| Swipe | 📝 |
-| SF Symbols | ✔ |
-| Action Sheet | ✔ |
-| Activity Indicator | ✔ |
-| Alert Dialog | ✔ |
-| Back Button | ✔ |
-| Button | ✔ |
-| Date Picker | 📝 |
-| Label | ✔ |
-| Navigation Bar | ✔ |
-| Next Button | ✔ |
-| Page Controls | ✔ |
-| Picker | 📝 |
-| Progress Bar | ✔ |
-| Scroll View | ✔ |
-| Screen Manager | ✔ |
-| Search Bar | ✔ |
-| Segmented Controls | ✔ |
-| Slider | ✔ |
-| Stepper | ✔ |
-| Switch | ✔ |
-| Symbol | ✔ |
-| Symbol Button | ✔ |
-| System Button | ✔ |
-| Tab Bar | ✔ |
-| Table | ✔ |
-| Text Field | ✔ |
-| Text View | ✔ |
-| Time Picker | 📝 |
-| Toolbar | ✔ |
+| Functionality      | Status |
+|--------------------|--------|
+| Dark Mode          | 📝     |
+| Long Press         | ✔      |
+| Swipe              | 📝     |
+| SF Symbols         | ✔      |
+| Action Sheet       | ✔      |
+| Activity Indicator | ✔      |
+| Alert Dialog       | ✔      |
+| Back Button        | ✔      |
+| Button             | ✔      |
+| Date Picker        | 📝     |
+| Label              | ✔      |
+| Navigation Bar     | ✔      |
+| Next Button        | ✔      |
+| Page Controls      | ✔      |
+| Picker             | 📝     |
+| Progress Bar       | ✔      |
+| Scroll View        | ✔      |
+| Screen Manager     | ✔      |
+| Search Bar         | ✔      |
+| Segmented Controls | ✔      |
+| Slider             | ✔      |
+| Stepper            | ✔      |
+| Switch             | ✔      |
+| Symbol             | ✔      |
+| Symbol Button      | ✔      |
+| System Button      | ✔      |
+| Tab Bar            | ✔      |
+| Table              | ✔      |
+| Text Field         | ✔      |
+| Text View          | ✔      |
+| Time Picker        | 📝     |
+| Toolbar            | ✔      |
 
 ### Key
 
