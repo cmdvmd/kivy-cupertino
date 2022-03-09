@@ -23,14 +23,14 @@ To install Kivy Cupertino from `PyPi <https://pypi.org/project/kivycupertino>`_,
 
    $ pip install kivycupertino
 
-To use newly implemented widgets that have not yet been published to PyPI, install with ``git``
+To use newly implemented widgets that have not yet been published to PyPI, install from GitHub
 (**not recommended for production use**):
 
 .. code-block:: console
 
-   $ git clone https://github.com/cmdvmd/kivy-cupertino.git
-   $ cd kivy-cupertino
-   $ python setup.py install
+   $ pip install git+https://github.com/cmdvmd/kivy-cupertino.git
+
+To install Kivy Cupertino for development use, install with the `dev` extra:
 
 .. toctree::
    :hidden:
@@ -55,7 +55,12 @@ To use newly implemented widgets that have not yet been published to PyPI, insta
 Contributing
 ------------
 
-To help improve this project, `fork our repository <https://github.com/cmdvmd/kivy-cupertino/fork>`_.
+To help improve this project, `fork our repository <https://github.com/cmdvmd/kivy-cupertino/fork>`_ and install Kivy Cupertino with the ``dev`` extra:
+
+.. code-block:: console
+
+   $ pip install kivycupertino[dev]
+
 Visit the `projects page <https://github.com/cmdvmd/kivy-cupertino/projects>`_ to view pending projects
 you may be able to work on
 

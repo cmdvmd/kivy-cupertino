@@ -1,0 +1,6 @@
+include LICENSE README.md
+graft docs
+graft examples
+graft kivycupertino
+prune docs/_build
+global-exclude *.pyc

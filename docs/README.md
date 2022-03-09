@@ -1,16 +1,10 @@
 # Kivy Cupertino Documentation
 
-The [Kivy Cupertino Documentation](https://kivy-cupertino.rtfd.io) is written
-with [Sphinx](https://www.sphinx-doc.org/en/master/)
-and [Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html). To improve this documentation,
-[fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork) and follow the instructions below:
-
-### Installing Dependencies
-
-```shell
-$ pip install sphinx
-$ pip install sphinx-rtd-theme
-```
+The [Kivy Cupertino Documentation](https://kivy-cupertino.rtfd.io) is written with
+[Sphinx](https://www.sphinx-doc.org/en/master/) and
+[Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html).
+To improve this documentation, [fork our repository](https://github.com/cmdvmd/kivy-cupertino/fork), make sure to
+install Kivy Cupertino with the `dev` extra and follow the instructions below
 
 ## Documenting an Existing Module
 
