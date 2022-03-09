@@ -235,7 +235,7 @@ class CupertinoTableGroup(BoxLayout):
         Add an instance of :class:`CupertinoCell` to :class:`CupertinoTableGroup`
 
         :param widget: Instance of :class:`CupertinoCell` to be added to :class:`CupertinoTableGroup`
-        :param index: Index at which :class:`CupertinoCell` will be inserted into attr:`children` of :class:`CupertinoTableGroup`
+        :param index: Index at which :class:`CupertinoCell` will be inserted into :attr:`children` of :class:`CupertinoTableGroup`
         :param canvas: Canvas at which :class:`CupertinoCell` will be inserted into :class:`CupertinoTableGroup`
         """
 

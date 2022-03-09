@@ -150,7 +150,7 @@ class CupertinoTextView(TextInput):
     """
     Background color of :class:`CupertinoTextView`
     
-    .. image:: ../_static/text_view/background_color.png
+    .. image:: ../_static/text_view/background_color.gif
     
     **Python**
     

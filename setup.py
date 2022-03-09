@@ -1,6 +1,6 @@
 import setuptools
 
-with open('README.md', encoding='utf-8') as readme:
+with open('README.md', 'r', encoding='utf-8') as readme:
     long_description = readme.read()
 
 setuptools.setup(
@@ -33,6 +33,7 @@ setuptools.setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
