@@ -2,51 +2,116 @@
 Buttons allow users to execute actions with a single tap
 """
 
+from kivy.uix.widget import Widget
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.symbol import CupertinoSymbol
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import StringProperty, NumericProperty, BooleanProperty, ColorProperty
+from kivy.properties import StringProperty, NumericProperty, BooleanProperty, ColorProperty, ListProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
 __all__ = [
     'CupertinoButton',
     'CupertinoSystemButton',
-    'CupertinoNextButton',
-    'CupertinoBackButton',
-    'CupertinoSymbolButton'
+    'CupertinoSymbolButton',
+    'CupertinoModalButton'
 ]
 
 Builder.load_string("""
-<CupertinoButton>:    
-    font_size: '17sp'
-    color: root.text_color
+<CupertinoButton>:
+    color: self.color_normal
     
     canvas.before:
         Color:
-            rgba: self.color_down if self.state == 'down' else self.color_disabled if self.disabled else self.color_normal
+            rgba: self.color if self.color is not None else (0, 0, 0, 0)
         RoundedRectangle:
             radius: dp(self.height/5),
             size: self.size
             pos: self.pos
+    
+    CupertinoLabel:
+        text: root.text
+        font_size: root.font_size
+        color: root.text_color
+        size: root.size
+        pos: root.pos
 
 <CupertinoSystemButton>:
     color: self.color_normal
-    disabled_color: self.color_disabled
-
-<CupertinoBackButton>:
-    text: '‹'
-
-<CupertinoNextButton>:
-    text: '›'
 
 <CupertinoSymbolButton>:
     color: self.color_normal
-    disabled_color: self.color_disabled
+
+<CupertinoModalButton>:    
+    canvas.before:
+        Clear
+        Color:
+            rgba: self.color
+        RoundedRectangle:
+            radius: root._radii
+            size: self.size
+            pos: self.pos
 """)
 
 
-class CupertinoButton(ButtonBehavior, CupertinoLabel):
+class _BaseButton(ButtonBehavior):
+    """
+    Base class for buttons that can only be used with an instance of :class:`kivy.uix.widget.Widget`
+    """
+
+    disabled = BooleanProperty(False)
+    """
+    If :class:`CupertinoButton` is disabled
+    """
+
+    transition_duration = NumericProperty()
+    """
+    Duration of the transition of the color of :class:`_BaseButton` when its state changes
+    """
+
+    color_normal = ColorProperty()
+    """
+    Color of :class:`_BaseButton` when not pressed or disabled
+    """
+
+    color_down = ColorProperty()
+    """
+    Color of :class:`_BaseButton` when pressed
+    """
+
+    color_disabled = ColorProperty()
+    """
+    Color of :class:`_BaseButton` when disabled
+    """
+
+    def __init__(self, **kwargs):
+        """
+        Initialize behavior of :class:`_BaseButton`
+
+        :param kwargs: Keyword arguments of :class:`_BaseButton`
+        """
+
+        super().__init__(**kwargs)
+        self.bind(
+            disabled=lambda *args: self.animate_color(),
+            state=lambda *args: self.animate_color()
+        )
+
+    def animate_color(self):
+        """
+        Callback when the state of :class:`CupertinoSymbolButton` changes
+        """
+
+        if self.state == 'down':
+            animation = Animation(color=self.color_down, duration=self.transition_duration)
+        elif self.disabled:
+            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
+        else:
+            animation = Animation(color=self.color_normal, duration=self.transition_duration)
+        animation.start(self)
+
+
+class CupertinoButton(_BaseButton, Widget):
     """
     iOS style button
 
@@ -73,7 +138,7 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
           text: 'Hello World'
     """
 
-    font_size = NumericProperty('15sp')
+    font_size = NumericProperty('17sp')
     """
     text of :class:`CupertinoButton`
     
@@ -111,6 +176,26 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
     
        CupertinoButton:
            disabled: True
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    Duration of the transition of the color of :class:`CupertinoButton` when its state changes
+    
+    .. image:: ../_static/button/transition_duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoButton(transition_duration=0.5)
+       
+    **KV**
+    
+    .. code-block::
+
+       CupertinoButton:
+           transition_duration: 0.5
     """
 
     color_normal = ColorProperty([0, 0.5, 1, 1])
@@ -185,18 +270,18 @@ class CupertinoButton(ButtonBehavior, CupertinoLabel):
     
     .. code-block:: python
     
-       CupertinoButton(text_color=(0, 0, 0, 1))
+       CupertinoButton(text_color=(1, 0, 0, 1))
     
     **KV**
     
     .. code-block::
     
        CupertinoButton:
-           color_disabled: 0, 0, 0, 1
+           color_disabled: 1, 0, 0, 1
     """
 
 
-class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
+class CupertinoSystemButton(_BaseButton, CupertinoLabel):
     """
     iOS style System Button
 
@@ -344,280 +429,8 @@ class CupertinoSystemButton(ButtonBehavior, CupertinoLabel):
            color_disabled: 0.5, 0, 0, 1
     """
 
-    def on_state(self, instance, state):
-        """
-        Callback when the state of :class:`CupertinoSystemButton` changes
 
-        :param instance: Instance of :class:`CupertinoSystemButton`
-        :param state: State of :class:`CupertinoSystemButton`
-        """
-
-        if state == 'down':
-            animation = Animation(color=self.color_down, duration=self.transition_duration)
-        else:
-            animation = Animation(color=self.color_normal, duration=self.transition_duration)
-        animation.start(instance)
-
-
-class CupertinoBackButton(CupertinoSystemButton):
-    """
-    iOS style back button
-
-    .. image:: ../_static/back_button/demo.gif
-    """
-
-    font_size = NumericProperty('50sp')
-    """
-    Font size of the text of :class:`CupertinoBackButton`
-    
-    .. image:: ../_static/back_button/font_size.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoBackButton(font_size='100sp')
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoBackButton:
-           font_size: '100sp'
-    """
-
-    disabled = BooleanProperty(False)
-    """
-    If :class:`CupertinoBackButton` is disabled
-    
-    .. image:: ../_static/back_button/disabled.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoBackButton(disabled=True)
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoBackButton:
-           disabled: True
-    """
-
-    transition_duration = NumericProperty(0.075)
-    """
-    Duration of the transition of the color of :class:`CupertinoBackButton` when its state changes
-    
-    .. image:: ../_static/back_button/transition_duration.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoBackButton(transition_duration=0.5)
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoBackButton:
-           transition_duration: 0.5
-    """
-
-    color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
-    """
-    Color of :class:`CupertinoBackButton` when not pressed or disabled
-    
-    .. image:: ../_static/back_button/color_normal.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoBackButton(color_normal=(1, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoBackButton:
-           color_normal: 1, 0, 0, 1
-    """
-
-    color_down = ColorProperty([0, 0.15, 0.3, 1])
-    """
-    Color of :class:`CupertinoBackButton` when pressed
-    
-    .. image:: ../_static/back_button/color_down.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoBackButton(color_down=(1, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoBackButton:
-           color_down: 1, 0, 0, 1
-    """
-
-    color_disabled = ColorProperty([0, 0.3, 0.4, 1])
-    """
-    Color of :class:`CupertinoBackButton` when disabled
-    
-    .. image:: ../_static/back_button/color_disabled.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoBackButton(disabled=True, color_disabled=(0.5, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoBackButton:
-           disabled: True
-           color_disabled: 0.5, 0, 0, 1
-    """
-
-
-class CupertinoNextButton(CupertinoSystemButton):
-    """
-    iOS style next button
-
-    .. image:: ../_static/next_button/demo.gif
-    """
-
-    font_size = NumericProperty('50sp')
-    """
-    Font size of the text of :class:`CupertinoNextButton`
-    
-    .. image:: ../_static/next_button/font_size.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoNextButton(font_size='100sp')
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoNextButton:
-           font_size: '100sp'
-    """
-
-    disabled = BooleanProperty(False)
-    """
-    If :class:`CupertinoNextButton` is disabled
-    
-    .. image:: ../_static/next_button/disabled.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoNextButton(disabled=True)
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoNextButton:
-           disabled: True
-    """
-
-    transition_duration = NumericProperty(0.075)
-    """
-    Duration of the transition of the color of :class:`CupertinoNextButton` when its state changes
-    
-    .. image:: ../_static/next_button/transition_duration.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoNextButton(transition_duration=0.5)
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoNextButton:
-           transition_duration: 0.5
-    """
-
-    color_normal = ColorProperty([0.05, 0.5, 0.95, 1])
-    """
-    Color of :class:`CupertinoNextButton` when not pressed or disabled
-    
-    .. image:: ../_static/next_button/color_normal.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoNextButton(color_normal=(1, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoNextButton:
-           color_normal: 1, 0, 0, 1
-    """
-
-    color_down = ColorProperty([0, 0.15, 0.3, 1])
-    """
-    Color of :class:`CupertinoNextButton` when pressed
-    
-    .. image:: ../_static/next_button/color_down.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoNextButton(color_down=(1, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoNextButton:
-           color_down: 1, 0, 0, 1
-    """
-
-    color_disabled = ColorProperty([0, 0.3, 0.4, 1])
-    """
-    Color of :class:`CupertinoNextButton` when disabled
-    
-    .. image:: ../_static/next_button/color_disabled.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoNextButton(disabled=True, color_disabled=(0.5, 0, 0, 1))
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoNextButton:
-           disabled: True
-           color_normal: 0.5, 0, 0, 1
-    """
-
-
-class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
+class CupertinoSymbolButton(_BaseButton, CupertinoSymbol):
     """
     iOS style button that displays a symbol
 
@@ -744,18 +557,197 @@ class CupertinoSymbolButton(ButtonBehavior, CupertinoSymbol):
            color_disabled: 0.5, 0, 0, 1
     """
 
-    def on_state(self, instance, state):
-        """
-        Callback when the state of :class:`CupertinoSymbolButton` changes
 
-        :param instance: Instance of :class:`CupertinoSymbolButton`
-        :param state: State of :class:`CupertinoSymbolButton`
-        """
+class CupertinoModalButton(CupertinoButton, CupertinoLabel):
+    """
+    Adaptive button to be used in Dialogs
 
-        if state == 'down':
-            animation = Animation(color=self.color_down, duration=self.transition_duration)
-        elif state == 'disabled':
-            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
-        else:
-            animation = Animation(color=self.color_normal, duration=self.transition_duration)
-        animation.start(instance)
+    .. image:: ../_static/modal_button/demo.gif
+    """
+
+    text = StringProperty(' ')
+    """
+    Text of :class:`CupertinoModalButton`
+    
+    .. image:: ../_static/modal_button/text.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(text='Hello World')
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           text: 'Hello World'
+    """
+
+    font_size = NumericProperty('14sp')
+    """
+    Size of text of :class:`CupertinoModalButton`
+    
+    .. image:: ../_static/modal_button/font_size.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(font_size='20sp')
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           font_size: '20sp'
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    Duration of the transition of the color of :class:`CupertinoButton` when its state changes
+    
+    .. image:: ../_static/modal_button/transition_duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(transition_duration=0.5)
+       
+    **KV**
+    
+    .. code-block::
+
+       CupertinoModalButton:
+           transition_duration: 0.5
+    """
+
+    disabled = BooleanProperty(False)
+    """
+    If :class:`CupertinoModalButton` is disabled
+    
+    .. image:: ../_static/modal_button/disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(disabled=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           disabled: True
+    """
+
+    color_normal = ColorProperty([1, 1, 1, 0.9])
+    """
+    Background color of :class:`CupertinoModalButton` when not pressed
+    
+    .. image:: ../_static/modal_button/color_normal.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(color_normal=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           color_normal: 0.5, 0, 0, 1
+    """
+
+    color_down = ColorProperty([0.9, 0.9, 0.9, 1])
+    """
+    Background color of :class:`CupertinoModalButton` when pressed
+    
+    .. image:: ../_static/modal_button/color_down.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(color_down=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           color_down: 0.5, 0, 0, 1
+    """
+
+    color_disabled = ColorProperty([0.8, 0.8, 0.8, 1])
+    """
+    Background color of :class:`CupertinoModalButton` when disabled
+    
+    .. image:: ../_static/modal_button/color_disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(disabled=True, color_disabled=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           disabled: True
+           color_disabled: 0.5, 0, 0, 1
+    """
+
+    text_color = ColorProperty([0.05, 0.5, 1, 1])
+    """
+    Color of the text of :class:`CupertinoModalButton`
+    
+    .. image:: ../_static/modal_button/text_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(text_color=(1, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           color_down: 1, 0, 0, 1
+    """
+
+    cancel = BooleanProperty(False)
+    """
+    If :class:`CupertinoModalButton` should be a cancel button when added to an instance of
+    :class:`CupertinoActionSheet`
+    
+    .. image:: ../_static/modal_button/cancel.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(cancel=True)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           cancel: True
+    """
+
+    _radii = ListProperty([0, 0, 0, 0])
+    """
+    A :class:`~kivy.properties.ListProperty` defining the radii values of the corners of :class:`CupertinoModalButton`
+    """

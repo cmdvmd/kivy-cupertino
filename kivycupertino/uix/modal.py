@@ -2,17 +2,16 @@
 Modals help alert users to information
 """
 
-from kivy.properties import NumericProperty, StringProperty, ColorProperty, ListProperty, BooleanProperty
-from kivy.uix.behaviors import ButtonBehavior
+from kivy.properties import NumericProperty, StringProperty, ColorProperty
 from kivy.uix.widget import Widget
 from kivy.uix.modalview import ModalView
 from kivycupertino.uix.label import CupertinoLabel
+from kivycupertino.uix.button import CupertinoModalButton
 from kivy.core.window import Window
 from kivy.lang.builder import Builder
 from kivy.metrics import dp
 
 __all__ = [
-    'CupertinoModalButton',
     'CupertinoDialog',
     'CupertinoActionSheet'
 ]
@@ -26,17 +25,6 @@ Builder.load_string("""
         Color:
             rgb: 0.8, 0.8, 0.8
         Rectangle:
-            size: self.size
-            pos: self.pos
-
-<CupertinoModalButton>:
-    color: root.text_color
-    
-    canvas.before:
-        Color:
-            rgba: root.color_down if self.state == 'down' else root.color_normal
-        RoundedRectangle:
-            radius: root._radii
             size: self.size
             pos: self.pos
 
@@ -132,139 +120,6 @@ Builder.load_string("""
 class _Separator(Widget):
     """
     A widget to separate instances of :class:`CupertinoModalButton` when added to an instance of :class:`_CupertinoModal`
-    """
-
-
-class CupertinoModalButton(ButtonBehavior, CupertinoLabel):
-    """
-    Adaptive button to be used in Dialogs
-
-    .. image:: ../_static/modal_button/demo.gif
-    """
-
-    text = StringProperty(' ')
-    """
-    Text of :class:`CupertinoModalButton`
-    
-    .. image:: ../_static/modal_button/text.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoModalButton(text='Hello World')
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoModalButton:
-           text: 'Hello World'
-    """
-
-    font_size = NumericProperty('14sp')
-    """
-    Size of text of :class:`CupertinoModalButton`
-    
-    .. image:: ../_static/modal_button/font_size.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoModalButton(font_size='20sp')
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoModalButton:
-           font_size: '20sp'
-    """
-
-    color_normal = ColorProperty([1, 1, 1, 0.9])
-    """
-    Background color of :class:`CupertinoModalButton` when not pressed
-    
-    .. image:: ../_static/modal_button/color_normal.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoModalButton(color_normal=(0.5, 0, 0, 1))
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoModalButton:
-           color_normal: 0.5, 0, 0, 1
-    """
-
-    color_down = ColorProperty([0.9, 0.9, 0.9, 1])
-    """
-    Background color of :class:`CupertinoModalButton` when pressed
-    
-    .. image:: ../_static/modal_button/color_down.gif
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoModalButton(color_down=(0.5, 0, 0, 1))
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoModalButton:
-           color_down: 0.5, 0, 0, 1
-    """
-
-    text_color = ColorProperty([0.05, 0.5, 1, 1])
-    """
-    Color of the text of :class:`CupertinoModalButton`
-    
-    .. image:: ../_static/modal_button/text_color.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoModalButton(text_color=(1, 0, 0, 1))
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoModalButton:
-           color_down: 1, 0, 0, 1
-    """
-
-    cancel = BooleanProperty(False)
-    """
-    If :class:`CupertinoModalButton` should be a cancel button when added to an instance of :class:`CupertinoActionSheet`
-    
-    .. image:: ../_static/modal_button/cancel.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoModalButton(cancel=True)
-   
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoModalButton:
-           cancel: True
-    """
-
-    _radii = ListProperty([0, 0, 0, 0])
-    """
-    A :class:`~kivy.properties.ListProperty` defining the radii values of the corners of :class:`CupertinoModalButton`
     """
 
 
