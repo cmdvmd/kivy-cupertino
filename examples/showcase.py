@@ -10,8 +10,8 @@ A program to display all widgets in Kivy Cupertino
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar, CupertinoTab
 from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.modal import CupertinoModalButton, CupertinoDialog, CupertinoActionSheet
-from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton
+from kivycupertino.uix.modal import CupertinoDialog, CupertinoActionSheet
+from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton, CupertinoModalButton
 from kivycupertino.uix.switch import CupertinoSwitch
 from kivycupertino.uix.indicator import CupertinoActivityIndicator, CupertinoProgressbar
 from kivycupertino.uix.control import CupertinoSegment, CupertinoSegmentedControls, CupertinoStepper

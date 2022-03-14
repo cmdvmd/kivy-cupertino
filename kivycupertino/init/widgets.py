@@ -13,15 +13,13 @@ r('CupertinoTabBar', module='kivycupertino.uix.bar')
 
 r('CupertinoButton', module='kivycupertino.uix.button')
 r('CupertinoSystemButton', module='kivycupertino.uix.button')
-r('CupertinoBackButton', module='kivycupertino.uix.button')
-r('CupertinoNextButton', module='kivycupertino.uix.button')
 r('CupertinoSymbolButton', module='kivycupertino.uix.button')
+r('CupertinoModalButton', module='kivycupertino.uix.button')
 
 r('CupertinoSegment', module='kivycupertino.uix.control')
 r('CupertinoSegmentedControls', module='kivycupertino.uix.control')
 r('CupertinoStepper', module='kivycupertino.uix.control')
 
-r('CupertinoModalButton', module='kivycupertino.uix.modal')
 r('CupertinoActionSheet', module='kivycupertino.uix.modal')
 r('CupertinoDialog', module='kivycupertino.uix.modal')
 

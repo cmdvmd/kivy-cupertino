@@ -5,7 +5,7 @@ Controls allow users to control information on their screen
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import StringProperty, ColorProperty, NumericProperty
+from kivy.properties import StringProperty, ColorProperty, NumericProperty, BooleanProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
@@ -58,34 +58,26 @@ Builder.load_string("""
     orientation: 'horizontal'
     spacing: dp(2)
     
-    CupertinoSystemButton:
+    CupertinoModalButton:
         text: '-'
-        font_size: '25sp'
-        color_normal: root.text_color
-        color_down: root.text_color
+        font_size: sp(min(self.size) * 0.7)
+        disabled: root.minus_disabled
+        text_color: root.text_color
+        color_normal: root.color_normal
+        color_down: root.color_down
+        color_disabled: root.color_disabled
         on_release: root.dispatch('on_minus')
-        
-        canvas.before:
-            Color:
-                rgba: root.color_down if self.state == 'down' else root.color_normal
-            RoundedRectangle:
-                radius: dp(root.height/4), 0, 0, dp(root.height/4)
-                size: self.size
-                pos: self.pos
-    CupertinoSystemButton:
+        _radii: dp(root.height / 4), 0, 0, dp(root.height / 4)
+    CupertinoModalButton:
         text: '+'
-        font_size: '25sp'
-        color_normal: root.text_color
-        color_down: root.text_color
+        font_size: sp(min(self.size) * 0.7)
+        disabled: root.add_disabled
+        text_color: root.text_color
+        color_normal: root.color_normal
+        color_down: root.color_down
+        color_disabled: root.color_disabled
         on_release: root.dispatch('on_plus')
-        
-        canvas.before:
-            Color:
-                rgba: root.color_down if self.state == 'down' else root.color_normal
-            RoundedRectangle:
-                radius: 0, dp(root.height/4), dp(root.height/4), 0
-                size: self.size
-                pos: self.pos
+        _radii: 0, dp(root.height / 4), dp(root.height / 4), 0
 """)
 
 
@@ -290,6 +282,27 @@ class CupertinoStepper(BoxLayout):
            color_down: 0.5, 0, 0, 1
     """
 
+    color_disabled = ColorProperty([0.8, 0.8, 0.8, 1])
+    """
+    Background color of button of :class:`CupertinoStepper` when disabled
+    
+    .. image:: ../_static/stepper/color_disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoStepper(add_disabled=True, color_disabled=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoStepper:
+           add_disabled: True
+           color_disabled: 0.5, 0, 0, 1
+    """
+
     text_color = ColorProperty([0, 0, 0, 1])
     """
     Color of text of button of :class:`CupertinoStepper`
@@ -308,6 +321,46 @@ class CupertinoStepper(BoxLayout):
     
        CupertinoStepper:
            text_color: 1, 0, 0, 1
+    """
+
+    minus_disabled = BooleanProperty(False)
+    """
+    If minus button of :class:`CupertinoStepper` is disabled
+    
+    .. image:: ../_static/stepper/minus_disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoStepper(minus_disabled=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoStepper:
+           minus_disabled: True
+    """
+
+    add_disabled = BooleanProperty(False)
+    """
+    If add button of :class:`CupertinoStepper` is disabled
+    
+    .. image:: ../_static/stepper/add_disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoStepper(add_disabled=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoStepper:
+           add_disabled: True
     """
 
     def __init__(self, **kwargs):
