@@ -52,12 +52,11 @@ widgets in Kivy Cupertino
 | Action Sheet       | ✔      |
 | Activity Indicator | ✔      |
 | Alert Dialog       | ✔      |
-| Back Button        | ✔      |
 | Button             | ✔      |
 | Date Picker        | 📝     |
 | Label              | ✔      |
+| Modal Button       | ✔      |
 | Navigation Bar     | ✔      |
-| Next Button        | ✔      |
 | Page Controls      | ✔      |
 | Picker             | 📝     |
 | Progress Bar       | ✔      |
