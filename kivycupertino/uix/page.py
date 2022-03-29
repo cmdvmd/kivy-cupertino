@@ -9,6 +9,11 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import BooleanProperty, ColorProperty
 from kivy.lang.builder import Builder
 
+__all__ = [
+    'CupertinoPageControls',
+    'CupertinoScreenManager'
+]
+
 Builder.load_string("""
 <_CupertinoScreen>:
     on_press: self.parent._change_screen(self.parent.children[::-1].index(self))
@@ -196,7 +201,7 @@ class CupertinoScreenManager(ScreenManager):
     :class:`CupertinoPageControls`
     """
 
-    def add_widget(self, widget):
+    def add_widget(self, widget, *args, **kwargs):
         """
         Callback when a :class:`Screen` or a :class:`CupertinoPageControls` is added to
         :class:`CupertinoScreenManager`

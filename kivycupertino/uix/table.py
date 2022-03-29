@@ -2,49 +2,47 @@
 Tables help organize data and information for users to view and interact with
 """
 
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
+from kivycupertino.uix.button import _BaseButton
 from kivy.properties import ColorProperty, NumericProperty, BooleanProperty, StringProperty
 from kivy.lang.builder import Builder
 
 __all__ = [
-    'CupertinoCell',
-    'CupertinoClickableCell',
+    'CupertinoTableCell',
+    'CupertinoClickableTableCell',
     'CupertinoTableGroup'
 ]
 
 Builder.load_string("""
-<CupertinoCell>:
+<CupertinoTableCell>:
     canvas.before:
         Color:
             rgba: self.color
         Rectangle:
             size: self.size
-            pos: self.pos
+            pos: 0, 0
         Color:
             rgb: 0.9, 0.9, 0.9
         Rectangle:
             size: dp(self.width * self._upper_border), dp(1)
-            pos: (self.x + self.width) - (self.width * self._upper_border), self.y
+            pos: self.width * (1 - self._upper_border), 0
         Rectangle:
             size: dp(self.width * self._lower_border), dp(1)
-            pos: (self.x + self.width) - (self.width * self._lower_border), self.y + self.height
+            pos: self.width * (1 - self._lower_border), self.height
 
-<CupertinoClickableCell>:
-    color: self.color_down if self.state == 'down' else self.color_disabled if self.disabled else self.color_normal
-    CupertinoLabel:
-        text: '›'
-        font_size: '25sp'
+<CupertinoClickableTableCell>:    
+    CupertinoSymbol:
+        symbol: 'chevron_right'
         color: 0.75, 0.75, 0.8, 1
-        size_hint_x: 0.01
-        pos_hint: {'right': 0.95, 'center_y': 0.5}
+        size_hint: None, 0.4
+        width: self.height
+        pos_hint: {'right': 0.97, 'center_y': 0.5}
 
 <CupertinoTableGroup>:
     orientation: 'vertical'
     
     CupertinoLabel:
-        id: label
         text: (' ' * 4) + root.text
         font_size: '12sp'
         text_size: self.size
@@ -54,32 +52,32 @@ Builder.load_string("""
 """)
 
 
-class CupertinoCell(FloatLayout):
+class CupertinoTableCell(RelativeLayout):
     """
-    iOS style Cell for Table View. :class:`CupertinoCell` is a
-    :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    iOS style Cell for Table View. :class:`CupertinoTableCell` is a
+    :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
-    .. image:: ../_static/cell/demo.png
+    .. image:: ../_static/table_cell/demo.png
     """
 
     color = ColorProperty([1, 1, 1, 1])
     """
-    Background color of :class:`CupertinoCell`
+    Background color of :class:`CupertinoTableCell`
     
-    .. image:: ../_static/cell/color.png
+    .. image:: ../_static/table_cell/color.png
     
     **Python**
     
     .. code-block:: python
     
-       CupertinoCell(color=(1, 0, 0, 1))
+       CupertinoTableCell(color=(1, 0, 0, 1))
    
     **KV**
    
     .. code-block::
     
        CupertinoNavigationBar:
-           CupertinoCell: 1, 0, 0, 1
+           CupertinoTableCell: 1, 0, 0, 1
     """
 
     _upper_border = NumericProperty(1)
@@ -93,91 +91,111 @@ class CupertinoCell(FloatLayout):
     """
 
 
-class CupertinoClickableCell(ButtonBehavior, CupertinoCell):
+class CupertinoClickableTableCell(_BaseButton, CupertinoTableCell):
     """
-    iOS style clickable Cell for Table View. :class:`CupertinoClickableCell` is a
-    :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    iOS style clickable Cell for Table View. :class:`CupertinoClickableTableCell` is a
+    :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
-    .. image:: ../_static/clickable_cell/demo.gif
+    .. image:: ../_static/clickable_table_cell/demo.gif
     """
 
     disabled = BooleanProperty(False)
     """
-    If :class:`CupertinoClickableCell` is disabled
+    If :class:`CupertinoClickableTableCell` is disabled
     
-    .. image:: ../_static/clickable_cell/disabled.png
+    .. image:: ../_static/clickable_table_cell/disabled.png
     
     **Python**
     
     .. code-block:: python
     
-       CupertinoClickableCell(disabled=True)
+       CupertinoClickableTableCell(disabled=True)
    
     **KV**
    
     .. code-block::
     
-       CupertinoClickableCell:
+       CupertinoClickableTableCell:
            disabled: True
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    Duration of the transition of the color of :class:`CupertinoButton` when its state changes
+    
+    .. image:: ../_static/clickable_table_cell/transition_duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoClickableTableCell(transition_duration=0.5)
+       
+    **KV**
+    
+    .. code-block::
+
+       CupertinoClickableTableCell:
+           transition_duration: 0.5
     """
 
     color_normal = ColorProperty([1, 1, 1, 1])
     """
-    Background color of :class:`CupertinoClickableCell` when not pressed or disabled
+    Background color of :class:`CupertinoClickableTableCell` when not pressed or disabled
     
-    .. image:: ../_static/clickable_cell/color_normal.png
+    .. image:: ../_static/clickable_table_cell/color_normal.png
     
     **Python**
     
     .. code-block:: python
     
-       CupertinoClickableCell(color_normal=(1, 0, 0, 1))
+       CupertinoClickableTableCell(color_normal=(1, 0, 0, 1))
    
     **KV**
    
     .. code-block::
     
-       CupertinoClickableCell:
+       CupertinoClickableTableCell:
            color_normal: 1, 0, 0, 1
     """
 
-    color_down = ColorProperty([0, 0, 0, 0.1])
+    color_down = ColorProperty([0.9, 0.9, 0.9, 0.9])
     """
-    Background color of :class:`CupertinoClickableCell` when pressed
+    Background color of :class:`CupertinoClickableTableCell` when pressed
     
-    .. image:: ../_static/clickable_cell/color_down.gif
+    .. image:: ../_static/clickable_table_cell/color_down.gif
     
     **Python**
     
     .. code-block:: python
     
-       CupertinoClickableCell(color_down=(0.5, 0, 0, 1))
+       CupertinoClickableTableCell(color_down=(0.5, 0, 0, 1))
    
     **KV**
    
     .. code-block::
 
-       CupertinoClickableCell:
+       CupertinoClickableTableCell:
            color_down: 0.5, 0, 0, 1
     """
 
-    color_disabled = ColorProperty([0, 0, 0, 0.3])
+    color_disabled = ColorProperty([0.8, 0.8, 0.8, 1])
     """
-    Background color of :class:`CupertinoClickableCell` when disabled
+    Background color of :class:`CupertinoClickableTableCell` when disabled
     
-    .. image:: ../_static/clickable_cell/color_disabled.png
+    .. image:: ../_static/clickable_table_cell/color_disabled.png
     
     **Python**
     
     .. code-block:: python
     
-       CupertinoCell(disabled=True, color_disabled=(0.5, 0, 0, 1))
+       CupertinoTableCell(disabled=True, color_disabled=(0.5, 0, 0, 1))
    
     **KV**
    
     .. code-block::
     
-       CupertinoClickableCell:
+       CupertinoClickableTableCell:
            disabled: True
            color_disabled: 0.5, 0, 0, 1
     """
@@ -192,7 +210,7 @@ class CupertinoTableGroup(BoxLayout):
 
     text = StringProperty(' ')
     """
-    Background color of :class:`CupertinoClickableCell` when disabled
+    Background color of :class:`CupertinoClickableTableCell` when disabled
     
     .. image:: ../_static/table_group/text.png
     
@@ -212,7 +230,7 @@ class CupertinoTableGroup(BoxLayout):
 
     text_color = ColorProperty([0.6, 0.6, 0.6, 1])
     """
-    Background color of :class:`CupertinoClickableCell` when disabled
+    Background color of :class:`CupertinoClickableTableCell` when disabled
     
     .. image:: ../_static/table_group/text_color.png
     
@@ -232,18 +250,18 @@ class CupertinoTableGroup(BoxLayout):
 
     def add_widget(self, widget, index=0, canvas=None):
         """
-        Add an instance of :class:`CupertinoCell` to :class:`CupertinoTableGroup`
+        Add an instance of :class:`CupertinoTableCell` to :class:`CupertinoTableGroup`
 
-        :param widget: Instance of :class:`CupertinoCell` to be added to :class:`CupertinoTableGroup`
-        :param index: Index at which :class:`CupertinoCell` will be inserted into :attr:`children` of :class:`CupertinoTableGroup`
-        :param canvas: Canvas at which :class:`CupertinoCell` will be inserted into :class:`CupertinoTableGroup`
+        :param widget: Instance of :class:`CupertinoTableCell` to be added to :class:`CupertinoTableGroup`
+        :param index: Index at which :class:`CupertinoTableCell` will be inserted into :attr:`children` of :class:`CupertinoTableGroup`
+        :param canvas: Canvas at which :class:`CupertinoTableCell` will be inserted into :class:`CupertinoTableGroup`
         """
 
         super().add_widget(widget, index, canvas)
         smallest = len(self.children) - 1
         largest = 0
         for index, child in enumerate(self.children):
-            if isinstance(child, CupertinoCell):
+            if isinstance(child, CupertinoTableCell):
                 child._upper_border = 0.95
                 child._lower_border = 0.95
 

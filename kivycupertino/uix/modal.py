@@ -2,18 +2,19 @@
 Modals help alert users to information
 """
 
-from kivy.properties import NumericProperty, StringProperty, ColorProperty
+from kivy.properties import NumericProperty, StringProperty, ColorProperty, BooleanProperty, ListProperty
 from kivy.uix.widget import Widget
 from kivy.uix.modalview import ModalView
 from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.button import CupertinoModalButton
+from kivycupertino.uix.button import CupertinoButton
 from kivy.core.window import Window
 from kivy.lang.builder import Builder
 from kivy.metrics import dp
 
 __all__ = [
     'CupertinoDialog',
-    'CupertinoActionSheet'
+    'CupertinoActionSheet',
+    'CupertinoModalButton'
 ]
 
 Builder.load_string("""
@@ -41,7 +42,7 @@ Builder.load_string("""
     BoxLayout:
         orientation: 'vertical'
            
-        FloatLayout:
+        RelativeLayout:
             id: content
             size_hint_y: None
             
@@ -51,7 +52,7 @@ Builder.load_string("""
                 RoundedRectangle:
                     radius: (dp(root.curve), dp(root.curve), 0, 0) if root._instantiated else (dp(root.curve),) * 4 
                     size: self.size
-                    pos: self.pos
+                    pos: 0, 0
         _Separator:
             size_hint_y: None
             height: dp(root.spacing) if root._instantiated else 0
@@ -59,7 +60,6 @@ Builder.load_string("""
             id: actions
             orientation: 'horizontal'
             size_hint_y: None
-            pos: root.pos
 
 <_ActionSheetLabel>:
     halign: 'center'
@@ -76,7 +76,7 @@ Builder.load_string("""
     
     size_hint_x: 0.95
     
-    FloatLayout:
+    RelativeLayout:
         size: root.size
         pos: root.pos
         
@@ -87,7 +87,7 @@ Builder.load_string("""
             spacing: dp(10)
             size_hint_y: None
             height: dp(self.minimum_height) if self.children else 0
-            pos: dp(frame_separator.x), dp(frame_separator.y + frame_separator.height)
+            pos: frame_separator.x, frame_separator.y + frame_separator.height
 
             canvas.before:
                 Color:
@@ -598,3 +598,198 @@ class CupertinoActionSheet(_CupertinoModal):
 
         self._cancel.clear_widgets(children)
         super().clear_widgets(children)
+
+
+class CupertinoModalButton(CupertinoButton):
+    """
+    Adaptive button to be used in Dialogs
+
+    .. image:: ../_static/modal_button/demo.gif
+    """
+
+    text = StringProperty(' ')
+    """
+    Text of :class:`CupertinoModalButton`
+    
+    .. image:: ../_static/modal_button/text.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(text='Hello World')
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           text: 'Hello World'
+    """
+
+    font_size = NumericProperty('14sp')
+    """
+    Size of text of :class:`CupertinoModalButton`
+    
+    .. image:: ../_static/modal_button/font_size.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(font_size='20sp')
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           font_size: '20sp'
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    Duration of the transition of the color of :class:`CupertinoButton` when its state changes
+    
+    .. image:: ../_static/modal_button/transition_duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(transition_duration=0.5)
+       
+    **KV**
+    
+    .. code-block::
+
+       CupertinoModalButton:
+           transition_duration: 0.5
+    """
+
+    disabled = BooleanProperty(False)
+    """
+    If :class:`CupertinoModalButton` is disabled
+    
+    .. image:: ../_static/modal_button/disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(disabled=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           disabled: True
+    """
+
+    color_normal = ColorProperty([1, 1, 1, 0.9])
+    """
+    Background color of :class:`CupertinoModalButton` when not pressed
+    
+    .. image:: ../_static/modal_button/color_normal.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(color_normal=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           color_normal: 0.5, 0, 0, 1
+    """
+
+    color_down = ColorProperty([0.9, 0.9, 0.9, 0.9])
+    """
+    Background color of :class:`CupertinoModalButton` when pressed
+    
+    .. image:: ../_static/modal_button/color_down.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(color_down=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           color_down: 0.5, 0, 0, 1
+    """
+
+    color_disabled = ColorProperty([0.8, 0.8, 0.8, 1])
+    """
+    Background color of :class:`CupertinoModalButton` when disabled
+    
+    .. image:: ../_static/modal_button/color_disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(disabled=True, color_disabled=(0.5, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           disabled: True
+           color_disabled: 0.5, 0, 0, 1
+    """
+
+    text_color = ColorProperty([0.05, 0.5, 1, 1])
+    """
+    Color of the text of :class:`CupertinoModalButton`
+    
+    .. image:: ../_static/modal_button/text_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(text_color=(1, 0, 0, 1))
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           color_down: 1, 0, 0, 1
+    """
+
+    cancel = BooleanProperty(False)
+    """
+    If :class:`CupertinoModalButton` should be a cancel button when added to an instance of
+    :class:`CupertinoActionSheet`
+    
+    .. image:: ../_static/modal_button/cancel.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoModalButton(cancel=True)
+   
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoModalButton:
+           cancel: True
+    """
+
+    _radii = ListProperty([0, 0, 0, 0])
+    """
+    A :class:`~kivy.properties.ListProperty` defining the radii values of the corners of :class:`CupertinoModalButton`
+    """

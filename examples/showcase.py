@@ -10,15 +10,15 @@ A program to display all widgets in Kivy Cupertino
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar, CupertinoTabBar, CupertinoTab
 from kivycupertino.uix.label import CupertinoLabel
-from kivycupertino.uix.modal import CupertinoDialog, CupertinoActionSheet
-from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton, CupertinoModalButton
+from kivycupertino.uix.modal import CupertinoDialog, CupertinoActionSheet, CupertinoModalButton
+from kivycupertino.uix.button import CupertinoSystemButton, CupertinoSymbolButton, CupertinoButton
 from kivycupertino.uix.switch import CupertinoSwitch
 from kivycupertino.uix.indicator import CupertinoActivityIndicator, CupertinoProgressbar
 from kivycupertino.uix.control import CupertinoSegment, CupertinoSegmentedControls, CupertinoStepper
 from kivycupertino.uix.slider import CupertinoSlider
 from kivycupertino.uix.textinput import CupertinoSearchBar, CupertinoTextField, CupertinoTextView
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.core.window import Window
 from kivy.metrics import dp
 
@@ -210,7 +210,7 @@ class ShowcaseApp(CupertinoApp):
         title.bold = True
         title.pos_hint = {'center': (0.5, 0.5)}
 
-        self.contents = FloatLayout()
+        self.contents = RelativeLayout()
 
         tab_bar = CupertinoTabBar()
         tab_bar.size_hint_y = 0.1

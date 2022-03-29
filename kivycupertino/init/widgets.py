@@ -14,7 +14,6 @@ r('CupertinoTabBar', module='kivycupertino.uix.bar')
 r('CupertinoButton', module='kivycupertino.uix.button')
 r('CupertinoSystemButton', module='kivycupertino.uix.button')
 r('CupertinoSymbolButton', module='kivycupertino.uix.button')
-r('CupertinoModalButton', module='kivycupertino.uix.button')
 
 r('CupertinoSegment', module='kivycupertino.uix.control')
 r('CupertinoSegmentedControls', module='kivycupertino.uix.control')
@@ -22,6 +21,7 @@ r('CupertinoStepper', module='kivycupertino.uix.control')
 
 r('CupertinoActionSheet', module='kivycupertino.uix.modal')
 r('CupertinoDialog', module='kivycupertino.uix.modal')
+r('CupertinoModalButton', module='kivycupertino.uix.modal')
 
 r('CupertinoActivityIndicator', module='kivycupertino.uix.indicator')
 r('CupertinoProgressBar', module='kivycupertino.uix.indicator')
@@ -39,8 +39,8 @@ r('CupertinoSwitch', module='kivycupertino.uix.switch')
 
 r('CupertinoSymbol', module='kivycupertino.uix.symbol')
 
-r('CupertinoCell', module='kivycupertino.uix.table')
-r('CupertinoClickableCell', module='kivycupertino.uix.table')
+r('CupertinoTableCell', module='kivycupertino.uix.table')
+r('CupertinoClickableTableCell', module='kivycupertino.uix.table')
 r('CupertinoTableGroup', module='kivycupertino.uix.table')
 
 r('CupertinoTextField', module='kivycupertino.uix.textinput')
