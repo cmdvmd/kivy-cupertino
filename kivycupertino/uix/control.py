@@ -4,7 +4,7 @@ Controls allow users to control information on their screen
 
 from kivycupertino.uix.label import CupertinoLabel
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.properties import StringProperty, ColorProperty, NumericProperty, BooleanProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
@@ -23,7 +23,9 @@ Builder.load_string("""
     _segments: segments
     _selected_segment: selected_segment
     
-    on_touch_down: args[1].ud['pressed'] = self.collide_point(*args[1].pos)
+    on_touch_down: args[1].ud[self] = self.collide_point(*args[1].pos)
+    on_touch_up: self._select(args[1])
+    on_touch_move: self._select(args[1])
     
     canvas.before:
         Color:
@@ -31,12 +33,12 @@ Builder.load_string("""
         RoundedRectangle:
             radius: dp(10),
             size: self.size
-            pos: self.pos
+            pos: 0, 0
     
     Widget:
         id: selected_segment
         size_hint: None, None
-        size: segments.size
+        size: 0, 0
         pos: segments.pos
         
         canvas.before:
@@ -45,14 +47,14 @@ Builder.load_string("""
             RoundedRectangle:
                 radius: dp(10),
                 size: self.size
-                pos: self.pos    
+                pos: self.pos
     BoxLayout:
         id: segments
         orientation: 'horizontal'
         spacing: dp(3)
         padding: dp(3)
         size: root.size
-        pos: root.pos
+        pos: 0, 0
 
 <CupertinoStepper>:
     orientation: 'horizontal'
@@ -103,7 +105,7 @@ class CupertinoSegment(CupertinoLabel):
     """
 
 
-class CupertinoSegmentedControls(FloatLayout):
+class CupertinoSegmentedControls(RelativeLayout):
     """
     iOS style Segmented Controls
 
@@ -190,9 +192,15 @@ class CupertinoSegmentedControls(FloatLayout):
            transition_duration: 0.5
     """
 
-    def on_touch_up(self, touch):
+    def _select(self, touch):
+        """
+        Callback when new segment of :class:`CupertinoSegmentedControls` is selected
+
+        :param touch: :class:`kivy.input.providers.mouse.MouseMotionEvent` on :class:`CupertinoSegmentedControls`
+        """
+
         for segment in self._segments.children:
-            if segment.collide_point(*touch.pos) and touch.ud['pressed']:
+            if self in touch.ud and touch.ud[self] and segment.x <= self._segments.to_widget(*touch.pos)[0] <= segment.x + segment.width:
                 self.selected = segment.text
                 break
 
@@ -244,7 +252,7 @@ class CupertinoStepper(BoxLayout):
 
     color_normal = ColorProperty([0.9, 0.9, 0.9, 0.75])
     """
-    Background color of button of :class:`CupertinoStepper` when not pressed
+    Background color of button of :class:`CupertinoStepper` when not valid
     
     .. image:: ../_static/stepper/color_normal.png
     
@@ -264,7 +272,7 @@ class CupertinoStepper(BoxLayout):
 
     color_down = ColorProperty([0.7, 0.7, 0.7, 1])
     """
-    Background color of button of :class:`CupertinoStepper` when pressed
+    Background color of button of :class:`CupertinoStepper` when valid
     
     .. image:: ../_static/stepper/color_down.gif
     
@@ -376,10 +384,10 @@ class CupertinoStepper(BoxLayout):
 
     def on_minus(self):
         """
-        Callback when minus button is pressed
+        Callback when minus button is valid
         """
 
     def on_plus(self):
         """
-        Callback when plus button is pressed
+        Callback when plus button is valid
         """

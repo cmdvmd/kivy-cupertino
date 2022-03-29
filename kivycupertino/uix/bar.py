@@ -51,7 +51,7 @@ Builder.load_string("""
         color: root.color_selected if root._selected else root.color_unselected
     CupertinoLabel:
         text: root.text
-        font_size: symbol.font_size*0.55
+        font_size: symbol.font_size * 0.55
         color: root.color_selected if root._selected else root.color_unselected
         size_hint_y: 0.7
 
@@ -71,8 +71,8 @@ Builder.load_string("""
 
 class CupertinoNavigationBar(RelativeLayout):
     """
-    iOS style Navigation Bar. :class:`CupertinoNavigationBar`
-    is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    iOS style Navigation Bar. :class:`CupertinoNavigationBar` is a
+    :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
     .. image:: ../_static/navigation_bar/demo.png
     """
@@ -101,7 +101,7 @@ class CupertinoNavigationBar(RelativeLayout):
 class CupertinoToolbar(RelativeLayout):
     """
     iOS style Toolbar. :class:`CupertinoToolbar`
-    is a :class:`~kivy.uix.floatlayout.FloatLayout` and can accept any number of widgets
+    is a :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets
 
     .. image:: ../_static/toolbar/demo.png
     """
