@@ -119,7 +119,7 @@ class ShowcaseApp(CupertinoApp):
 
     def controls(self):
         segmented_controls = CupertinoSegmentedControls()
-        segmented_controls.size_hint = 0.7, 0.075
+        segmented_controls.size_hint = 0.7, 0.06
         segmented_controls.pos_hint = {'center': (0.5, 0.9)}
 
         segmented_tab = CupertinoSegment()
