@@ -4,7 +4,8 @@ Symbols
 
 .. codeauthor:: cmdvmd <vcmd43@gmail.com>
 
-A program to show all symbols in Kivy Cupertino
+A program to show all symbols in Kivy Cupertino. Symbols can be searched for
+using Regular Expression syntax or keywords
 """
 
 from kivycupertino import root_path
@@ -18,6 +19,7 @@ from kivy.core.window import Window
 from kivy.properties import StringProperty
 from kivy.lang.builder import Builder
 from json import load
+from re import findall, error
 
 Builder.load_string("""
 #: import sub re.sub
@@ -67,8 +69,16 @@ class SymbolsApp(CupertinoApp):
         with open(root_path + 'symbols.json', 'r') as json:
             symbols = load(json)
 
-        self.rv.data = [{'symbol': symbol.replace(pattern, f'[b]{pattern}[/b]')} for symbol in symbols if
-                        pattern in symbol]
+        data = []
+
+        try:
+            for symbol in symbols:
+                if match := findall(pattern, symbol):
+                    data.append({'symbol': symbol.replace(match[0], f'[b]{match[0]}[/b]')})
+        except error:
+            pass
+
+        self.rv.data = data
 
     def build(self):
         box = BoxLayout()
