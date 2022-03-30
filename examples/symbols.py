@@ -11,6 +11,7 @@ from kivycupertino import root_path
 from kivycupertino.app import CupertinoApp
 from kivycupertino.uix.bar import CupertinoNavigationBar
 from kivycupertino.uix.label import CupertinoLabel
+from kivycupertino.uix.textinput import CupertinoSearchBar
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.recycleview import RecycleView
 from kivy.core.window import Window
@@ -19,6 +20,8 @@ from kivy.lang.builder import Builder
 from json import load
 
 Builder.load_string("""
+#: import sub re.sub
+
 <RV>:
     viewclass: 'Symbol'
     
@@ -36,10 +39,12 @@ Builder.load_string("""
     spacing: dp(10)
     
     CupertinoSymbol:
-        symbol: root.symbol
+        markup: False
+        symbol: sub('\\[.*?\\]', '', root.symbol)
         color: 0, 0, 0, 1
         size_hint_x: 0.1
     CupertinoLabel:
+        markup: True
         text: root.symbol
         font_size: '14sp'
         halign: 'left'
@@ -56,12 +61,19 @@ class Symbol(BoxLayout):
 
 
 class SymbolsApp(CupertinoApp):
-    def build(self):
+    def add_symbols(self, pattern):
+        pattern = pattern.lower().strip().replace(' ', '_')
+
         with open(root_path + 'symbols.json', 'r') as json:
             symbols = load(json)
 
+        self.rv.data = [{'symbol': symbol.replace(pattern, f'[b]{pattern}[/b]')} for symbol in symbols if
+                        pattern in symbol]
+
+    def build(self):
         box = BoxLayout()
         box.orientation = 'vertical'
+        box.spacing = 7
 
         navigation_bar = CupertinoNavigationBar()
         navigation_bar.size_hint_y = 0.15
@@ -71,12 +83,19 @@ class SymbolsApp(CupertinoApp):
         title.bold = True
         title.pos_hint = {'center': (0.5, 0.5)}
 
-        rv = RV()
-        rv.data = [{'symbol': symbol} for symbol in symbols]
+        search_bar = CupertinoSearchBar()
+        search_bar.size_hint = 0.9, 0.06
+        search_bar.pos_hint = {'center_x': 0.5}
+        search_bar.bind(text=lambda instance, text: self.add_symbols(text))
+
+        self.rv = RV()
 
         navigation_bar.add_widget(title)
         box.add_widget(navigation_bar)
-        box.add_widget(rv)
+        box.add_widget(search_bar)
+        box.add_widget(self.rv)
+
+        self.add_symbols('')
 
         return box
 
