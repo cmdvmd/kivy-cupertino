@@ -42,7 +42,7 @@ Builder.load_string("""
         id: thumb
         size: dp(root.height), dp(root.height)
         pos: selected.x+selected.width-self.width/2, root.y
-        on_touch_down: args[1].ud[root] = self.collide_point(*args[1].pos)
+        on_touch_down: if self.collide_point(*args[1].pos): args[1].grab(root)
         
         canvas.before:
             Color:
@@ -232,6 +232,8 @@ class CupertinoSlider(Widget):
 
         if self.tap and self._track.collide_point(*touch.pos):
             self._set_value(touch.x)
+        if touch.grab_current is self:
+            touch.ungrab(self)
 
     def on_touch_move(self, touch):
         """
@@ -240,5 +242,5 @@ class CupertinoSlider(Widget):
         :param touch: Touch on :class:`CupertinoSlider`
         """
 
-        if touch.ud[self]:
+        if touch.grab_current is self:
             self._set_value(touch.x)

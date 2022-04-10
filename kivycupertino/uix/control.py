@@ -23,10 +23,12 @@ Builder.load_string("""
     _segments: segments
     _selected_segment: selected_segment
     
-    on_touch_down: args[1].ud[self] = self.collide_point(*args[1].pos)
-    on_touch_up: self._select(args[1])
+    on_touch_down: if self.collide_point(*args[1].pos): args[1].grab(self)
     on_touch_move: self._select(args[1])
-    
+    on_touch_up:
+        self._select(args[1])
+        if args[1].grab_current is self: args[1].ungrab(self)
+
     canvas.before:
         Color:
             rgba: self.background_color
@@ -200,7 +202,7 @@ class CupertinoSegmentedControls(RelativeLayout):
         """
 
         for segment in self._segments.children:
-            if self in touch.ud and touch.ud[self] and segment.x <= self._segments.to_widget(*touch.pos)[0] <= segment.x + segment.width:
+            if touch.grab_current is self and segment.x <= self._segments.to_widget(*touch.pos)[0] <= segment.x + segment.width:
                 self.selected = segment.text
                 break
 
