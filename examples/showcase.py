@@ -80,6 +80,8 @@ class ShowcaseApp(CupertinoApp):
         action_sheet.open()
 
     def buttons(self):
+        self.contents.clear_widgets()
+
         symbol_button = CupertinoSymbolButton()
         symbol_button.symbol = 'info_circle'
         symbol_button.color_normal = 0.05, 0.5, 0.95, 1
@@ -102,7 +104,7 @@ class ShowcaseApp(CupertinoApp):
         button.text = 'Toggle Activity Indicator'
         button.size_hint = 0.8, 0.1
         button.pos_hint = {'center': (0.5, 0.5)}
-        button.on_release = lambda: setattr(activity_indicator, 'playing', not activity_indicator.playing)
+        button.on_release = lambda *args: setattr(activity_indicator, 'playing', not activity_indicator.playing)
 
         switch = CupertinoSwitch()
         switch.size_hint = 0.25, 0.1
@@ -118,15 +120,17 @@ class ShowcaseApp(CupertinoApp):
         self.progressbar.value += value
 
     def controls(self):
+        self.contents.clear_widgets()
+
         segmented_controls = CupertinoSegmentedControls()
         segmented_controls.size_hint = 0.7, 0.06
         segmented_controls.pos_hint = {'center': (0.5, 0.9)}
 
-        segmented_tab = CupertinoSegment()
-        segmented_tab.text = 'Segmented'
+        segmented_segment = CupertinoSegment()
+        segmented_segment.text = 'Segmented'
 
-        controls_tab = CupertinoSegment()
-        controls_tab.text = 'Controls'
+        controls_segment = CupertinoSegment()
+        controls_segment.text = 'Controls'
 
         self.progressbar = CupertinoProgressbar()
         self.progressbar.size_hint = 0.95, 0.01
@@ -137,16 +141,16 @@ class ShowcaseApp(CupertinoApp):
         stepper.size_hint = 0.2, 0.075
         stepper.pos_hint = {'right': 0.25, 'center_y': 0.55}
         stepper.bind(
-            on_plus=lambda w: self.update_progressbar(10),
-            on_minus=lambda w: self.update_progressbar(-10)
+            on_plus=lambda *args: self.update_progressbar(10),
+            on_minus=lambda *args: self.update_progressbar(-10)
         )
 
         slider = CupertinoSlider()
         slider.size_hint = 0.8, 0.075
         slider.pos_hint = {'center': (0.5, 0.45)}
 
-        segmented_controls.add_widget(segmented_tab)
-        segmented_controls.add_widget(controls_tab)
+        segmented_controls.add_widget(segmented_segment)
+        segmented_controls.add_widget(controls_segment)
 
         self.contents.add_widget(segmented_controls)
         self.contents.add_widget(self.progressbar)
@@ -154,6 +158,8 @@ class ShowcaseApp(CupertinoApp):
         self.contents.add_widget(slider)
 
     def text(self):
+        self.contents.clear_widgets()
+
         ny_font = CupertinoLabel()
         ny_font.text = 'New York Font'
         ny_font.font_name = 'New York'
@@ -165,7 +171,7 @@ class ShowcaseApp(CupertinoApp):
         sf_font.pos_hint = {'center': (0.5, 0.8)}
 
         search_bar = CupertinoSearchBar()
-        search_bar.size_hint = 0.9, 0.075
+        search_bar.size_hint = 0.9, 0.07
         search_bar.pos_hint = {'center': (0.5, 0.65)}
 
         text_field = CupertinoTextField()
@@ -189,15 +195,6 @@ class ShowcaseApp(CupertinoApp):
         self.contents.add_widget(instructions)
         self.contents.add_widget(text_view)
 
-    def change_screen(self, widget, screen):
-        self.contents.clear_widgets()
-        if screen == 'Buttons':
-            self.buttons()
-        elif screen == 'Controls':
-            self.controls()
-        elif screen == 'Text':
-            self.text()
-
     def build(self):
         layout = BoxLayout()
         layout.orientation = 'vertical'
@@ -214,19 +211,21 @@ class ShowcaseApp(CupertinoApp):
 
         tab_bar = CupertinoTabBar()
         tab_bar.size_hint_y = 0.1
-        tab_bar.bind(selected=self.change_screen)
 
         button_tab = CupertinoTab()
         button_tab.text = 'Buttons'
         button_tab.symbol = 'circle_grid_3x3_fill'
+        button_tab.bind(on_chosen=lambda *args: self.buttons())
 
         controls_tab = CupertinoTab()
         controls_tab.text = 'Controls'
         controls_tab.symbol = 'wrench_fill'
+        controls_tab.bind(on_chosen=lambda *args: self.controls())
 
         text_tab = CupertinoTab()
         text_tab.text = 'Text'
         text_tab.symbol = 'textformat_abc'
+        text_tab.bind(on_chosen=lambda *args: self.text())
 
         navigation_bar.add_widget(title)
 

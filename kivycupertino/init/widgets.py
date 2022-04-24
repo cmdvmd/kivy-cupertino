@@ -11,6 +11,9 @@ r('CupertinoToolbar', module='kivycupertino.uix.bar')
 r('CupertinoTab', module='kivycupertino.uix.bar')
 r('CupertinoTabBar', module='kivycupertino.uix.bar')
 
+r('LongPressBehavior', module='kivycupertino.uix.behavior')
+r('SelectableBehavior', module='kivycupertino.uix.behavior')
+
 r('CupertinoButton', module='kivycupertino.uix.button')
 r('CupertinoSystemButton', module='kivycupertino.uix.button')
 r('CupertinoSymbolButton', module='kivycupertino.uix.button')

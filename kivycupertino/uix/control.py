@@ -3,9 +3,10 @@ Controls allow users to control information on their screen
 """
 
 from kivycupertino.uix.label import CupertinoLabel
+from kivycupertino.uix.behavior import SelectableBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.relativelayout import RelativeLayout
-from kivy.properties import StringProperty, ColorProperty, NumericProperty, BooleanProperty
+from kivy.properties import ColorProperty, NumericProperty, BooleanProperty
 from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
@@ -24,9 +25,8 @@ Builder.load_string("""
     _selected_segment: selected_segment
     
     on_touch_down: if self.collide_point(*args[1].pos): args[1].grab(self)
-    on_touch_move: self._select(args[1])
     on_touch_up:
-        self._select(args[1])
+        self._select(self.get_selected_segment(), self.transition_duration)
         if args[1].grab_current is self: args[1].ungrab(self)
 
     canvas.before:
@@ -85,7 +85,11 @@ Builder.load_string("""
 """)
 
 
-class CupertinoSegment(CupertinoLabel):
+class CupertinoSegment(SelectableBehavior, CupertinoLabel):
+    """
+    iOS style segment to be used with :class:`CupertinoSegmentedControls`
+    """
+
     color = ColorProperty([0, 0, 0, 1])
     """
     Color of text of :class:`CupertinoSegment`
@@ -112,26 +116,6 @@ class CupertinoSegmentedControls(RelativeLayout):
     iOS style Segmented Controls
 
     .. image:: ../_static/segmented_controls/demo.gif
-    """
-
-    selected = StringProperty(' ')
-    """
-    Selected tab of :class:`CupertinoSegmentedControls`
-    
-    .. image:: ../_static/segmented_controls/selected.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoSegmentedControls(selected='Second')
-    
-    **KV**
-    
-    .. code-block::
-    
-       CupertinoSegmentedControls:
-           selected: 'Second'
     """
 
     background_color = ColorProperty([0.9, 0.9, 0.9, 0.75])
@@ -194,55 +178,68 @@ class CupertinoSegmentedControls(RelativeLayout):
            transition_duration: 0.5
     """
 
-    def _select(self, touch):
+    def __init__(self, **kwargs):
         """
-        Callback when new segment of :class:`CupertinoSegmentedControls` is selected
+        Initialize behaviors of :class:`CupertinoSegmentedControls`
 
-        :param touch: :class:`kivy.input.providers.mouse.MouseMotionEvent` on :class:`CupertinoSegmentedControls`
+        :param kwargs: Keyword arguments for :class:`CupertinoSegmentedControls`
+        """
+
+        super().__init__(**kwargs)
+        def resize(*args): self._select(self.get_selected_segment(), 0)
+        self.bind(size=resize, pos=resize)
+
+    def _select(self, segment, duration):
+        """
+        Show selection animation to select a segment of :class:`CupertinoSegmentedControls`
+
+        :param segment: Segment of :class:`CupertinoSegmentedControls` to be selected
+        """
+
+        segment.selected = True
+        animation = Animation(
+            size=segment.size,
+            pos=segment.pos,
+            duration=duration
+        )
+        animation.start(self._selected_segment)
+
+    def on_touch_move(self, touch):
+        """
+        Detect a movement on a segment of :class:`CupertinoSegmentedControls`
+
+        :param touch: Touch on :class:`CupertinoSegmentedControls`
         """
 
         for segment in self._segments.children:
-            if touch.grab_current is self and segment.x <= self._segments.to_widget(*touch.pos)[0] <= segment.x + segment.width:
-                self.selected = segment.text
-                break
-
-    def on_selected(self, instance, text):
-        """
-        Callback when a new tab is selected
-
-        :param instance: Instance of :class:`CupertinoSegmentedControls`
-        :param text: Text of the selected tab
-        """
-
-        for segment in self._segments.children:
-            if segment.text == text:
-                animation = Animation(
-                    size=segment.size,
-                    pos=segment.pos,
-                    duration=self.transition_duration
-                )
-                animation.start(self._selected_segment)
+            if touch.grab_current is self and segment.x <= self.to_local(*touch.pos)[0] <= segment.x + segment.width:
+                self._select(segment, self.transition_duration)
                 break
 
     def add_widget(self, widget, index=0, canvas=None):
         """
-        .. note::
-           The :attr:`text` of every :class:`CupertinoSegment` added must be unique
-
         Add an instance of :class:`CupertinoSegment` to :class:`CupertinoSegmentedControls`
         """
 
         if len(self.children) >= 2:
             assert isinstance(widget,
                               CupertinoSegment), 'CupertinoSegmentedControls accepts only CupertinoSegment widget'
-            for child in self._segments.children:
-                assert child.text != widget.text, f'A tab named "{widget.text}" already exists'
-
-            self._segments.add_widget(widget)
-            if len(self._segments.children) == 1:
-                self.selected = widget.text
+            self._segments.add_widget(widget, index)
+            if widget.selected or len(self._segments.children) == 1:
+                widget.refresh()
         else:
             super().add_widget(widget, index, canvas)
+
+    def get_selected_segment(self):
+        """
+        Get the currently selected segment of :class:`CupertinoSegmentedControls`
+
+        :return: The selected :class:`CupertinoSegment`
+        """
+
+        for segment in self._segments.children:
+            if segment.selected:
+                return segment
 
 
 class CupertinoStepper(BoxLayout):

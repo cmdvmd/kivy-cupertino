@@ -38,9 +38,9 @@ To install Kivy Cupertino for development use, install with the `dev` extra:
 
    Home <self>
    _source/bar
+   _source/behavior
    _source/button
    _source/control
-   _source/gesture
    _source/indicator
    _source/label
    _source/modal
