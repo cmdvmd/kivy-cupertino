@@ -5,6 +5,7 @@ contain widgets and/or information for easy access by users
 
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivycupertino.uix.behavior import SelectableBehavior
 from kivy.properties import ColorProperty, BooleanProperty, StringProperty
 from kivy.lang.builder import Builder
 
@@ -48,20 +49,20 @@ Builder.load_string("""
     CupertinoSymbol:
         id: symbol
         symbol: root.symbol
-        color: root.color_selected if root._selected else root.color_unselected
+        color: root.color_selected if root.selected else root.color_unselected
     CupertinoLabel:
         text: root.text
         font_size: symbol.font_size * 0.55
-        color: root.color_selected if root._selected else root.color_unselected
+        color: root.color_selected if root.selected else root.color_unselected
         size_hint_y: 0.7
 
 <CupertinoTabBar>:
-    _items: items
+    _tabs: tabs
 
     color: root.background_color
     
     BoxLayout:
-        id: items
+        id: tabs
         orientation: 'horizontal'
         padding: dp(3)
         size: root.size
@@ -127,16 +128,11 @@ class CupertinoToolbar(RelativeLayout):
     """
 
 
-class CupertinoTab(BoxLayout):
+class CupertinoTab(SelectableBehavior, BoxLayout):
     """
-    iOS style tab which can only be used with :class:`CupertinoTabBar`
+    iOS style tab to be used with :class:`CupertinoTabBar`
 
     .. image:: ../_static/tab/demo.png
-    """
-
-    _selected = BooleanProperty(False)
-    """
-    If :class:`CupertinoTab` is selected in its :attr:`parent`
     """
 
     text = StringProperty(' ')
@@ -227,26 +223,6 @@ class CupertinoTabBar(CupertinoToolbar):
     .. image:: ../_static/tab_bar/demo.gif
     """
 
-    selected = StringProperty(' ')
-    """
-    Selected tab of :class:`CupertinoTabBar`
-    
-    .. image:: ../_static/tab_bar/selected.png
-    
-    **Python**
-    
-    .. code-block:: python
-    
-       CupertinoTabBar(selected='Recents')
-   
-    **KV**
-   
-    .. code-block::
-    
-       CupertinoTabBar:
-           selected: 'Recents'
-    """
-
     background_color = ColorProperty([0.95, 0.95, 0.95, 1])
     """
     Background color of :class:`CupertinoTabBar` when selected
@@ -267,36 +243,26 @@ class CupertinoTabBar(CupertinoToolbar):
            background_color: 0.5, 0, 0, 1
     """
 
-    def on_selected(self, instance, tab_text):
-        """
-        Callback when a new tab of :class:`CupertinoTabBar` is selected
-
-        :param instance: The instance of :class:`CupertinoTabBar`
-        :param tab_text: Text of the selected tag
-        """
-
-        for tab in self._items.children:
-            tab._selected = tab.text == tab_text
-
-    def on_touch_up(self, touch):
-        for tab in self._items.children:
-            self.selected = tab.text if tab.collide_point(*touch.pos) else self.selected
-
     def add_widget(self, widget, index=0, canvas=None):
         """
-        .. note::
-           The :attr:`text` of every :class:`CupertinoTab` added must be unique
-
         Add an instance of :class:`CupertinoTab` to :class:`CupertinoTabBar`
         """
 
         if len(self.children) >= 1:
             assert isinstance(widget, CupertinoTab), 'CupertinoTabBar accepts only CupertinoTab widget'
-            for child in self._items.children:
-                assert child.text != widget.text, f'A tab named "{widget.text}" already exists'
-
-            self._items.add_widget(widget)
-            if len(self._items.children) == 1:
-                self.selected = widget.text
+            self._tabs.add_widget(widget)
+            if widget.selected or len(self._tabs.children) == 1:
+                widget.refresh()
         else:
             super().add_widget(widget, index, canvas)
+    
+    def get_selected_tab(self):
+        """
+        Get the currently selected tab of :class:`CupertinoTabBar`
+        
+        :return: The selected :class:`CupertinoTab`
+        """
+        
+        for tab in self._tabs.children:
+            if tab.selected:
+                return tab
