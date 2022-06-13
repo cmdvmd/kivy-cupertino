@@ -114,6 +114,16 @@ Builder.load_string("""
             height: dp(root.action_height) if self.children else 0
             y: dp(10)
             pos_hint: {'center_x': 0.5}
+
+<CupertinoModalButton>:    
+    canvas.before:
+        Clear
+        Color:
+            rgba: self.color
+        RoundedRectangle:
+            radius: root._radii
+            size: self.size
+            pos: self.pos
 """)
 
 
@@ -765,7 +775,7 @@ class CupertinoModalButton(CupertinoButton):
     .. code-block::
     
        CupertinoModalButton:
-           color_down: 1, 0, 0, 1
+           text_color: 1, 0, 0, 1
     """
 
     cancel = BooleanProperty(False)

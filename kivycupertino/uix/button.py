@@ -5,9 +5,8 @@ Buttons allow users to execute actions with a single tap
 from kivy.uix.widget import Widget
 from kivycupertino.uix.label import CupertinoLabel
 from kivycupertino.uix.symbol import CupertinoSymbol
-from kivy.uix.behaviors import ButtonBehavior
+from kivycupertino.uix.behavior import CupertinoButtonBehavior
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty, ColorProperty
-from kivy.animation import Animation
 from kivy.lang.builder import Builder
 
 __all__ = [
@@ -17,12 +16,10 @@ __all__ = [
 ]
 
 Builder.load_string("""
-<CupertinoButton>:
-    color: self.color_normal
-    
+<CupertinoButton>:    
     canvas.before:
         Color:
-            rgba: self.color if self.color is not None else (0, 0, 0, 0)
+            rgba: self.color
         RoundedRectangle:
             radius: dp(self.height/5),
             size: self.size
@@ -34,83 +31,10 @@ Builder.load_string("""
         color: root.text_color
         size: root.size
         pos: root.pos
-
-<CupertinoSystemButton>:
-    color: self.color_normal
-
-<CupertinoSymbolButton>:
-    color: self.color_normal
-
-<CupertinoModalButton>:    
-    canvas.before:
-        Clear
-        Color:
-            rgba: self.color
-        RoundedRectangle:
-            radius: root._radii
-            size: self.size
-            pos: self.pos
 """)
 
 
-class _BaseButton(ButtonBehavior):
-    """
-    Base class for buttons that can only be used with an instance of :class:`kivy.uix.widget.Widget`
-    """
-
-    disabled = BooleanProperty()
-    """
-    If :class:`CupertinoButton` is disabled
-    """
-
-    transition_duration = NumericProperty()
-    """
-    Duration of the transition of the color of :class:`_BaseButton` when its state changes
-    """
-
-    color_normal = ColorProperty()
-    """
-    Color of :class:`_BaseButton` when not pressed or disabled
-    """
-
-    color_down = ColorProperty()
-    """
-    Color of :class:`_BaseButton` when pressed
-    """
-
-    color_disabled = ColorProperty()
-    """
-    Color of :class:`_BaseButton` when disabled
-    """
-
-    def __init__(self, **kwargs):
-        """
-        Initialize behavior of :class:`_BaseButton`
-
-        :param kwargs: Keyword arguments of :class:`_BaseButton`
-        """
-
-        super().__init__(**kwargs)
-        self.bind(
-            disabled=lambda *args: self._animate_color(),
-            state=lambda *args: self._animate_color()
-        )
-
-    def _animate_color(self):
-        """
-        Callback when the state of :class:`CupertinoSymbolButton` changes
-        """
-
-        if self.state == 'down':
-            animation = Animation(color=self.color_down, duration=self.transition_duration)
-        elif self.disabled:
-            animation = Animation(color=self.color_disabled, duration=self.transition_duration)
-        else:
-            animation = Animation(color=self.color_normal, duration=self.transition_duration)
-        animation.start(self)
-
-
-class CupertinoButton(_BaseButton, Widget):
+class CupertinoButton(CupertinoButtonBehavior, Widget):
     """
     iOS style button
 
@@ -280,7 +204,7 @@ class CupertinoButton(_BaseButton, Widget):
     """
 
 
-class CupertinoSystemButton(_BaseButton, CupertinoLabel):
+class CupertinoSystemButton(CupertinoButtonBehavior, CupertinoLabel):
     """
     iOS style System Button
 
@@ -429,7 +353,7 @@ class CupertinoSystemButton(_BaseButton, CupertinoLabel):
     """
 
 
-class CupertinoSymbolButton(_BaseButton, CupertinoSymbol):
+class CupertinoSymbolButton(CupertinoButtonBehavior, CupertinoSymbol):
     """
     iOS style button that displays a symbol
 
