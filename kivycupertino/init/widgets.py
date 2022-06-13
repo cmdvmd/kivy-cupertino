@@ -22,6 +22,9 @@ r('CupertinoSegment', module='kivycupertino.uix.control')
 r('CupertinoSegmentedControls', module='kivycupertino.uix.control')
 r('CupertinoStepper', module='kivycupertino.uix.control')
 
+r('CupertinoSwipe', module='kivycupertino.uix.gesture')
+r('CupertinoSwipeAction', module='kivycupertino.uix.gesture')
+
 r('CupertinoActionSheet', module='kivycupertino.uix.modal')
 r('CupertinoDialog', module='kivycupertino.uix.modal')
 r('CupertinoModalButton', module='kivycupertino.uix.modal')

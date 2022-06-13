@@ -1,17 +1,169 @@
 """
-Gestures allow users to interact with widgets on screen
+Behaviors allow for expanded functionality for existing widgets
 
 .. note::
    Behaviors can only be used as superclasses for instances of :class:`Widget`
 """
 
-from kivy.properties import NumericProperty, BooleanProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.properties import NumericProperty, BooleanProperty, ColorProperty
+from kivy.animation import Animation
 from kivy.clock import Clock
 
 __all__ = [
+    'CupertinoButtonBehavior',
     'LongPressBehavior',
     'SelectableBehavior'
 ]
+
+
+class CupertinoButtonBehavior(ButtonBehavior):
+    """
+    Base class for buttons that can only be used with an instance of :class:`kivy.uix.widget.Widget`
+    """
+
+    disabled = BooleanProperty()
+    """
+    If widget with :class:`CupertinoButtonBehavior` is disabled
+    
+    .. image:: ../_static/button/disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoButton(disabled=True)
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoButton:
+           disabled: True
+    """
+
+    transition_duration = NumericProperty(0.075)
+    """
+    Duration of the transition of the color of widget with :class:`CupertinoButtonBehavior` when its
+    state changes
+    
+    .. image:: ../_static/button/transition_duration.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoButton(transition_duration=0.5)
+       
+    **KV**
+    
+    .. code-block::
+
+       CupertinoButton:
+           transition_duration: 0.5
+    """
+
+    color_normal = ColorProperty()
+    """
+    Color of widget with :class:`CupertinoButtonBehavior` when not pressed or disabled
+    
+    .. image:: ../_static/button/color_normal.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoButton(color_normal=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoButton:
+           color_normal: 1, 0, 0, 1
+    """
+
+    color_down = ColorProperty()
+    """
+    Color of widget with :class:`CupertinoButtonBehavior` when pressed
+    
+    .. image:: ../_static/button/color_down.gif
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoButton(color_down=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoButton:
+           color_down: 1, 0, 0, 1
+    """
+
+    color_disabled = ColorProperty()
+    """
+    Color of widget with :class:`CupertinoButtonBehavior` when disabled
+    
+    .. image:: ../_static/button/color_disabled.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoButton(disabled=True, color_disabled=(0.5, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoButton:
+           disabled: True
+           color_disabled: 0.5, 0, 0, 1
+    """
+
+    color = ColorProperty()
+    """
+    Current color of a widget with :class:`CupertinoButtonBehavior`
+    """
+
+    def __init__(self, **kwargs):
+        """
+        Initialize behavior of :class:`CupertinoButtonBehavior`
+
+        :param kwargs: Keyword arguments of :class:`CupertinoButtonBehavior`
+        """
+
+        super().__init__(**kwargs)
+        self.color = self.color_normal
+        self.bind(
+            disabled=lambda *args: self._animate_color(),
+            state=lambda *args: self._animate_color(),
+            color_normal=lambda *args: self._set_color(),
+            color_down=lambda *args: self._set_color(),
+            color_disabled=lambda *args: self._set_color()
+        )
+
+    def _get_color(self):
+        if self.state == 'down':
+            return self.color_down
+        elif self.disabled:
+            return self.color_disabled
+        else:
+            return self.color_normal
+
+    def _animate_color(self):
+        """
+        Callback when the state of :class:`CupertinoSymbolButton` changes
+        """
+
+        animation = Animation(color=self._get_color(), duration=self.transition_duration)
+        animation.start(self)
+
+    def _set_color(self):
+        self.color = self._get_color()
 
 
 class LongPressBehavior:

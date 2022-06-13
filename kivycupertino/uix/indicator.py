@@ -233,9 +233,6 @@ class CupertinoActivityIndicator(Widget):
     def _change_state(self):
         """
         Callback when the state of :class:`CupertinoActivityIndicator` changes
-
-        :param instance: Instance of :class:`CupertinoActivityIndicator`
-        :param value: State of :class:`CupertinoActivityIndicator`
         """
 
         if self.playing:

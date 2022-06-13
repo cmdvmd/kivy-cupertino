@@ -4,7 +4,7 @@ Tables help organize data and information for users to view and interact with
 
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivycupertino.uix.button import _BaseButton
+from kivycupertino.uix.behavior import CupertinoButtonBehavior
 from kivy.properties import ColorProperty, NumericProperty, BooleanProperty, StringProperty
 from kivy.lang.builder import Builder
 
@@ -91,7 +91,7 @@ class CupertinoTableCell(RelativeLayout):
     """
 
 
-class CupertinoClickableTableCell(_BaseButton, CupertinoTableCell):
+class CupertinoClickableTableCell(CupertinoButtonBehavior, CupertinoTableCell):
     """
     iOS style clickable Cell for Table View. :class:`CupertinoClickableTableCell` is a
     :class:`~kivy.uix.relativelayout.RelativeLayout` and can accept any number of widgets

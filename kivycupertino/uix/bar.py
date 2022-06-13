@@ -6,7 +6,7 @@ contain widgets and/or information for easy access by users
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivycupertino.uix.behavior import SelectableBehavior
-from kivy.properties import ColorProperty, BooleanProperty, StringProperty
+from kivy.properties import ColorProperty, StringProperty
 from kivy.lang.builder import Builder
 
 __all__ = [
