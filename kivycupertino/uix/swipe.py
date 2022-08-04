@@ -16,13 +16,12 @@ __all__ = [
 Builder.load_string("""
 <CupertinoSwipe>:
     _content: content
-    on_touch_up: if args[1].grab_current is self: args[1].ungrab(self)
-    on_width: [action.setter('width')(action, self.width / 5.5) for action in self._left_actions + self._right_actions]
     
     RelativeLayout:
         id: content
         size: root.size
         pos: root.pos
+        on_x: root._move_actions()
 
 <CupertinoSwipeAction>:
     color_down: self.color_normal
@@ -59,29 +58,53 @@ class CupertinoSwipe(StencilView):
         """
 
         super().__init__(**kwargs)
+        self._left_max = 0
+        self._right_max = 0
         self._last_movement = 0
-        self._left_actions = []
-        self._right_actions = []
-        self.bind(width=self._update_actions, x=self._update_actions)
+        self.bind(right=self._update_actions)
+
+    def _get_content_pos(self):
+        return self.to_local(self._content.x, self._content.y, True)[0]
 
     def _update_actions(self, *args):
         """
-        Callback to update position of the actions of :class:`CupertinoSwipeAction`
+        Callback to update size and side of the actions of :class:`CupertinoSwipe`
 
-        :param args: Arguments when updating the position of actions
+        :param args: Arguments when an action's attributes are changed
         """
 
-        self._right_actions.clear()
-        self._left_actions.clear()
+        self._left_max = 0
+        self._right_max = 0
+
+        for child in self.children:
+            if isinstance(child, CupertinoSwipeAction):
+                if child.size_hint_x is not None:
+                    child.width = self.width * child.size_hint_x
+                child.x = self.right
+                if child.side == 'left':
+                    self._left_max += child.width
+                elif child.side == 'right':
+                    self._right_max += child.width
+
+    def _move_actions(self):
+        """
+        Callback to move all actions of :class:`CupertinoSwipe` when swiped
+        """
+
+        content_position = self._get_content_pos()
+        moved_left = 0
+        moved_right = 0
 
         for child in self.children[::-1]:
             if isinstance(child, CupertinoSwipeAction):
                 if child.side == 'left':
-                    self._left_actions.append(child)
-                    child.right = self.x
+                    action_position = (self._left_max - moved_left) * (content_position / self._left_max)
+                    child.right = self.to_parent(action_position, 0, True)[0]
+                    moved_left += child.width
                 elif child.side == 'right':
-                    self._right_actions.append(child)
-                    child.x = self.x + self.width
+                    action_position = (self._right_max - moved_right) * (-content_position / self._right_max)
+                    child.x = self.right - action_position
+                    moved_right += child.width
 
     def on_touch_down(self, touch):
         """
@@ -95,6 +118,16 @@ class CupertinoSwipe(StencilView):
             self._last_movement = touch.x
         return super().on_touch_down(touch)
 
+    def on_touch_up(self, touch):
+        """
+        Callback when :class:`CupertinoSwipe` is released
+
+        :param touch: Touch on :class:`CupertinoSwipe`
+        """
+
+        if touch.grab_current is self:
+            touch.ungrab(self)
+
     def on_touch_move(self, touch):
         """
         Callback when :class:`CupertinoSwipe` is dragged
@@ -102,20 +135,12 @@ class CupertinoSwipe(StencilView):
         :param touch: Touch on :class:`CupertinoSwipe`
         """
 
-        distance = touch.x - self._last_movement
-        max_left = sum(action.width for action in self._left_actions)
-        max_right = sum(action.width for action in self._right_actions)
-
-        if touch.grab_current is self and ((distance > 0 and self.to_local(*self._content.pos, True)[0] < max_left) or (
-                distance < 0 and -self.to_local(*self._content.pos, True)[0] < max_right)):
-            self._content.x += distance
-            self._last_movement = touch.x
-
-            for index, action in enumerate(self._left_actions):
-                action.x += distance * ((max_left - (action.width * index)) / max_left)
-            for index, action in enumerate(self._right_actions):
-                action.x += distance * ((max_right - (action.width * index)) / max_right)
-
+        if touch.grab_current is self:
+            distance = touch.x - self._last_movement
+            position = self._get_content_pos()
+            if (distance > 0 and position < self._left_max) or (distance < 0 and -position < self._right_max):
+                self._content.x += distance
+                self._last_movement = touch.x
         return super().on_touch_move(touch)
 
     def add_widget(self, widget, index=0, canvas=None):
@@ -130,10 +155,10 @@ class CupertinoSwipe(StencilView):
         if len(self.children) < 1:
             super().add_widget(widget, index, canvas)
         elif isinstance(widget, CupertinoSwipeAction):
-            widget.bind(side=self._update_actions)
             super().add_widget(widget, index, canvas)
-            self._update_actions()
+            widget.bind(side=self._update_actions, size_hint_x=self._update_actions)
             self.bind(height=widget.setter('height'), y=widget.setter('y'))
+            self._update_actions()
         else:
             self._content.add_widget(widget, index, canvas)
 
