@@ -47,7 +47,7 @@ widgets in Kivy Cupertino
 |--------------------|--------|
 | Dark Mode          | 📝     |
 | Long Press         | ✔      |
-| Swipe              | 📝     |
+| Swipe              | ✔      |
 | SF Symbols         | ✔      |
 | Action Sheet       | ✔      |
 | Activity Indicator | ✔      |

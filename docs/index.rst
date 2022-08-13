@@ -47,6 +47,7 @@ To install Kivy Cupertino for development use, install with the `dev` extra:
    _source/page
    _source/scrollview
    _source/slider
+   _source/swipe
    _source/switch
    _source/symbol
    _source/table
