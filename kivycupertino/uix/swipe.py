@@ -18,7 +18,7 @@ Builder.load_string("""
 <CupertinoSwipe>:
     _content: content
     
-    RelativeLayout:
+    CupertinoTableCell:
         id: content
         size: root.size
         pos: root.pos
@@ -175,6 +175,7 @@ class CupertinoSwipe(StencilView):
                 self.expand('right')
             else:
                 self.collapse()
+        return super().on_touch_up(touch)
 
     def on_touch_move(self, touch):
         """
