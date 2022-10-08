@@ -20,6 +20,7 @@ Builder.load_string("""
     
     CupertinoTableCell:
         id: content
+        color: root.background_color
         size: root.size
         pos: root.pos
         on_x: root._move_actions()
@@ -53,6 +54,26 @@ class CupertinoSwipe(StencilView):
     A widget to add swiping functionality to existing Kivy Cupertino widgets
 
     .. image:: ../_static/swipe/demo.gif
+    """
+
+    background_color = ColorProperty([1, 1, 1, 1])
+    """
+    Background color of :class:`CupertinoSwipe`
+    
+    .. image:: ../_static/swipe/background_color.png
+    
+    **Python**
+    
+    .. code-block:: python
+    
+       CupertinoSwipe(background_color=(1, 0, 0, 1))
+    
+    **KV**
+    
+    .. code-block::
+    
+       CupertinoSwipe:
+           background_color: 1, 0, 0, 1
     """
 
     complete_swipe_duration = NumericProperty(0.5)
