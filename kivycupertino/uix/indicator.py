@@ -14,18 +14,20 @@ __all__ = [
 ]
 
 Builder.load_string("""
-<CupertinoProgressBar>:
+<CupertinoProgressbar>:
     canvas.before:
         Color:
             rgba: self.color_unselected
-        Rectangle:
+        RoundedRectangle:
             size: self.size
             pos: self.pos
+            radius: self.height,
         Color:
             rgba: self.color_selected
-        Rectangle:
-            size: dp(self.width*(self.value/100)), dp(self.height)
+        RoundedRectangle:
+            size: dp(self.width * self.value), dp(self.height)
             pos: self.pos
+            radius: self.height,
 """)
 
 
@@ -38,7 +40,7 @@ class CupertinoProgressbar(Widget):
 
     value = NumericProperty(0)
     """
-    Amount of progress occurred in interval `[0, 100]` of :class:`CupertinoProgressbar`
+    Amount of progress occurred in interval `[0, 1]` of :class:`CupertinoProgressbar`
     
     .. image:: ../_static/progressbar/value.png
     
@@ -76,7 +78,7 @@ class CupertinoProgressbar(Widget):
            color_selected: 1, 0, 0, 1
     """
 
-    color_unselected = ColorProperty([0, 0, 0, 0])
+    color_unselected = ColorProperty([0.7, 0.7, 0.7, 1])
     """
     Color of the bar of not yet occurred progress of :class:`CupertinoProgressBar`
     
@@ -104,7 +106,10 @@ class CupertinoProgressbar(Widget):
         :param value: Value of :class:`CupertinoProgressbar`
         """
 
-        self.value = value % 101
+        if value > 1:
+            self.value = 1
+        elif value < 0:
+            self.value = 0
 
 
 class CupertinoActivityIndicator(Widget):

@@ -799,7 +799,7 @@ class CupertinoModalButton(CupertinoButton):
            cancel: True
     """
 
-    _radii = ListProperty([0, 0, 0, 0])
+    _radii = ListProperty([0,])
     """
     A :class:`~kivy.properties.ListProperty` defining the radii values of the corners of :class:`CupertinoModalButton`
     """

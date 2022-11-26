@@ -133,16 +133,16 @@ class ShowcaseApp(CupertinoApp):
         controls_segment.text = 'Controls'
 
         self.progressbar = CupertinoProgressbar()
+        self.progressbar.value = 0.1
         self.progressbar.size_hint = 0.95, 0.01
-        self.progressbar.value = 10
         self.progressbar.pos_hint = {'center': (0.5, 0.65)}
 
         stepper = CupertinoStepper()
         stepper.size_hint = 0.2, 0.075
         stepper.pos_hint = {'right': 0.25, 'center_y': 0.55}
         stepper.bind(
-            on_plus=lambda *args: self.update_progressbar(10),
-            on_minus=lambda *args: self.update_progressbar(-10)
+            on_plus=lambda *args: self.update_progressbar(0.1),
+            on_minus=lambda *args: self.update_progressbar(-0.1)
         )
 
         slider = CupertinoSlider()
