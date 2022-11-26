@@ -2,7 +2,7 @@
 Sliders allow users to choose values
 """
 
-from kivy.uix.widget import Widget
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.properties import NumericProperty, ColorProperty, BooleanProperty
 from kivy.lang.builder import Builder
 
@@ -13,35 +13,26 @@ __all__ = [
 Builder.load_string("""
 <CupertinoSlider>:
     _track: track
-    _selected: selected
     _thumb: thumb
+    _multiplier: ((root.value - root.min) / (root.max - root.min))
     
-    Widget:
+    on_touch_up: args[1].ungrab(self)
+    
+    CupertinoProgressbar:
         id: track
-        size: dp(root.width - thumb.width), dp(root.height * 0.1)
-        pos: root.x+(thumb.width/2), root.y+root.height/2-self.height/2
-        canvas.before:
-            Color:
-                rgba: root.color_unselected
-            RoundedRectangle:
-                radius: dp(self.height/2),
-                size: self.size
-                pos: self.pos
-    Widget:
-        id: selected
-        size: dp(track.width*((root.value-root.min)/(root.max-root.min))), dp(track.height)
-        pos: track.pos
-        canvas.before:
-            Color:
-                rgba: root.color_selected
-            RoundedRectangle:
-                radius: dp(self.height/2),
-                size: self.size
-                pos: self.pos
+        value: root._multiplier
+        color_selected: root.color_selected
+        color_unselected: root.color_unselected
+        size_hint: None, 0.1
+        width: root.width - (thumb.width / 2)
+        pos_hint: {'center': (0.5, 0.5)}
+        on_touch_down: if self.collide_point(*args[1].pos) and root.tap: root._set_value(args[1].x)
     Widget:
         id: thumb
+        size_hint: None, None
         size: dp(root.height), dp(root.height)
-        pos: selected.x+selected.width-self.width/2, root.y
+        center_x: track.x + (track.width * root._multiplier)
+        pos_hint: {'center_y': 0.5}
         on_touch_down: if self.collide_point(*args[1].pos): args[1].grab(root)
         
         canvas.before:
@@ -58,7 +49,7 @@ Builder.load_string("""
 """)
 
 
-class CupertinoSlider(Widget):
+class CupertinoSlider(RelativeLayout):
     """
     iOS style slider
 
@@ -201,46 +192,26 @@ class CupertinoSlider(Widget):
            tap: True
     """
 
-    def __init__(self, **kwargs):
+    def _set_value(self, x):
         """
-        Initialize variables of :class:`CupertinoSlider`
+        Set :attr:`value` based on current position of touch
 
-        :param kwargs: Keyword arguments of :class:`CupertinoSlider`
-        """
-
-        super().__init__(**kwargs)
-        self.min = int(self.min)
-        self.max = int(self.max)
-        self.value = int(self.value) if 'value' in kwargs else self.min
-
-    def _set_value(self, position):
-        """
-        Callback to set :attr:`value` based on position of touch
-
-        :param position: Position of touch
+        :param x: Horizontal component of touch position
         """
 
-        self.value = int(
-            (self.max - self.min) * (min(1, max(0, (position - self._track.x) / self._track.width)))) + self.min
-
-    def on_touch_up(self, touch):
-        """
-        Callback when :class:`CupertinoSlider` is released
-
-        :param touch: Touch on :class:`CupertinoSlider`
-        """
-
-        if self.tap and self._track.collide_point(*touch.pos):
-            self._set_value(touch.x)
-        if touch.grab_current is self:
-            touch.ungrab(self)
+        self.value = ((x / self._track.width) * (self.max - self.min)) + self.min
+        if self.value < self.min:
+            self.value = self.min
+        elif self.value > self.max:
+            self.value = self.max
 
     def on_touch_move(self, touch):
         """
-        Callback when the thumb of :class:`CupertinoSlider` is dragged
+        Callback when :class:`CupertinoSlider` is dragged
 
         :param touch: Touch on :class:`CupertinoSlider`
         """
 
         if touch.grab_current is self:
-            self._set_value(touch.x)
+            converted_x = self._track.to_widget(*touch.pos, True)[0]
+            self._set_value(converted_x)
