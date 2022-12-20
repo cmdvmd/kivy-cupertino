@@ -12,6 +12,8 @@ __license__ = 'MIT'
 
 root_path = os.path.dirname(__file__) + '/'
 fonts_path = os.path.join(root_path, 'fonts/')
+sf_path = os.path.join(fonts_path, 'San Francisco/')
+ny_path = os.path.join(fonts_path, 'New York/')
 
 from .init import fonts, widgets
 
